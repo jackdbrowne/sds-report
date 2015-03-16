@@ -1,6 +1,6 @@
 \documentclass[]{report}
 
-\usepackage[round, authoryear]{natbib}
+\usepackage[square, numbers]{natbib}
 
 % Title Page
 \title{Software Design Study\\Final Report}
@@ -14,17 +14,22 @@
 
 \chapter{Introduction}
 \section{Problem Definition}
+%Rest of page on why we chose this problem space
+%Key statistics
 We began this project by exploring the 'Safety in Cycling' problem space. Our motivation for this was that we felt cyclists were involved in too many avoidable accidents. 
 %Could do with a statistic here
 A key part of exploring this space was speaking to different stakeholders to get their opinions on the main causes of accidents. We also looked a lot of statistics from various sources in an attempt to try and spot some interesting trends.
 
+%How we refined the space to get our final problem definition
 Initially we looked into all different formats of cycling; mountain biking, BMXing, road cycling, etc. however the data showed quite clearly that the majority of serious accidents were happening on the road. Moreover they were happening on fast moving roads during commuting hours.
 
+%Our refined problem definition
 This information allowed us to narrow the problem definition down to the following:
 \begin{itemize}
   \item Reducing number involving cyclists on UK roads
   \item 
 \end{itemize}
+%Maybe this section can go
 \section{Purpose}
 This report is written for the benefit of any software or hardware engineers who are tasked with implementing this product. For this reason, in parts, the report may assume some basic technical knowledge of these fields. 
 
@@ -43,15 +48,38 @@ The design decisions that we made are based on our earlier research and we will 
 All other papers, articles, etc. that were used to formulate our ideas are referenced in the Bibliography.
 
 \chapter{System Overview}
+% 2 or 3 pages on what the finished syetem does
+% Intended users
+% Key features and why
+% Rejected features and why
+% 
+
+\section{Rejected features}
+During our research we considered a multitude of different approaches to improving safety in cycling and as with any project we had to reject some of these features when we came up with a plan for our system. because they were either unnecessary, 
 
 \chapter{Design Considerations}
-\section{Design Assumptions, Dependencies and Constraints}
+\section{Assumptions}
+% 2 pages on the above
+% Assumptions about users (age, race, gender, disability)
+% Assumptions about environment (road, many other users, etc.)
+% Assumptions about interface (All users will have a phone)
+% Constraints (Cost, weight/size)
 When designing this system we have had to make a few assumptions about certain characteristics of the end users, this is because it would be almost impossible to design a system of this nature that is both effective and easy for everybody to use. 
 
 Firstly we have assumed that the end user will be fully able-bodied. We feel that this is a necessary assumption despite the fact that one in twenty cycling commuters are disabled \citep{wheelsforwell}. Cycling is a very physical activity and generally those with severe physical disabilities are better off with a bike that is specifically designed to cater for their particular disability. It is very much possible that the final product will be usable for the less severely disabled, however we will not be creating our design with any of these disabilities in mind.
 
 Secondly we will be assuming that end users some familiarity of bikes and particularly road bikes. We will not be designing an educational tool that teaches how to ride a bike nor we will it be an assistance 
+
+\section{Constraints}
+\subsection{Cost}
+We are attempting to create a solution for the average cyclist to use on the road. This means it is important for us to be able to obtain all of the components and produce the bike within a reasonable cost. To decide what constitutes 'reasonable' we analysed how much cyclists currently spend on their bikes and asked cyclists how much they would be willing to spend on a bike of this style/quality.
+\paragraph{Current spending}
+The number of bikes sold each year in the UK has remained fairly constant since 2003 (slightly over 3,500) but the total amount spent on bikes has increased steadily. This indicates that people are willing to spend a considerable amount on a good quality bike.
+
+In spite of this, however, the average amount a person spends on buying a bike in the UK is only £233. This is most likely due to a large amount of cheap bikes sold to casual cyclists; however these are not the people we are aiming this product towards. [1] The Cycle to Work scheme - which allows people to buy commuting bikes and equipment tax free - saw commuters spending an average of over £1,100. This is more in line with the price our bike would retail for and the cyclists we are aiming at. As well as this, our earlier research found that commuters spend a further £195 on accessories alone, many of which would be redundant with our bike.
 \section{Design Goals and Guidelines}
+% 1 page on U(X/C)D and why this is suitable for our product
+% Double diamond model (Design council)
 During the design process our overriding guideline
 
 \chapter{Data Design}
