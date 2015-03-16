@@ -4,7 +4,7 @@
 
 % Title Page
 \title{Software Design Study\\Final Report}
-\author{Jack Browne, 1236782\\Thomas Clarke, xxxxxxx\\Keiran Crook, xxxxxxx}
+\author{Jack Browne, 1236782\\Thomas Clarke, 1162927\\Keiran Crook, xxxxxxx}
 
 
 \begin{document}
@@ -88,19 +88,50 @@ During the design process our overriding guideline
 
 \chapter{System Architecture}
 \section{Architectural Design}
-\section{Description of Components}
-\subsection{Component n}
-\subsubsection{Processing narrative for component n}
-\subsubsection{Component n interface description}
-\subsubsection{Component n processing detail}
-\subsubsection{Dynamic behaviour of component n}
-\subsection{Component n+1}
-\subsubsection{Processing narrative for component n+1}
-\subsubsection{Component n+1 interface description}
-\subsubsection{Component n+1 processing detail}
-\subsubsection{Dynamic behaviour of component n+1}
-\section{Design Rationale}
-\section{Traceability of requirements}
+\chapter{Component Design}
+
+\section{Collision Avoidance System}
+
+Why we need this? What is the system responsible for?
+
+\subsection{Component Requirements}
+
+\begin{itemize}
+  \item Function during times of the day when there are levels of light.
+  \item Detect vehicles (differentiating them from other objects) and then apply a unique identifier to that vehicle.
+  \item Track vehicles and acknowledging them with their unique identifier over time.
+  \item Notify the user when there is a possible collision.
+  \item The future trajectory of the vehicle should be predicted and, in addition to, the bicycles speed, direction, GPS route) used to to calculate the probability of a collision.
+  \item Apply an evasive action when the algorithm predicts that a collision, involving the user, is of a high enough probability. 
+  
+\end{itemize}
+
+\subsection{Interface Description} What does the components interact with (other software, hardware) diagram?
+
+\subsection{Possible Solutions} Collision has to be broken down into 4 different steps (detection, tracking ...)
+
+\subsubsection{Detection}
+
+Solution 1
+
+\paragraph 
+
+Adj 
+Dis
+
+Solution 2
+
+Adj 
+Dis
+
+Conclusion - decision complying with criteria at the start
+
+\subsubsection{Tracking}
+
+\subsubsection{Trajectory Prediction}
+
+\subsubsection{Evasive Action}
+
 
 \chapter{User Interface Design}
 \section{Overview of User Interface}
