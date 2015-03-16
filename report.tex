@@ -1,6 +1,9 @@
 \documentclass[]{report}
 
 \usepackage[square, numbers]{natbib}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 
 % Title Page
 \title{Software Design Study\\Final Report}
@@ -111,11 +114,34 @@ Why we need this? What is the system responsible for?
 
 \subsection{Possible Solutions} Collision has to be broken down into 4 different steps (detection, tracking ...)
 
-\subsubsection{Detection}
+\subsubsection{Forward Trajectory Solutions}
 
 Solution 1
 
-\paragraph {}
+\paragraph {} One paper \citep{multi-cue} detect and tracks preceding vehicles using a monochrome camera to predict whether the vehicle is going to change lane (in a left or right direction) or stay in its current lane. This involves the detection and tracking of both vehicles and the road lines they reside in. It uses Support Vector Machine (SVM) with a motion and appearance cue to recognise driver pattens, that are trained for a two class feature set. The two class features are used to predict lane-changing recognition, via the input of timestamped 3D positioning. 
+
+\paragraph{}A kalman filter is used to track the motion of the lane boundary and predict from frame-frame its new location. There is an intersection between two lane boundaries, which is known as the vanishing, and is used to detect the pitch angle change of the camera. Line features are used to establish vehicle hypotheses, which are verified by an SVM (with HOG) trained for vehicle recognition via a pre-learned vehicle model database. Post verification, a Kanade-Lucas-Tomasi feature tracker is used and the bottom of the tracked vehicle in each frame to calculate its 3D position.
+
+
+\begin{figure}
+\centering
+	\begin{minipage}{0.49\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{figures/research_paper_figures/trajectory_multi-cue}
+		\caption{Vehicle trajectory computation at straight and curved lanes \citep{multi-cue} }
+	\end{minipage}\hfill
+	\begin{minipage}{0.49\textwidth}
+		\centering
+		\includegraphics[scale=0.2]{figures/collision_avoidance_figures/Vehicle_changing_lane_into_the_path_of_a_cyclist}
+		\caption{Cyclist and vehicle lane changing collision}
+	\end{minipage}
+\end{figure}
+
+
+
+Most papers based on predicting a vehicle future prediction require, not just the detection and tracking of vehicles, but the detection and tracking of road lines, too. 
+
+One paper \citep{multi-cue} needs to to detect road lines and vehicles to function correctly. 
 
 Adj 
 Dis
@@ -127,11 +153,9 @@ Dis
 
 Conclusion - decision complying with criteria at the start
 
-\subsubsection{Tracking}
+\subsubsection{Vehicle Trajectory Prediction}
 
-\subsubsection{Trajectory Prediction}
-
-\subsubsection{Evasive Action}
+\subsubsection{Bicycle Evasive Action}
 
 \chapter{Prototype Analysis}
 We created prototypes of the UI and of the bike hardware 
@@ -140,7 +164,7 @@ We created prototypes of the UI and of the bike hardware
 \section{Prototype 2}
 
 \chapter{User Interface Design}
-\section{Overview of User Interface}
+\section{Overview of User Interface}  
 \section{Screen Images}
 \section{Screen Objects and Actions}
 
