@@ -66,36 +66,38 @@ During our research we considered a multitude of different approaches to improvi
 % Constraints (Cost, weight/size)
 When designing this system we have had to make a few assumptions about certain characteristics of the end users, this is because it would be almost impossible to design a system of this nature that is both effective and easy for everybody to use. 
 
-Firstly we have assumed that the end user will be fully able-bodied. We feel that this is a necessary assumption despite the fact that one in twenty cycling commuters are disabled \citep{wheelsforwell}. Cycling is a very physical activity and generally those with severe physical disabilities are better off with a bike that is specifically designed to cater for their particular disability. It is very much possible that the final product will be usable for the less severely disabled, however we will not be creating our design with any of these disabilities in mind.
+Firstly we have assumed that the end user will be fully able-bodied. We feel that this is a necessary assumption despite the fact that one in twenty cycling commuters are disabled \citep{census-dis}. Cycling is a very physical activity and generally those with severe physical disabilities are better off with a bike that is specifically designed to cater for their particular disability. It is very much possible that our final design will be usable for the less severely disabled, however we will not be creating our design with any of these disabilities in mind.
 
-Secondly we will be assuming that end users some familiarity of bikes and particularly road bikes. We will not be designing an educational tool that teaches how to ride a bike nor we will it be an assistance 
+Secondly we will be assuming that end users have some familiarity of bikes, particularly road bikes. Our design will will not be an educational tool that teaches people how to ride a bike nor will it be an assistance tool that aids people in riding a bike. 
 
 \section{Constraints}
+There are some overall restrictions that the product naturally has in order for it to be feasible or usable. The main two that we considered were:
+\begin{itemize}
+  \item \textbf{Cost} because in order for a solution to be considered suitable it must be available to the general population of commuting cyclists. A solution that does everything that we set out to achieve but could never be purchased by even the richest of cyclists could not be considered suitable.
+  \item \textbf{Weight} because this has a significant impact on whether the bike is actually ridable. We want to design a solution for which it is, not only possible but, comfortable to ride on the majority of commuting roads. Some of which will involve steep inclines.  
+\end{itemize}
 \subsection{Cost}
-We are attempting to create a solution for the average cyclist to use on the road. This means it is important for us to be able to obtain all of the components and produce the bike within a reasonable cost. To decide what constitutes 'reasonable' we analysed how much cyclists currently spend on their bikes and asked cyclists how much they would be willing to spend on a bike of this style/quality.
+We are attempting to create a solution for the average commuting cyclist to use on the road. This means it is important that the average commuting person is able to afford the product. To do this we must be able to find the right components and produce the bike for a reasonable cost. To decide what constitutes 'reasonable' we analysed how much cyclists currently spend on their bikes and asked cyclists how much they would be willing to spend on a bike of this style/quality.
 \paragraph{Current spending}
-The number of bikes sold each year in the UK has remained fairly constant since 2003 (slightly over 3,500) but the total amount spent on bikes has increased steadily. This indicates that people are willing to spend a considerable amount on a good quality bike.
+Last year in the UK the average amount a person spends on buying a bike was only £233. However, this statistic is likely skewed by the large amount of cheap bikes sold to casual cyclists; these are not the people we are aiming this product towards\cite{spending-more}. 
 
-In spite of this, however, the average amount a person spends on buying a bike in the UK is only £233. This is most likely due to a large amount of cheap bikes sold to casual cyclists; however these are not the people we are aiming this product towards. [1] The Cycle to Work scheme - which allows people to buy commuting bikes and equipment tax free - saw commuters spending an average of over £1,100. This is more in line with the price our bike would retail for and the cyclists we are aiming at. As well as this, our earlier research found that commuters spend a further £195 on accessories alone, many of which would be redundant with our bike.
+There are no readily available statistics that differentiate between the spending on road bikes and otherwise but we were able to get a fairly good idea by analysing the latest statistics from the Cycle to Work scheme - which allows people to buy commuting bikes and equipment tax free. The saw commuters spending an average of over £1,100\cite{spending-more}. This is more in line with the price our bike would retail for and the cyclists we are aiming at. As well as this, our earlier research found that commuters spend a further £195 on accessories alone, many of which may be incorporated directly into our design.
 \section{Design Goals and Guidelines}
 % 1 page on U(X/C)D and why this is suitable for our product
 % Double diamond model (Design council)
 During the design process our overriding guideline
 
+\chapter{System Architecture}
+\section{Architectural Design}
+
 \chapter{Data Design}
 \section{Data Description}
 \section{Data Dictionary}
 
-\chapter{System Architecture}
-\section{Architectural Design}
 \chapter{Component Design}
-
 \section{Collision Avoidance System}
-
 Why we need this? What is the system responsible for?
-
 \subsection{Component Requirements}
-
 \begin{itemize}
   \item Function during times of the day when there are levels of light.
   \item Detect vehicles (differentiating them from other objects) and then apply a unique identifier to that vehicle.
@@ -103,7 +105,6 @@ Why we need this? What is the system responsible for?
   \item Notify the user when there is a possible collision.
   \item The future trajectory of the vehicle should be predicted and, in addition to, the bicycles speed, direction, GPS route) used to to calculate the probability of a collision.
   \item Apply an evasive action when the algorithm predicts that a collision, involving the user, is of a high enough probability. 
-  
 \end{itemize}
 
 \subsection{Interface Description} What does the components interact with (other software, hardware) diagram?
@@ -114,7 +115,7 @@ Why we need this? What is the system responsible for?
 
 Solution 1
 
-\paragraph 
+\paragraph {}
 
 Adj 
 Dis
@@ -132,6 +133,11 @@ Conclusion - decision complying with criteria at the start
 
 \subsubsection{Evasive Action}
 
+\chapter{Prototype Analysis}
+We created prototypes of the UI and of the bike hardware 
+\section{Prototype 1}
+
+\section{Prototype 2}
 
 \chapter{User Interface Design}
 \section{Overview of User Interface}
@@ -139,10 +145,6 @@ Conclusion - decision complying with criteria at the start
 \section{Screen Objects and Actions}
 
 \chapter{Detailed Design}
-
-\chapter{Libraries and Tools}
-
-\chapter{Time Planning}
 
 \chapter{Conclusion}
 
