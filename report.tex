@@ -7,6 +7,8 @@
 \usepackage[english]{babel}
 \usepackage{enumitem}
 \usepackage{array}
+\usepackage{lscape}
+
 
 % Title Page
 \title{Software Design Study\\Final Report}
@@ -93,8 +95,63 @@ There are no readily available statistics that differentiate between the spendin
 % Double diamond model (Design council)
 During the design process our overriding guideline
 
+\chapter{Design Decisions}
+
+\section{Communication}
+
+\subsection{Wireless}
+
+\begin{landscape}
+
+\begin{table}[h]
+\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
+
+    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} |}
+    \hline
+    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryptionl} & \textbf{Connection Latency} & \textbf{Avg Power Consumption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
+   
+   Bluetooth v2.0 + EDR & 2.1 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW &   \\ \hline
+   Bluetooth v2.1 + EDR & 3 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & \\ \hline
+   Bluetooth v3.0 HS & 24 Mbit/s & & 128 bit stream cipher & & & & \\ \hline
+
+   
+    \end{tabular}
+
+
+\caption[Table caption text]{Wireless communication methods comparison} 
+\label{table:wireless_comp}
+\end{minipage} }
+\end{table}
+
+\end{landscape}
+
+
 \chapter{System Architecture}
 \section{Architectural Design}
+
+\subsection{Bicycle User Access}  
+
+\paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
+
+\subsubsection{\textbf{Security}}
+
+\paragraph{Requirements}
+
+\begin{itemize}
+\item A smart phone should be able to be used a ?key? to the bicycle
+\item The Bicycle should be associated with one master user and their account.
+\item The master account should be able to allow other users and their accounts pair, unlock and use the bicycle
+
+\end{itemize}
+
+
+\subsubsection{Communications}
+
+
+\paragraph{Internet communication}
+
+All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
+
 
 \chapter{Data Design}
 \section{Data Description}
@@ -250,24 +307,23 @@ Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1
 
 \subsubsection{Learning Multi-Lane Trajectories using Vehicle-Based Vision \citep{multi-lane_traj}}
 
-
-
 Conclusion - decision complying with criteria at the start
 
-\subsubsection{Vehicle Trajectory Prediction}
+\chapter{User Interface Design}
+\section{Overview of User Interface}
 
-\subsubsection{Bicycle Evasive Action}
+
+\paragraph{}
+
+\section{Screen Images}
+\section{Screen Objects and Actions}
+
 
 \chapter{Prototype Analysis}
 We created prototypes of the UI and of the bike hardware 
 \section{Prototype 1}
 
 \section{Prototype 2}
-
-\chapter{User Interface Design}
-\section{Overview of User Interface}  
-\section{Screen Images}
-\section{Screen Objects and Actions}
 
 \chapter{Detailed Design}
 
