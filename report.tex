@@ -117,7 +117,8 @@ Why we need this? What is the system responsible for?
 
 We compared the 
 
-\begin{table}
+\begin{table}[h]
+\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
 
     \begin{tabular}{ | m{1.2cm} | p{4.7cm} | p{4.7cm} |}
     \hline
@@ -190,11 +191,18 @@ We compared the
         
     \end{itemize} \\ \hline 
     
+   
+    
+    
     \end{tabular}
 
-\caption[Table caption text]{Display the advantages and disadvantages of different hardware for object detection and tracking} }
+
+\caption[Table caption text]{Display the advantages and disadvantages of different hardware for object detection and tracking} 
 \label{table:detect_hardware_comp}
+\end{minipage} }
 \end{table}
+
+
 
 \subsection{Interface Description} What does the components interact with (other software, hardware) diagram?
 
@@ -217,12 +225,7 @@ We compared the
 \item The system requires lanes to infer whether a collision is probable	 	
 \end{itemize}
 
-\paragraph{}
-
-Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1} shows the lane change tracking and prediction that this papers algorithms accomplish and Fig. ~\ref{fig:change_lane_image} on page~\pageref{fig:change_lane_image} shows, one of other, cyclist collisions that we want to prevent. This paper displays a high chance of solving this issue.
-
-
-\begin{figure}
+\begin{figure}[h]
 \centering
 	\begin{minipage}{0.49\textwidth}
 		\centering
@@ -237,6 +240,13 @@ Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1
 		\label{fig:change_lane_image}
 	\end{minipage}
 \end{figure}
+
+
+\paragraph{}
+
+Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1} shows the lane change tracking and prediction that this papers algorithms accomplish and Fig. ~\ref{fig:change_lane_image} on page~\pageref{fig:change_lane_image} shows, one of other, cyclist collisions that we want to prevent. This paper displays a high chance of solving this issue.
+
+
 
 \subsubsection{Learning Multi-Lane Trajectories using Vehicle-Based Vision \citep{multi-lane_traj}}
 
