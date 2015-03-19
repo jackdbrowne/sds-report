@@ -34,9 +34,11 @@ This information allowed us to narrow the problem definition down to the followi
 \end{itemize}
 %Maybe this section can go
 \section{Purpose}
-This report is written for the benefit of any software or hardware engineers who are tasked with implementing this product. For this reason, in parts, the report may assume some basic technical knowledge of these fields. 
+This report is written for the benefit of any software or hardware engineers who are tasked with implementing this product. For this reason, in parts, the report may assume some basic technical knowledge of these fields. For example, understanding of the UML diagrams used in section ?.
 
 The report should describe, in detail, our solution to the problem above. The detail should be enough so as that a small team of people would be able to implement the solution in its entirety with relative ease. The report should address all of they key areas of the solution and be void of any ambiguities so that it alone can clarify any queries about the product.
+
+As well as this, the report will show the progression of our ideas and the steps taken to reach our final design. Throughout the design of this product we reached points where we had to make a justified decision from a range of possibilities. We always tried to make a rational decision based on the information available coupled with our in-depth knowledge of the problem space. Each of these key decisions will be described in detail for the benefit of the reader.
 \section{Scope}
 
 \section{Overview}
@@ -55,7 +57,11 @@ All other papers, articles, etc. that were used to formulate our ideas are refer
 % Intended users
 % Key features and why
 % Rejected features and why
-% 
+In line with the 'Double Diamond' model that we followed this section will describe the overall system as it was when we reached the mid-point of the two diamonds. Having done considerable amount of research into the problem space we had arrived at a range of possible solutions, or parts of solutions, and we had to figure out which of these were the best... 
+
+%As a group we very quickly latched onto the idea of incorporating wearable technology into our final solution - particularly inspired by recently evolving wearable eyewear technology such as Google Glass. We felt that one of the problems we would have is that a bike has no significant interface/dashboard and wearable eyewear is a very natural solution to this problem. The other interface solutions that we came across were: a smartphone mounted on the handlebars, a small on-board-computer and more recently smartwatches. However all of these have the same big problem; they require the cyclist to divert their attention away from the road. Lack of attention, from either party, is one of main causes of RTAs involving bicycles.
+
+The other overridding 
 
 \section{Rejected features}
 During our research we considered a multitude of different approaches to improving safety in cycling and as with any project we had to reject some of these features when we came up with a plan for our system. because they were either unnecessary, 
@@ -71,7 +77,8 @@ When designing this system we have had to make a few assumptions about certain c
 
 Firstly we have assumed that the end user will be fully able-bodied. We feel that this is a necessary assumption despite the fact that one in twenty cycling commuters are disabled \citep{census-dis}. Cycling is a very physical activity and generally those with severe physical disabilities are better off with a bike that is specifically designed to cater for their particular disability. It is very much possible that our final design will be usable for the less severely disabled, however we will not be creating our design with any of these disabilities in mind.
 
-Secondly we will be assuming that end users have some familiarity of bikes, particularly road bikes. Our design will will not be an educational tool that teaches people how to ride a bike nor will it be an assistance tool that aids people in riding a bike. 
+Secondly we will be assuming that end users have some familiarity of bikes, particularly road bikes. By this we mean that we will not be designing an educational tool that teaches people how to ride a bike nor an assistance tool that aids those who cannot ride a bike. This is a reasonable assumption because it would be against recommended practice for a non-cyclist to start out by cycling on main roads.
+%Who's recommended practice? Sources?
 
 \section{Constraints}
 There are some overall restrictions that the product naturally has in order for it to be feasible or usable. The main two that we considered were:
@@ -82,9 +89,9 @@ There are some overall restrictions that the product naturally has in order for 
 \subsection{Cost}
 We are attempting to create a solution for the average commuting cyclist to use on the road. This means it is important that the average commuting person is able to afford the product. To do this we must be able to find the right components and produce the bike for a reasonable cost. To decide what constitutes 'reasonable' we analysed how much cyclists currently spend on their bikes and asked cyclists how much they would be willing to spend on a bike of this style/quality.
 \paragraph{Current spending}
-Last year in the UK the average amount a person spends on buying a bike was only £233. However, this statistic is likely skewed by the large amount of cheap bikes sold to casual cyclists; these are not the people we are aiming this product towards\cite{spending-more}. 
+Last year in the UK the average amount a person spends on buying a bike was only £233. However, this statistic is likely skewed by the large amount of cheap bikes sold to casual cyclists; these are not the people we are aiming this product towards\cite{spending-more}. There are no readily available statistics that differentiate between the spending on road bikes and otherwise but we were able to get a fairly good idea using statistics from the Cycle to Work scheme - which allows people to buy commuting bikes and equipment tax free. The saw commuters spending an average of over £1,100\cite{spending-more}. This is more in line with the price our bike would retail for and the cyclists we are aiming at. As well as this, our earlier research found that commuters spend a further £195 on accessories alone, many of which may be incorporated directly into our design.
 
-There are no readily available statistics that differentiate between the spending on road bikes and otherwise but we were able to get a fairly good idea by analysing the latest statistics from the Cycle to Work scheme - which allows people to buy commuting bikes and equipment tax free. The saw commuters spending an average of over £1,100\cite{spending-more}. This is more in line with the price our bike would retail for and the cyclists we are aiming at. As well as this, our earlier research found that commuters spend a further £195 on accessories alone, many of which may be incorporated directly into our design.
+\paragraph{Amsterdam}
 \section{Design Goals and Guidelines}
 % 1 page on U(X/C)D and why this is suitable for our product
 % Double diamond model (Design council)
