@@ -1,6 +1,7 @@
 \documentclass[]{report}
 
 \usepackage[square, numbers]{natbib}
+\usepackage{url}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
@@ -63,38 +64,40 @@ All other papers, articles, etc. that were used to formulate our ideas are refer
 % Intended users
 % Key features and why
 % Rejected features and why
-In line with the 'Double Diamond' model that we followed this section will describe the overall system as it was when we reached the mid-point of the two diamonds. Having done considerable amount of research into the problem space we had arrived at a range of possible solutions, or parts of solutions, and we had to figure out which of these were the best\ldots
+After fully analysing the problem space we came up with an idea for a product that we felt solved the key issues around bike safety. As with most modern products, ours is heavily influenced by new technologies; particularly automation systems in cars culminating in the recent development of self-driving cars. % Reference Google project
 
+The core of our product is an automated braking system which analyses other road users, predicts the likelihood of a collision occurring and then applies the brakes accordingly. The technology for performing this task in cars is fairly well developed and becoming more and more widely deployed, for example the Subaru EyeSight\cite{eyesight} %reference!
+and a similar system developed by Volvo\cite{volvo}. However there is no such system for road bikes, this is likely due of the computing power needed and also a bikes natural instability.
 
-
-
+The final system will overcome these obstacles using some of the technologies that featured in our research such as the remote braking system % REFERENCE
+developed by ???????????????? 
 
 \section{Rejected features}
-During our research we considered a multitude of different approaches to improving safety in cycling and as with any project we had to reject some of these features when we came up with a plan for our system. because they were either unnecessary, 
+During our research we discussed a multitude of different solutions (or parts of solutions); some of which were very similar to our final design and some which are markedly different. Many of these solutions were rejected reasonably quickly while others were still being discussed during later iterations of the design. However all of the ideas below were eventually rejected because they were either unsuitable or unnecessary.
 
-\paragraph{Safety based Route Planner}a route planner was initially proposed in conjunction with technology based around collision avoidance (which we solely later evolved) that would work and be dependent on other users (cyclists and drivers) to offer routes to the cyclist that would offer the safest journey. We defined safest journey as: 
+\paragraph{Safety based route planner} An idea that was considered for a long time was a route planning application. This was intended to work alongside the collision avoidance system as part of an wider ecosystem of safety technologies. Core to this would be crowdsourcing information from all other road users; traffic speeds, accidents, road conditions. All of this information could then be combined and analysed in order to provide the cyclist with the safest route. We deemed the safest route to be: 
 \begin{enumerate}
-\item One with limited traffic, as discovered from research [enter research], there was a positive correlation between increased traffic and increased cyclist accidents. 
-\item One which avoided areas (if possible) which had a certain risk level. A high risk being an area that had a number of road related accidents (involving cyclist or vehicles), per year, above a certain threshold.
-\item One which took environment factors into consideration, that were deemed a risk to cyclist. These could have been potholes in the road, blind-spots, high pedestrian activity, etc.
+\item One with less traffic, as discovered from research [enter research], there was a positive correlation between increased traffic and increased cyclist accidents. 
+\item One which avoided areas with a certain risk level, both short and long term. A known accident blackspot might be a long term risk. If an accident has just occurred then the surrounding area might be a short term risk.
+\item One which took environment factors into consideration, that were deemed a risk to cyclist. For example poor road conditions, poor weather conditions, high pedestrian activity, etc.
 \end{enumerate}
  
- 
-\paragraph{}This was rejected as:
-\begin{enumerate}
+This was an idea that we invested a lot of time into and one that we still believe under the right conditions could be very successful. However, for our project we decided to drop this feature because:
+\begin{itemize}
 \item it was too dependent on other users to enable it to offer what we wanted. 
 \item Car drivers needed to use the application and we did not think enough driver would be willing to use an application that provided them with a limited [research that showed this]
-\end{enumerate}
+\end{itemize}
 
 
-\paragraph{Wearable tech}As a group we very quickly latched onto the idea of incorporating wearable technology into our final solution - particularly inspired by recently evolving wearable eyewear technology such as Google Glass. We felt that one of the problems we would have is that a bike has no significant interface/dashboard and wearable eyewear is a very natural solution to this problem. The other interface solutions that we came across were: 
+\paragraph{Wearable tech}As a group we very quickly latched onto the idea of incorporating wearable technology into our final solution - particularly inspired by recently evolving wearable eyewear technology such as Google Glass. We felt that one of the problems we would eventually have is that a bike has no significant interface/dashboard and wearable eyewear is a very natural solution to this problem. The other interface solutions that we came across were: 
 \begin{itemize}
   \item a smartphone mounted on the handlebars
   \item a small on-board-computer
   \item more recently, smartwatches
 \end{itemize}
-However all of these have the same major problem; they require the cyclist to divert their attention away from the road. Lack of attention, from either party, is one of main causes of RTAs involving bicycles. %statistic!
-The wearable tech However this feature was eventually rejected following a peer-review. Several people failed to grasp the concept
+However all of these have the same fundamental problem; they require the cyclist to divert their attention away from the road. Lack of attention, from either party, is one of main causes of RTAs involving bicycles. %statistic!
+
+In spite of all this we decided to forget this idea following a peer-review. Several of the people failed to grasp the concept. Firstly not many people have access to any wearable eyewear technology at present so designing a bike along with an app for an existing platform is not really feasible. The other alternative would be to design a piece of eyewear technology to use for along with an existing bike however the number sensors that would need to be installed means that for most people this simply isn't an option.
 
 \chapter{Design Considerations}
 \section{Assumptions}
@@ -158,7 +161,30 @@ In conclusion we have decided that we will design the bike with a 60 lb restrict
 \section{Design Goals and Guidelines}
 % 1 page on U(X/C)D and why this is suitable for our product
 % Double diamond model (Design council)
-In the very initial stages of this project we looked into some different design processes
+\subsection{User Centred Design}
+Our overall design goal was to come up with a product that was tailored to fit the needs of the end-user. Every single stage of the project was 
+\subsection{Double Diamond Model}
+During this project we followed the Double Diamond design process as put forward by the Design Council\cite{doublediamond}. 
+
+This process has four key stages:
+\begin{description}
+\item[Discover] In this stage we explored all elements of the problem space; gathering as much information as possible from a whole variety of sources. Statistics were used to give us the raw quantitative data that would be used to back up our views about the problem space, while questionnaires were used to get a more qualitative view. Also questionnaires gave us the opportunity to get opinions directly from potential users (or other stakeholders) of the system; helping the to achieve our goal of creating a user centred design.
+\item[Define] Once we had gathered all of our information we then had to interpret it to accurately identify the contributing factors to cycling accidents, allowing us to focus our efforts in the right way. At this stage we also came up with a starting point for final product.
+\item[Develop] It was during the development stage that we really investigated all of the different ways of achieving what we had envisaged. Here we had to consider what would be practical, how different components would interact and, most importantly, what actually works.
+\item[Deliver] This stage was a series of prototype-feedback loops. We would come up with a prototype, scrutinise it for potential design flaws, adapt the design and repeat. This process continued up until the point where we had our final design.
+\end{description}
+\begin{figure}[h]
+
+\centering
+\includegraphics[scale=0.4]{figures/diamond}
+\caption{A visual representation of the double diamond model}
+\label{fig:diamond}
+
+\end{figure}
+\subsection{Agile approach}
+We came up with a initial set of requirements during the define stage of the double diamond model - once we had our rough outline of how our solution would work. However these were very open to change. In keeping with our overall goal of creating a user centred design, we allowed the user feedback and prototype analysis to govern how the requirements of the product adapted and changed. 
+
+In an agile approach such as this one the design is developed in small increments - starting from the 'minimum viable product' all the way up to the final design. Each small increment is done
 
 \chapter{Design Decisions}
 
@@ -194,7 +220,7 @@ In the very initial stages of this project we looked into some different design 
 \chapter{System Architecture}
 \section{Architectural Design}
 
-\subsection{Bicycle User Access}  
+\subsection{Bicycle User Access}
 
 \paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
 
@@ -222,9 +248,9 @@ All internet traffic between the bicycle and the user will go through the HTTPS 
 \section{Data Description}
 \section{Data Dictionary}
 
-\chapter{Component Designn}
+\chapter{Component Design}
 \section{Collision Avoidance System}
-Why we need this? What is the system responsible for?
+The collision avoidance system is the key component of this whole product. It is this system that really sets this whole product apart
 \subsection{Component Requirements}
 \begin{itemize}
   \item Function during times of the day when there are levels of light.
@@ -402,10 +428,137 @@ We created prototypes of the UI and of the bike hardware
 
 \bibliographystyle{plainnat}
 \bibliography{bibliography}
-
+  
 \appendix
-\chapter{Appendix Title}
-%\input{chapters/appendix}    
+\chapter{Research Report}
+\section{Statistics}
+\section{Questionnaires}
+\section{Current products}
+\subsection{Failed products}
+\chapter{Prototype 1}
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/title}
+\caption{Title screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/main_menu}
+\caption{Main menu}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/locked}
+\caption{Screen that displays when bike is locked}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings}
+\caption{Screen allowing the user to adjust settings}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings_help_1}
+\caption{Alert box explain what the setting does}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings_help_2}
+\caption{Alert box explain what the setting does}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings_help_3}
+\caption{Alert box explain what the setting does}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings_2}
+\caption{Some more settings}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings_2_check}
+\caption{Dropdown menu}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/factory_settings}
+\caption{Warning when performing a factory reset}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/perf}
+\caption{The performance screen. This is the main riding screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/reset_perf}
+\caption{Warning when resetting performance stats}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/resetted}
+\caption{The performance screen following a reset}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/brake_maint}
+\caption{A brake maintenance alert, this could display over any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/main_menu_warn}
+\caption{The main menu showing the warning icon at the top}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/prototype_1/collision_activate}
+\caption{Warning explaining collision detection system before it is de/activated}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/collision_on}
+\caption{Main menu screen showing that collision detection is on}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/prototype_1/control_alert_perf}
+\caption{Alert showing that the collision detection system has started to take control. Could display on any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/inflation_settings}
+\caption{Alert showing that automatic tire-inflation has been activated. Could display on any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_1/settings_saved}
+\caption{Alert showing that the updated settings have been saved}
+\end{figure}
+\clearpage
+
+\chapter{Prototype 2}
+%\input{chapters/appendix}
 
 \end{document}    
 
