@@ -9,6 +9,7 @@
 \usepackage{enumitem}
 \usepackage{array}
 \usepackage{lscape}
+\usepackage{gensymb}
 
 
 % Title Page
@@ -25,18 +26,17 @@
 \section{Problem Definition}
 %Rest of page on why we chose this problem space
 %Key statistics
-We began this project by exploring the 'Safety in Cycling' problem space. Our motivation for looking at this space was that we felt cyclists were involved in too many avoidable accidents. 
-%Could do with a statistic here
-A key part of exploring this space was speaking to different stakeholders to get their opinions on the main causes of accidents. We also looked a lot of statistics from various sources in an attempt to try and spot some interesting trends.
+We began this project by exploring the 'Safety in Cycling' problem space. Our motivation for exploring this space came from looking at the reasons why people do not cycle. Even though cycling is a fairly easy form of exercise and an environmentally friendly method of transport just 2\% of trips are made by bicycle\cite{travelsurvey}. We feel that this figure is way too low and should probably be closer to the 10\% mark to bring the UK in line with the rest of Europe.
 
-%How we refined the space to get our final problem definition
-Initially we looked into all different formats of cycling; mountain biking, BMXing, road cycling, etc. however the data showed quite clearly that the majority of serious accidents were happening on the road. Moreover they were happening on fast moving roads during commuting hours.
+Investigating this, we looked at some of the reasons why people choose not to cycle in the UK and the general trend was that people thought cycling was not safe enough. For example, a question in a Transport for Greater Manchester survey asked ``Which of the following do you feel are the barriers to cycling?" and 74\% of respondents said `Road Safety'\cite{TfGM}. In a similar survey by the Department for Transport 61\% of people either definitely agreed or tended to agree with the statement ``It is too dangerous for me to cycle on the roads"\cite{dft}.
 
-%Our refined problem definition
-This information allowed us to narrow the problem definition down to the following:
+In fact, interestingly, when comparing fatalities there is actually more risk being a pedestrian than a cyclist. This may be evidence that the problem is more about `subjective safety' rather than absolute risk. 
+
+Safety is quite a wide term so we had to speak to different stakeholders and analyse some statistics to really see the reasons \textit{why} cycling is not safe (or at least not considered to be safe). From this research we were able to narrow the problem down to the following:
+
 \begin{itemize}
-  \item Reducing number involving cyclists on UK roads
-  \item 
+  \item Reducing the number of accidents on UK roads, with a particular focus on commuting hours. The majority of accidents occur during these hours; likely because of the increased traffic causing car drivers to become frustrated and/or make mistakes. 
+  \item Improving the perception of cycling to be a safe mode of transport. This is to address the `subjective safety' issue. A successful solution to this should not only make the cycling safer but the safety improvement should be clear and obvious to the cyclist themselves. We believe that this is reason why, although accident numbers are falling, current safety products have not seen the number of cyclists dramatically increase.
 \end{itemize}
 %Maybe this section can go
 \section{Purpose}
@@ -45,10 +45,16 @@ This report is written for the benefit of any software or hardware engineers who
 The report should describe, in detail, our solution to the problem above. The detail should be enough so as that a small team of people would be able to implement the solution in its entirety with relative ease. The report should address all of they key areas of the solution and be void of any ambiguities so that it alone can clarify any queries about the product.
 
 As well as this, the report will show the progression of our ideas and the steps taken to reach our final design. Throughout the design of this product we reached points where we had to make a justified decision from a range of possibilities. We always tried to make a rational decision based on the information available coupled with our in-depth knowledge of the problem space. Each of these key decisions will be described in detail for the benefit of the reader.
-\section{Scope}
 
 \section{Overview}
-Firstly we will give an overview of the system as a whole before further explaining the key design decisions that were made. Along with this we will 
+Firstly this report will give a rough outline of the solution that we came up with and why we decided to go with that particular solution as well as some of the features we considered but ultimately decided not to include. This will help to give some context to sections of the report that follow.
+
+Before discussing the details of the design we will outline some of the things we had to take into consideration before designing our solution. Including the overall design goals that we were following throughout.
+
+In the later sections of the report we will describe in detail the overall architecture of the product and how the main components of the system will work. Many of these components are either amalgamations of the best features of the similar products on the market or involved a choice between different ideas. For all of these cases we will describe in some detail all of the different options that we had and then our reasons for choosing a particular one over another.
+
+Finally we will present our critical analysis of the prototypes that we created and show how using this analysis we iterated on the prototypes to reach to our final design.
+
 \section{Definitions, Acronyms and Abbreviations}
 \begin{description}
 \item[RTA] Road Traffic Accident
@@ -431,10 +437,73 @@ We created prototypes of the UI and of the bike hardware
   
 \appendix
 \chapter{Research Report}
+In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover the best way in which to improve safety in cycling. In order to do this we analysed a range of statistics as well as speaking directly to different stakeholders and ...
+\newpage
 \section{Statistics}
+
+\newpage
 \section{Questionnaires}
+\newpage
 \section{Current products}
-\subsection{Failed products}
+We looked at a whole variety of safety products currently on the market for cars and trucks as well as bikes. The reason for this was to see why certain products were succeeding and which features of these products we might wish to incorporate into our solution. We also looked at failed products to get an idea of the potential design problems we might encounter later on as well as allowing us to rule out some of the previously attempted solutions.
+\subsection{Bike Lights}
+The most basic, and often the only, form of bike safety used is the bike light; this is used to make a cyclist visible to all road users allowing them to take the appropriate action. In the UK front and rear bike lights (and reflectors) are required by law between sunset and sunrise. This is governed by the Road Vehicle Lighting Regulations 1989\cite{rvlr} and if our solution were to use in-built lighting we would have to make sure that we complied with these regulations. This poses an interesting problem because different sets of regulations exist in different countries; most manufacturers actually tend to ignore the UK's regulations because of the relatively small cycling population and also the regulations are considered by many to be old and outdated. In practice as long as a cyclist has lights of some description on both the front and rear of their bike they are unlikely to be questioned by police. 
+
+Bike lights come in many different forms but, according to retailer that we spoke to, LED currently dominates the market. They are small, cheap, last forever and they provide a lot of light! The retailer also told us that it is important for lights to have a wide field as well as to be bright. This allows cyclists to be seen even by people not directly in front or behind; for example cars waiting to pull out of a junction.
+
+\paragraph{Revolight} A slightly different take on the bike light is the Revolight\cite{revolight}; here the light is incorporated the bike's tyres. The lights are mounted all around the wheel and are timed to only illuminate when facing the front or rear of the bicycle using a fork-mounted magnet and integrated accelerometer. The primary benefit of this is that it gives total 360\degree vision of the bike.
+
+This started as a Kickstarter project\cite{revo_ks} in 2011 and has since reached it's goal and is now on sale for \$199. There is no sales information readily available nor any statistics about how operationally successful this product has been. However the Revolight design has won several awards from cycling publications\cite{revo_awards} and has recently received \$1 million in funding from investors so it appears that this product has been very successful.
+
+\paragraph{Blaze Laserlight}
+The Blaze Laserlight\cite{laserlight} projects a green laser image of a bicycle up to 6m ahead of the cyclist. The idea of this product is to cut down on accidents where the cyclist is caught in a vehicles blind spot at the time of them making a manoeuvre into their path. According to the creators of the Blaze Laserlight - 79\% of accidents happen this way. 
+
+One particular design decision that was made by the people at Blaze was to have the light project in green, the reason for this is because humans are most sensitive to light between 490-560 nm (green light). This could be something to think about if we incorporate lights into our design.
+
+This product tries to avoid accidents by making other road users more aware of cyclist. However it has a few problems:
+\begin{itemize}
+\item It will not be as effective at night. This technology is based on LED bike lights which are only effective in low light.
+\item It still puts the responsibility on other road users. It will not protect the cyclist from unobservant road users and it most likely these people who are causing these accidents in the first place.
+\end{itemize}
+
+\paragraph{XFire}
+The XFire\cite{xfire} product works similarly to the Blaze Laserlight by projecting light onto the road. However instead of projecting an image of the bike it projects a bike lane. The idea here is to buy cyclists more space during overtaking manoeuvres, particularly on roads where there is no cycle lane. This has the added advantage that all road users are familiar with bike lanes and how they operate. 
+
+This product is relatively cheap, retailing online at \$29.99 however has the same disadvantages as the Blaze Laserlight
+
+\subsection{Helmets}
+Probably the next most popular safety product used at the moment is the helmet. The helmet is a impact reduction approach to managing the risk; it will not help to prevent an accident from occurring but it may stop an accident from being fatal.
+
+\newpage
+\section{Other research}
+\subsection{Route planning}
+Over the course of this research we considered some different approaches to solving this problem; one such approach was based around route planning whereby we would give a cyclist a safe route using knowledge of the road
+
+\subsubsection{User Perception}
+The first method of 
+
+One attempt at modelling a cyclists perceptions is the Bicycle Compatibility Index (BCI) [1]; an american idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
+
+The BCI was developed using the perspectives of cyclists; asking them to view videoclips and evaluate how comfortable they would be cycling on that road in the conditions shown. The index is then calculated using the method showin in figure \ref{fig:bci_calc}.
+\begin{figure}
+\centering
+\includegraphics[scale=0.5]{figures/research_report/bci}
+\caption{The calculation for the Bicycle Compatibility Index}
+\label{fig:bci_calc}
+\end{figure}
+
+Fairly obviously, the presence of a dedicated cycle lane wider than 0.9m is the most significant factor on the comfort of cyclists, along with the width of the inside lane and cycle lanes. Interestingly though, according to the research, the speed of traffic is considered more important (0.022) than the volume of traffic (0.002); this would indicate that it would be better for cyclists to travel on gridlocked busy roads during rush hour rather than the back streets which although quieter are more likely to have traffic flowing faster.
+
+The BCI also gives an indication towards what an index value means regarding how compatible the road is, this is shown in figure \ref{fig:bci_los}:
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.7]{figures/research_report/bci_los}
+\caption{The}
+\label{fig:bci_los}
+\end{figure}
+
+
 \chapter{Prototype 1}
 \begin{figure}
 \centering
