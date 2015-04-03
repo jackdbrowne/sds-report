@@ -72,16 +72,17 @@ All other papers, articles, etc. that were used to formulate our ideas are refer
 % Rejected features and why
 After fully analysing the problem space we came up with an idea for a product that we felt solved the key issues around bike safety. As with most modern products, ours is heavily influenced by new technologies; particularly automation systems in cars culminating in the recent development of self-driving cars. % Reference Google project
 
-The core of our product is an automated braking system which analyses other road users, predicts the likelihood of a collision occurring and then applies the brakes accordingly. The technology for performing this task in cars is fairly well developed and becoming more and more widely deployed, for example the Subaru EyeSight\cite{eyesight} %reference!
-and a similar system developed by Volvo\cite{volvo}. However there is no such system for road bikes, this is likely due of the computing power needed and also a bikes natural instability.
+The core of our product is a collision avoidance system revolving around automated braking. In general the bike should be capable of analysing other road users, predicting the likelihood of a collision occurring and then applying the necessary amount of braking. The technology for performing this task in cars is fairly well developed and becoming more and more widely deployed, for example the Subaru EyeSight\cite{eyesight} and a similar system developed by Volvo\cite{volvo}. However there is no such system for road bikes. This is probably due to the computing power needed and a bikes natural instability. We believe that these problems can be overcome with some careful design.
 
-The final system will overcome these obstacles using some of the technologies that featured in our research such as the remote braking system % REFERENCE
-developed by ???????????????? 
+We decided this should be a fully integrated bicycle rather than a set of accessories for somebodies existing bike. The primary reason for this is to help overcome the instability issue. An additional reason is that it allows us to incorporate a wider range of sensors than would be feasibly possible in an accessory kit. This does have the disadvantage that some people may have already spent a large sum of money on their current bike and may not want to part with it.
+
+
+To interface this system there will be a smartphone application, enabling users to customise their settings and have them automatically download whenever they get on the bike. As well as this, the smartphone app will provide some performance information to the user as they are cycling such as current speed and the current battery level of the bike.
 
 \section{Rejected features}
 During our research we discussed a multitude of different solutions (or parts of solutions); some of which were very similar to our final design and some which are markedly different. Many of these solutions were rejected reasonably quickly while others were still being discussed during later iterations of the design. However all of the ideas below were eventually rejected because they were either unsuitable or unnecessary.
 
-\paragraph{Safety based route planner} An idea that was considered for a long time was a route planning application. This was intended to work alongside the collision avoidance system as part of an wider ecosystem of safety technologies. Core to this would be crowdsourcing information from all other road users; traffic speeds, accidents, road conditions. All of this information could then be combined and analysed in order to provide the cyclist with the safest route. We deemed the safest route to be: 
+\paragraph{Safety based route planner} An idea that was considered for a long time was a route planning application. This was intended to work alongside the collision avoidance system as part of an wider ecosystem of safety technologies. Core to this would be crowdsourcing information from all other road users; traffic speeds, accidents, road conditions, etc.. All of this information could then be combined and analysed in order to provide the cyclist with the safest route. We deemed the safest route to be: 
 \begin{enumerate}
 \item One with less traffic, as discovered from research [enter research], there was a positive correlation between increased traffic and increased cyclist accidents. 
 \item One which avoided areas with a certain risk level, both short and long term. A known accident blackspot might be a long term risk. If an accident has just occurred then the surrounding area might be a short term risk.
@@ -90,8 +91,8 @@ During our research we discussed a multitude of different solutions (or parts of
  
 This was an idea that we invested a lot of time into and one that we still believe under the right conditions could be very successful. However, for our project we decided to drop this feature because:
 \begin{itemize}
-\item it was too dependent on other users to enable it to offer what we wanted. 
-\item Car drivers needed to use the application and we did not think enough driver would be willing to use an application that provided them with a limited [research that showed this]
+\item It was too dependent on other users to enable it to offer what we wanted. Car drivers needed to use the application and we did not think enough drivers would be willing to share all of the necessary information for something that provides them with little benefit.
+\item It would require too many sensors and additional components for it to be a viable option. This could be overcome by having it as part of an integrated bicycle however in this case we would likely not have the required number of users for it to be successful.
 \end{itemize}
 
 
@@ -103,7 +104,13 @@ This was an idea that we invested a lot of time into and one that we still belie
 \end{itemize}
 However all of these have the same fundamental problem; they require the cyclist to divert their attention away from the road. Lack of attention, from either party, is one of main causes of RTAs involving bicycles. %statistic!
 
-In spite of all this we decided to forget this idea following a peer-review. Several of the people failed to grasp the concept. Firstly not many people have access to any wearable eyewear technology at present so designing a bike along with an app for an existing platform is not really feasible. The other alternative would be to design a piece of eyewear technology to use for along with an existing bike however the number sensors that would need to be installed means that for most people this simply isn't an option.
+In spite of all this we decided to forget this idea following a user-review. Several of the people failed to grasp the concept. Firstly not many people have access to any wearable eyewear technology at present so designing an integrated bike along with an app for an existing eyewear platform is not really feasible. The other alternative would be to design a piece of eyewear technology to use for along with any existing bike however the number sensors that would need to be installed and calibrated means that for most people this simply isn't practical.
+
+\paragraph{Self inflating tyres} An idea that was briefly considered was self inflating tyres. Inspired by similar technology in cars where the tyres will inflate or deflate depending on the current speed or road conditions. Following our research we found that a vaguely similar technology for bikes is currently in development by a San Francisco company PumpTires\cite{pumptyres}. This technology looked promising and even made it into our first prototype.
+
+However, a handful of users asked some interesting questions about this feature which after some consideration prompted us to drop it. When really considering what this feature adds to the overall system we realised that it doesn't really contribute much but drives up the cost vastly. The core of our system is the collision avoidance; self inflating tyres don't really help us to achieve that and in reality this was just a leftover feature from earlier discussion.
+
+As well as this we realised that we had not properly thought through how to actually implement this. PumpTires have patented much of their technology and we don't really have the technical expertise to invent a new solution. It is possible that we would be able to use PumpTires system directly, however it would be just as easy for people to do this themselves if this is a particularly important issue to them.
 
 \chapter{Design Considerations}
 \section{Assumptions}
@@ -116,10 +123,17 @@ When designing this system we have had to make a few assumptions about certain c
 
 Firstly we have assumed that the end user will be fully able-bodied. We feel that this is a necessary assumption despite the fact that one in twenty cycling commuters are disabled \citep{census-dis}. Cycling is a very physical activity and generally those with severe physical disabilities are better off with a bike that is specifically designed to cater for their particular disability. It is very much possible that our final design will be usable for the less severely disabled, however we will not be creating our design with any of these disabilities in mind. 
 
-Secondly we will be assuming that end users have some familiarity of bikes, particularly road bikes. By this we mean that we will not be designing an educational tool that teaches people how to ride a bike nor an assistance tool that aids those who cannot ride a bike. This is a reasonable assumption because it would be against recommended practice for a non-cyclist to start out by cycling on main roads.
-%Who's recommended practice? Sources?
+Secondly we will be assuming that end users have some familiarity of bikes, particularly road bikes. By this we mean that we will not be designing an educational tool that teaches people how to ride a bike nor an assistance tool that aids those who cannot already ride a bike. This is a reasonable assumption because it would be against recommended practice for a non-cyclist to start out by cycling on main roads anyway. %Who's recommended practice? Sources?
+In fitting with both of the above assumptions, we will also be assuming that the bike is to be used only by fully grown adults.
 
-In fitting with both of the above assumptions, we will also be assuming that the bike is to be used by fully grown adults. As well as the fact that the bike
+The majority of our research has been based around cycling in the UK for two reasons:
+\begin{enumerate}
+  \item We are based in the UK, giving us much easier access to end-users (UK cyclists)
+  \item Although we didn't look too deeply, our research suggested that many European countries actually have a fairly good cycling population
+\end{enumerate} 
+Because of this our product will be designed to be used on UK roads. We will make no further assumptions about the environment it is used in. The final product should function on busy city roads, country lanes or quiet residential roads with the same effectiveness. We will not be designing the product to work with any other system of roads (European, American, etc.) but it is highly likely that with some minor adaptations this product could function on any road system.
+
+The final assumption we had to make came about as the result of a discussion following our initial prototype. We assumed that all of our users would have a smartphone. The reasons for making this assumption are discussed in detail in section \ref{sec:phones}. We feel that this was a reasonable assumption because there are an estimated 37.8 million smartphone users in the UK\cite{smartphones}. This is a huge percentage of the adult population that we are aiming at.
 
 \section{Constraints}
 There are some overall restrictions that the product naturally has in order for it to be feasible or usable. The main two that we considered were:
@@ -168,7 +182,20 @@ In conclusion we have decided that we will design the bike with a 60 lb restrict
 % 1 page on U(X/C)D and why this is suitable for our product
 % Double diamond model (Design council)
 \subsection{User Centred Design}
-Our overall design goal was to come up with a product that was tailored to fit the needs of the end-user. Every single stage of the project was 
+Our overall design goal was to come up with a product that was tailored to fit the needs of the end-user. In this case the end-users are cyclists (or potential cyclists). This was especially important for us because the whole idea was to design a product to make cyclists feel safe on the roads. In the User Centred Design process the end-user is involved at every single stage; we continually used the user opinions to formulate or improve our design.
+
+A further consideration was the other stakeholders (a map of which can be found in appendix \ref{ch:stakeholders}). We had to consider these stakeholders as much as possible, for example car drivers might be able to offer some insight that cyclists cannot. It is not possible to get in touch with all of these stakeholders; we could not find anyone that openly admitted to being a bike thief for example.
+
+Some of the User Centred Design methods that we used were:
+\begin{description}
+  \item[Questionnaires] This was our primary method for getting in touch with users. This was suitable for us because they are relatively cheap and easy to set up. Also cyclists are fairly easy to access which meant we had a large enough sample size to make the information from the questionnaires viable. Questionnaires are particularly good at getting statistical data. This was used predominantly in the requirements gathering stage however some smaller questionnaires were used to allow our user testers to give their feedback on our prototypes.
+  \item[Interviews] We carried out a couple of informal interviews with a cycling retailer (Urban Cycles on the university campus). This was a suitable way for us to get in touch with retailers because the number of retailers we were able to talk to was fairly low. 
+  Interviews gave us a qualitative opinion on a range of topics. This was good for us because we used these interviews to find out the latest trends and to get expert opinions. Interviews were predominantly used in the requirements gathering and early stages of the design phase.
+  \item[Usability testing] We did some usability testing with end users to evaluate our prototypes. We asked people to perform some tasks using our prototype and recorded the time taken. This gave us a statistical measure of how efficient our design was. 
+  
+  We also watched them as they carried out the task to get a qualitative understanding of the particularly complex areas of the design. This was an evaluation technique.
+\end{description}
+
 \subsection{Double Diamond Model}
 During this project we followed the Double Diamond design process as put forward by the Design Council\cite{doublediamond}. 
 
@@ -190,7 +217,7 @@ This process has four key stages:
 \subsection{Agile approach}
 We came up with a initial set of requirements during the define stage of the double diamond model - once we had our rough outline of how our solution would work. However these were very open to change. In keeping with our overall goal of creating a user centred design, we allowed the user feedback and prototype analysis to govern how the requirements of the product adapted and changed. 
 
-In an agile approach such as this one the design is developed in small increments - starting from the 'minimum viable product' all the way up to the final design. Each small increment is done
+In an agile approach such as this one the design is developed in small increments - starting from the 'minimum viable product' all the way up to the final design. An example of this is how we adapted our prototypes in chapter \ref{ch: prototype}. Without using an agile approach we would not have been able to go back and make these drastic changes to our design because they would most likely conflict with the initial requirements. The agile approach works very nicely within the User Centred Design guidelines.
 
 \chapter{Design Decisions}
 
@@ -410,9 +437,16 @@ Conclusion - decision complying with criteria at the start
 %JACK brakes and why we decided to reject the automatic steering.
 
 
+\chapter{Prototype Analysis}
+\label{ch: prototype}
+We created prototypes of the UI and of the bike hardware 
+\section{Prototype 1}
+\label{sec:phones}
+
+\section{Prototype 2}
 
 
-\chapter{User Interface Design}
+\chapter{Final Design}
 \section{Overview of User Interface}
 
 
@@ -420,15 +454,6 @@ Conclusion - decision complying with criteria at the start
 
 \section{Screen Images}
 \section{Screen Objects and Actions}
-
-
-\chapter{Prototype Analysis}
-We created prototypes of the UI and of the bike hardware 
-\section{Prototype 1}
-
-\section{Prototype 2}
-
-\chapter{Detailed Design}
 
 \chapter{Conclusion}
 
@@ -503,6 +528,15 @@ The BCI also gives an indication towards what an index value means regarding how
 \label{fig:bci_los}
 \end{figure}
 
+\chapter{Stakeholder Map}
+\label{ch:stakeholders}
+On the following pages is a stakeholder map and analysis showing all of the people who may be affected by this project. 
+
+Some of the stakeholders shown are directly affected, cyclists for example. Whereas others are only affected as a secondary effect.
+
+Some may be positively affected by the project and other negatively. In the analysis we will show the likely reactions of some of the key holders and the reasons for this reaction.
+\newpage
+\includegraphics[scale=0.5, angle=90]{figures/stakeholder_map}
 
 \chapter{Prototype 1}
 \begin{figure}
