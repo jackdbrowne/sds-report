@@ -1,6 +1,7 @@
 \documentclass[]{report}
 
 \usepackage[square, numbers]{natbib}
+\usepackage{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{caption}
@@ -110,7 +111,7 @@ In spite of all this we decided to forget this idea following a user-review. Sev
 
 However, a handful of users asked some interesting questions about this feature which after some consideration prompted us to drop it. When really considering what this feature adds to the overall system we realised that it doesn't really contribute much but drives up the cost vastly. The core of our system is the collision avoidance; self inflating tyres don't really help us to achieve that and in reality this was just a leftover feature from earlier discussion.
 
-As well as this we realised that we had not properly thought through how to actually implement this. PumpTires have patented much of their technology and we don't really have the technical expertise to invent a new solution. It is possible that we would be able to use PumpTires system directly, however it would be just as easy for people to do this themselves if this is a particularly important issue to them.
+As well as this we realised that we had not properly thought through how to actually implement this. PumpTires have patented much of their technology and we don't really have the technical expertise required to invent a new solution. It is possible that we would be able to use PumpTires system directly, however it would be just as easy for people to do this themselves if this is a particularly important issue to them.
 
 \chapter{Design Considerations}
 \section{Assumptions}
@@ -218,6 +219,11 @@ This process has four key stages:
 We came up with a initial set of requirements during the define stage of the double diamond model - once we had our rough outline of how our solution would work. However these were very open to change. In keeping with our overall goal of creating a user centred design, we allowed the user feedback and prototype analysis to govern how the requirements of the product adapted and changed. 
 
 In an agile approach such as this one the design is developed in small increments - starting from the 'minimum viable product' all the way up to the final design. An example of this is how we adapted our prototypes in chapter \ref{ch: prototype}. Without using an agile approach we would not have been able to go back and make these drastic changes to our design because they would most likely conflict with the initial requirements. The agile approach works very nicely within the User Centred Design guidelines.
+
+\chapter{Specification}
+\section{Functional Requirements}
+\section{Non-functional Requirements}
+\section{Use cases}
 
 \chapter{Design Decisions}
 
@@ -422,9 +428,6 @@ We compared the
 	\end{minipage}
 \end{figure}
 
-
-\paragraph{}
-
 Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1} shows the lane change tracking and prediction that this papers algorithms accomplish and Fig. ~\ref{fig:change_lane_image} on page~\pageref{fig:change_lane_image} shows, one of other, cyclist collisions that we want to prevent. This paper displays a high chance of solving this issue.
 
 
@@ -439,26 +442,41 @@ Conclusion - decision complying with criteria at the start
 
 \chapter{Prototype Analysis}
 \label{ch: prototype}
-We created prototypes of the UI and of the bike hardware 
+Prototyping is a very important part of the user-centred design process as this was the main opportunity for us to integrate user feedback into our design. This section will explain all of the major issues that we had to address because of our prototypes and the decisions we made as a result. There were two major components to our solution:
+\begin{itemize}
+  \item The bike hardware. Here we were trying to position all of the components (cameras, lights, battery, etc.) in the ideal position. We had to make sure that all of the components were positioned somewhere sensible and functional.
+  \item The interface. These are the screens that the user directly interacts with to modify their settings and view statistics. The interface should allow the user to perform all of the key tasks with easy and efficiency.
+\end{itemize}
+We created some lo-fi prototypes for the interface using, the wireframing software, Balsamiq\cite{balsamiq}. This was particularly useful because it allowed us to create prototypes quickly and test them fairly easily. All of which helped us to receive, and then act on, user feedback. However it was not so easy for us to prototype the hardware due to our limited resources. We had to prototype the hardware using only sketches which was not ideal because it did not allow users to really get a feel for the design and how things interact. This meant we had to use our own knowledge of the product (and problem space) much more in this area.
+
 \section{Prototype 1}
 \label{sec:phones}
+Analysis of the initial prototype sparked a discussion about the best medium for the interface. Initially we had decided to present the interface as a smartphone application, there were many reasons for this decision:
+\begin{itemize}
+  \item \textbf{Portability} The primary advantage of using a smartphone, from our point of view, was that it would allow users to change their settings on-the-go. We felt that this would be hugely beneficial for users if they can change their settings while they are away from the bike and have them automatically download whenever they start to ride. 
+  \item \textbf{Cost} Having users simply download a free application for their existing technology significantly lowers the production cost of the bike. The software would need to be developed in any event, however it would save on hardware costs. 
+  \item \textbf{Familiarity} Products tend to be much easier to use if they use elements that the user is familiar with and most smartphone users are very familiar with downloading and using applications for their phone.
+  \item \textbf{Battery} One of the major problems that we identified early on was the battery life of the bike. By using a separate device, such as a smartphone, the interface will not drain the bike's inbuilt battery.
+\end{itemize}
+Following the initial prototype we considered switching this to an inbuilt, custom-made device. We felt that this would simplify the product overall as it would not rely on any external technologies to work and would be single platform and single form-factor. Also, it could alleviate some of the security concerns that come with pairing phones to the bike - this is a tough problem due to the fact it required multiple users being able to pair with multiple bikes securely. An added benefit of this would be connection speed - a phone would need to use a bluetooth connection whereas an inbuilt device could quite easily be hardwired into CPU.
 
+After taking all of this into account we eventually decided to stick with using a smartphone interface. The reasons for this being:
+\begin{itemize}
+  \item \textbf{Security} Although an built device may make application security easier to achieve, a smartphone based interface would improve the physical security of the bike. As the smartphone would obviously be removable this removes valuable looking items from show making the bike less likely to be stolen.
+  \item \textbf{Integration} We felt that it is important that this design is future-proof and easy to build upon. Many current bicycle applications integrate with other applications such as Facebook, Twitter and Google+. Applications for all of these already exist on all of the major smartphone operating systems which would make it simple to integrate with them in the future.
+  \item \textbf{Internet access} The \textit{key} reason for choosing a smartphone based interface was that some of the intended features would be very difficult, or maybe impossible, without it. The user login feature, for example, will require internet access - this can be achieved easily with smartphone tethering. However, without a smartphone would require some sort of mobile internet subscription or other way to connect to the 3G network.
+\end{itemize}
+This discussion also helped point out some of other design problems that we would need to address in the next prototype; the biggest of these being the phone battery. If a user were to cycle somewhere and then before cycling back their smartphone ran out of battery they would not be able to unlock the bike to cycle home. This could have a been major design flaw if left unaddressed. Another potential problem that was overlooked in the initial design is that phones do not conform to one particular shape or size; the latest iPhone 6 plus is 6.22 x 3.06 inches while the Sony Xperia M measures 4.88 x 2.44 inches.
+
+There was also some issues pointed out by users. Many asking ``how does it save my settings?" or ``how do you log in?". This was something that was forgotten in the initial design and would need to be addressed in the next iteration. Also, some users found that the bike battery level was not prominent enough on the interface. 
 \section{Prototype 2}
-
 
 \chapter{Final Design}
 \section{Overview of User Interface}
-
-
-\paragraph{}
-
 \section{Screen Images}
 \section{Screen Objects and Actions}
 
 \chapter{Conclusion}
-
-\bibliographystyle{plainnat}
-\bibliography{bibliography}
   
 \appendix
 %TOM: need to write why we decided on electronic brakes...
@@ -484,7 +502,11 @@ We created prototypes of the UI and of the bike hardware
 In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover the best way in which to improve safety in cycling. In order to do this we analysed a range of statistics as well as speaking directly to different stakeholders and ...
 \newpage
 \section{Statistics}
-We used statistics to build up a quantitative pic
+\paragraph{Number of cyclists}
+\paragraph{Fatalities}
+\paragraph{Road types}
+\paragraph{Time of day}
+\paragraph{Vehicles}
 \newpage
 \section{Questionnaires}
 \newpage
@@ -518,19 +540,23 @@ This product is relatively cheap, retailing online at \$29.99 however has the sa
 \subsection{Helmets}
 Probably the next most common safety product used at the moment is the helmet. The helmet is a impact reduction approach to managing the risk; it will not help to prevent an accident from occurring but it may stop an accident from being fatal. Currently helmets are not required by UK law however according to government guidelines, ``You \textit{should} wear a cycle helmet which conforms to current regulations, is the correct size and securely fastened"\cite{helmet_gov}.
 
-According to, former professional cyclist, Michael Hutchinson ``The most outstanding design flaw with the traditional polystyrene helmet is that it messes up people's hair, it's sweaty on the head, also a lot of people don't like the look of bike helmets." The ``Hovding airbag" [number] is an invisible helmet that attempts to overcome these issues. It is an airbag fitted into a neck collar and uses sensors and an algorithm to detect a fall. Once detected, it inflates over the user’s head like a hood, protecting the users head from impact damage.
+\paragraph{Hovding airbag}According to, former professional cyclist, Michael Hutchinson ``The most outstanding design flaw with the traditional polystyrene helmet is that it messes up people's hair, it's sweaty on the head, also a lot of people don't like the look of bike helmets."\cite{hutch} The ``Hovding airbag" \cite{hovding} is an invisible helmet that attempts to overcome these issues. It is an airbag fitted into a neck collar and uses sensors and an algorithm to detect a fall. Once detected, it inflates over the user’s head like a hood, protecting the users head from impact damage.
 
+This has been the only noticeable innovation in bike helmets and for this reason it is unlikely that helmets will form and significant part of our solution. However, this particular product does show the importance of style as well as safety and that it something we will need to keep in mind throughout the design process.
+
+\subsection{Mobile apps}
+Mobile apps are now used throughout everyday life
+\newpage
+\section{Car technologies}
 \newpage
 \section{Other research}
 \subsection{Route planning}
-Over the course of this research we considered some different approaches to solving this problem; one such approach was based around route planning whereby we would give a cyclist a safe route using knowledge of the road
+If we are to incorporate some sort of safety based route planning into our final solution we will need some method for determining the relative safety of any given road/route.
 
 \subsubsection{User Perception}
-The first method of 
+One way to do this is to try and to model a cyclist's perception. An attempt at this is the Bicycle Compatibility Index (BCI) [1]; an American idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
 
-One attempt at modelling a cyclists perceptions is the Bicycle Compatibility Index (BCI) [1]; an american idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
-
-The BCI was developed using the perspectives of cyclists; asking them to view videoclips and evaluate how comfortable they would be cycling on that road in the conditions shown. The index is then calculated using the method showin in figure \ref{fig:bci_calc}.
+The BCI was developed using the perspectives of cyclists; asking them to view videoclips and evaluate how comfortable they would be cycling on that road in the conditions shown. The index is then calculated using the method show in in figure \ref{fig:bci_calc}.
 \begin{figure}
 \centering
 \includegraphics[scale=0.5]{figures/research_report/bci}
@@ -683,4 +709,7 @@ Some may be positively affected by the project and other negatively. In the anal
 
 \chapter{Prototype 2}
 %\input{chapters/appendix}
+
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
 \end{document}
