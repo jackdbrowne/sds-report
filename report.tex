@@ -1,4 +1,4 @@
-\documentclass[]{report}
+\documentclass[a4paper]{report}
 
 \usepackage[square, numbers]{natbib}
 \usepackage{hyperref}
@@ -11,6 +11,15 @@
 \usepackage{array}
 \usepackage{lscape}
 \usepackage{gensymb}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={210mm,297mm},
+ left=30mm,
+ right=30mm,
+ top=15mm,
+ bottom=15mm,
+ }
 
 
 % Title Page
@@ -27,7 +36,7 @@
 \section{Problem Definition}
 %Rest of page on why we chose this problem space
 %Key statistics
-We began this project by exploring the 'Safety in Cycling' problem space. Our motivation for exploring this space came from looking at the reasons why people do not cycle. Even though cycling is a fairly easy form of exercise and an environmentally friendly method of transport just 2\% of trips are made by bicycle\cite{travelsurvey}. We feel that this figure is way too low and should probably be closer to the 10\% mark to bring the UK in line with the rest of Europe.
+We began this project by exploring the `Safety in Cycling' problem space. Our motivation for exploring this space came from looking at the reasons why people do not cycle. Even though cycling is a fairly easy form of exercise and an environmentally friendly method of transport just 2\% of trips are made by bicycle\cite{travelsurvey}. We feel that this figure is way too low and should probably be closer to the 10\% mark to bring the UK in line with the rest of Europe.
 
 Investigating this, we looked at some of the reasons why people choose not to cycle in the UK and the general trend was that people thought cycling was not safe enough. For example, a question in a Transport for Greater Manchester survey asked ``Which of the following do you feel are the barriers to cycling?" and 74\% of respondents said `Road Safety'\cite{TfGM}. In a similar survey by the Department for Transport 61\% of people either definitely agreed or tended to agree with the statement ``It is too dangerous for me to cycle on the roads"\cite{dft}.
 
@@ -143,7 +152,7 @@ There are some overall restrictions that the product naturally has in order for 
   \item \textbf{Weight} because this has a significant impact on whether the bike is actually ridable. We want to design a solution for which it is, not only possible but, comfortable to ride on the majority of commuting roads. Some of which will involve steep inclines.  
 \end{itemize}
 \subsection{Cost}
-We are attempting to create a solution for the average commuting cyclist to use on the road. This means it is important that the average commuting person is able to afford the product. To do this we must be able to find the right components and produce the bike for a reasonable cost. To decide what constitutes 'reasonable' we analysed how much cyclists currently spend on their bikes and asked cyclists how much they would be willing to spend on a bike of this style/quality.
+We are attempting to create a solution for the average commuting cyclist to use on the road. This means it is important that the average commuting person is able to afford the product. To do this we must be able to find the right components and produce the bike for a reasonable cost. To decide what constitutes `reasonable' we analysed how much cyclists currently spend on their bikes and asked cyclists how much they would be willing to spend on a bike of this style/quality.
 \begin{figure}
 \centering
 \includegraphics[scale=0.9]{figures/cars-bikes-spending}
@@ -207,8 +216,8 @@ This process has four key stages:
 \item[Develop] It was during the development stage that we really investigated all of the different ways of achieving what we had envisaged. Here we had to consider what would be practical, how different components would interact and, most importantly, what actually works.
 \item[Deliver] This stage was a series of prototype-feedback loops. We would come up with a prototype, scrutinise it for potential design flaws, adapt the design and repeat. This process continued up until the point where we had our final design.
 \end{description}
-\begin{figure}[h]
 
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.4]{figures/diamond}
 \caption{A visual representation of the double diamond model}
@@ -218,7 +227,7 @@ This process has four key stages:
 \subsection{Agile approach}
 We came up with a initial set of requirements during the define stage of the double diamond model - once we had our rough outline of how our solution would work. However these were very open to change. In keeping with our overall goal of creating a user centred design, we allowed the user feedback and prototype analysis to govern how the requirements of the product adapted and changed. 
 
-In an agile approach such as this one the design is developed in small increments - starting from the 'minimum viable product' all the way up to the final design. An example of this is how we adapted our prototypes in chapter \ref{ch: prototype}. Without using an agile approach we would not have been able to go back and make these drastic changes to our design because they would most likely conflict with the initial requirements. The agile approach works very nicely within the User Centred Design guidelines.
+In an agile approach such as this one the design is developed in small increments - starting from the `minimum viable product' all the way up to the final design. An example of this is how we adapted our prototypes in chapter \ref{ch: prototype}. Without using an agile approach we would not have been able to go back and make these drastic changes to our design because they would most likely conflict with the initial requirements. The agile approach works very nicely within the User Centred Design guidelines.
 
 \chapter{Specification}
 In keeping with the agile approach that we took to the design the functional requirements are fairly high level and lacking in detail. This detail was realised in the use cases, shown in section \ref{sec:use-cases}.
@@ -230,6 +239,44 @@ In keeping with the agile approach that we took to the design the functional req
 \item The user should be able to customise the system behaviour easily
 \end{enumerate}
 \end{enumerate}
+
+\textbf{ID:} FR1\\
+\textbf{Title:} The system must monitor tyre pressure.\\
+\textbf{Description:} The system must keep a real-time view on the pressure in both bicycle tires and present information to the user. If the tires are below a certain pressure, the system must automatically inflate the tires to an optimal pressure\\
+\textbf{Reason:} Deflated tires affects cycling performance and also may damage the bicycle. Automatic inflation will improve the cyclists confidence to cycle\\\\
+\textbf{ID:} FR2\\
+\textbf{Title:} The system's mobile app must be available to download\\
+\textbf{Description:} The user must be able to download and install the mobile app onto their mobile phone via a website or popular app store\\
+\textbf{Reason:} User has easy access to the software\\\\
+\textbf{ID:}  FR3\\
+\textbf{Title:}  The system must provide notifications to the user\\
+\textbf{Description:} The system must provide easy to read notifications to the user\\
+\textbf{Reason:} Alerting the user of hazards will improve safety\\
+\textbf{Dependencies:} FR5, FR6\\\\
+\textbf{ID:}  FR4\\
+\textbf{Title:}  User information must be stored in a database\\
+\textbf{Description:} The system must keep records of usernames, passwords, bicycle location, user phone numbers.\\
+\textbf{Reason:} To enable security features\\\\
+\textbf{ID:}  FR5\\
+\textbf{Title:}  Collision detection\\
+\textbf{Description:} The system detects vehicles (possibly pedestrians, too), tracks them and predicts their future trajectory from their velocity, yaw, etc. \\
+\textbf{Dependencies:}\\\\
+\textbf{ID:} FR6\\
+\textbf{Title:}  Collision Avoidance\\
+\textbf{Description:} If a predicted trajectory will cause a collision, then the cyclist is either warned or the system takes over.\\
+\textbf{Dependencies:} FR5\\
+\textbf{Reason:} A humans reaction time can place them at risk.\\\\
+\textbf{ID:} FR7\\
+\textbf{Title:}  Remote locking\\
+\textbf{Description:} The user must be able to lock the bicycle wheels in place using an application on a separate device\\
+\textbf{Dependencies:} FR2, FR8\\
+\textbf{Reason:} To reduce the risk of the bicycle being stolen.\\\\
+\textbf{ID:} FR8\\
+\textbf{Title:}  Bicycle Interface\\
+\textbf{Description:} The cyclist/user should be able to interface with the bicycle and change settings.\\
+\textbf{Dependencies:} FR2\\
+\textbf{Reason:} Cyclists have different cycling methods.\\\\
+
 \section{Non-functional Requirements}
 \subsection{Usability}
 \label{usability}
@@ -298,7 +345,75 @@ In keeping with the agile approach that we took to the design the functional req
 \section{Use cases}
 \label{sec:use-cases}
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/bicycle_system_use_case}
+\caption{Use case...}
+\label{fig:ebicycle_system_use_case}
+\end{figure}
+
 \chapter{Design Decisions}
+
+\section{Bicycle Brakes}
+
+\paragraph{}Our system was primarily based around automatically stopping the bicycle when a collision was predicted, and a core component of that was the brakes. The brakes had to quickly and reliably halt the bicycle with a minimal stopping distance. We researched what had an affect on the latter and how it could be reduced. The stopping distance of a bicycle is calculated similarly to a vehicle (from when its brakes are fully applied), with the following considerable factors; tyre pressure, tyre diameter, tyre tread type, bicycle weight, cyclist weight, the coefficient of friction between the surface, current speed, driver reaction time and vehicle reaction time. Our system takes the reaction time of the cyclist away from the equation, as it should apply the bicycle brakes before the cyclist would have a chance to react. 
+
+\subsection{Brake Lever}
+
+\paragraph{}The bicycle brakes had to have the ability to be activated via the bicycles on board computer and manually, via the cyclist, like a standard bicycle would. Different types of bicycle brakes were researched, for the aforementioned feasibility, but also that would provide the shortest braking distance. Common bicycle brakes use a bowman cable, hydraulic hose, or rods which are attached the brake lever on one end and to the brakes on the other. The bowman and rods use the pressing of a level to pull the cables and, in doing so, pressing brake pads against a wheel rim or disc. The hydraulic hose, works like a vehicle hydraulic brake, where the lever being pressed forcing fluid towards the braking system causing a build up of pressure and causes the brakes pads to be pressed. 
+
+\paragraph{}We initially looked at a way of connecting these wire/hydraulic cables to, in addition to the standard brake lever, to an electrical device, such as a motor (connected to the computer), which had the ability to increase and decrease the cable tension/pressure. The figures \ref{fig:early_motor_cable_tension} and  %need image for early idea for detailed
+on page \pageref{app:brakes_early_sketches} shows a simplistic early sketch of how this may have operated.  An issue with this solution was that, given the front and back brakes are at different distances from the handle bar brake levers, different tension/pressure is needed, and therefore two separate electric devices would have been needed, for each brake. There are multiple problems with having two devices; it would be difficult to maintain an equal distribution to the front and back brakes and if a non equal distribution occurred, then safety issues arise. More devices also increases the number of components where a fault could occur and thereby increased the amount of maintenance.  
+ 
+ \begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/early_sketches/braking_system/motor_cable_tension}
+\caption{Early design sketch using a motor to increase and decrease the tension of a bayman cable for use in the bicycle braking system}
+\label{fig:early_motor_cable_tension}
+\end{figure}
+ 
+\paragraph{}We decided that the users manual braking levers should be connected to the the onboard computer, via an electrical component, and would activated with same components as when automatically activated. This provided additional functionality, such as more control over the brakes and the force distribution to the front and back tyres; offer the user the ability to control how sensitive the brakes are (only for manual use), which is something that involves time consuming altering of mechanical components on a standard bicycle, but in this case the cyclist could easily alter the sensitivity to suit different riding conditions. Figures \ref{fig:early_brake_level_pressure} and \ref{fig:early_brake_level_pressure_enlarged} (page \pageref{app:early_sketches}), show sketches of where the component would be placed and how it would determine how much the brake levels have been compressed; the latter figure showing an enlarged and more detailed perspective.  
+
+\begin{figure}[!htb]]
+\centering
+\includegraphics[scale=0.45]{figures/early_sketches/braking_system/brake_lever_pressure_switch}
+\caption{Early design sketch of brake level attached to a pressure sensor for electrical braking system}
+\label{fig:early_brake_level_pressure}
+\end{figure}
+
+\begin{figure}[!htb]]
+\centering
+\includegraphics[scale=0.225]{figures/early_sketches/braking_system/brake_lever_pressure_sensor_enlarged}
+\caption{Early design sketch of brake lever and pressure sensor enlarged from figure \ref{fig:early_brake_level_pressure} for electrical braking system}
+\label{fig:early_brake_level_pressure_enlarged}
+\end{figure}
+
+\paragraph{}We researched the type of sensor that we could use for converting the force applied via the compression of the lever and discovered a component called a `Load Cell' or by some manufacturers, a `Force Transducer' (see fig \ref{}  on \pageref{}) which output an electrical signal proportional to the amount of force applied. 
+After analysis of our early design and the load cell components design, we came to the conclusion that the the components was not suitable for our application, as it appeared that the components was used in application for industrial measurements; we also realised that the internal design of the brake levers would require an attached spring, so the lever would decompress once released, like on a standard bicycle (whereby the lever decompresses via the released hold on the wire). This lead to the research into spring based sensors (e.g. a spring bases resistor/potentiometer). 
+
+\paragraph{}
+A spring potentiometer  was discovered to be used in many application, two most significant being for the foot pedal of a vehicle and, especially the twist throttle of a motorcycle. Figure \ref{fig:spring_pot} 
+
+In figure \ref{fig:early_brake_level_pressure_enlarged_spring} a A spring would be required for 
+
+``Electric actuation of the rear wheel brakes?brake by wire?offers further advantages: fast response, high power and ultra-precise control, even with intervention by the ESP stability system. Moreover, there?s no residual torque, that slight scraping of the linings against the disks, as can occur with hydraulic brakes."
+
+
+\subsection{Braking Component}
+
+
+\subsubsection{Rim Brakes}
+These are brakes 
+
+
+\subsubsection{Disc Brakes}
+
+
+The inspiration for the final solution was via the research into braking technologies used in current vehicles. In particular the Electric Hydraulic Combe Brakes (ECHB); figures \ref{fig:audi_EHCB_1} and \ref{fig:audi_EHCB_2} in appendix section \ref{app:brakes_current_technology} page \pageref{app:brakes_current_technology}. An electrical motor would be placed in the 
+
+
+
+%need to calculate stopping distance :/ 
 
 \section{Communication}
 
@@ -328,6 +443,9 @@ In keeping with the agile approach that we took to the design the functional req
 
 \end{landscape}
 
+Wireless communication for bicycle compoenents (mainly between the computer system and electric brakes), though small, posed the risk of disconnection %maybe some research about disconnection
+ and given the time criticalness of the application for safety, it was decided that the communication pf the bicycle component should be wired.
+
 \chapter{System Architecture}
 W
 \section{Architectural Design}
@@ -344,7 +462,7 @@ We were initially undecided about whether the system would require a database
 \paragraph{Requirements}
 
 \begin{itemize}
-\item A smart phone should be able to be used a 'key' to the bicycle
+\item A smart phone should be able to be used a `key' to the bicycle
 \item The Bicycle should be associated with one master user and their account.
 \item The master account should be able to allow other users and their accounts pair, unlock and use the bicycle
 
@@ -522,23 +640,52 @@ There was also some issues pointed out by users. Many asking ``how does it save 
 \part*{Appendices}
 \appendix
 %TOM: need to write why we decided on electronic brakes...
-\chapter{Electronic Braking System}
-\section{Current Technology}
+\chapter{Braking System}
+\section{Research}
 
+\begin{table}[h]
+
+    \begin{tabular}{ | c | c |}
+    \hline
+    \textbf{Condition} & \textbf{Rolling Friction Coefficient (mm)} \\ \hline
+   
+   Bicycle tire on wooden track & 0.001   \\ \hline
+   Bicycle tire on concrete & 0.002 \\ \hline
+  Bicycle tire on asphalt road & 0.004 \\ \hline
+  Bicycle tire on rough paved road & 0.008 \\ \hline
+
+  \end{tabular}
+
+\caption[Table caption text]{Bicycle Rolling Resistance for differing conditions \cite{cite:bicycle_friction}} 
+\label{table:bicycle_friction}
+\end{table}
+
+%\section{Early Sketches 
+%\label{app:early_sketches}
+
+
+\section{Current Technology}
+\label{app:brakes_current_technology}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.7]{figures/electronic_braking/audi_EHCB_1}
 \caption{  \citep{audi_ehcb_1}}
-
+\label{fig:audi_EHCB_1}
 \end{figure}
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.7]{figures/electronic_braking/audi_EHCB_2}
 \caption{Audi Electric Hydraulic combo Brakes  \citep{audi_ehcb_2}}
+\label{fig:audi_EHCB_2}
 \end{figure}
 
-
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{figures/electronic_braking/spring_pot}
+\caption{Spring operated potentiometer \citep{spring_pot}}
+\label{fig:spring_pot}
+\end{figure}
 
 \chapter{Research Report}
 In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover the best way in which to improve safety in cycling. In order to do this we analysed a range of statistics as well as speaking directly to different stakeholders and ...
