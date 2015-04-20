@@ -223,8 +223,78 @@ In an agile approach such as this one the design is developed in small increment
 \chapter{Specification}
 In keeping with the agile approach that we took to the design the functional requirements are fairly high level and lacking in detail. This detail was realised in the use cases, shown in section \ref{sec:use-cases}.
 \section{Functional Requirements}
-
+\label{sec:func_req}
+\begin{enumerate}[label=\ref*{sec:func_req}.\arabic*.,leftmargin=*]
+\item The system should 
+\begin{enumerate}[label*=\arabic*.]
+\item The user should be able to customise the system behaviour easily
+\end{enumerate}
+\end{enumerate}
 \section{Non-functional Requirements}
+\subsection{Usability}
+\label{usability}
+\begin{enumerate}[label=\ref*{usability}.\arabic*.,leftmargin=*]
+\item The system should be easy to use
+\begin{enumerate}[label*=\arabic*.]
+\item The user should be able to customise the system behaviour easily
+\end{enumerate}
+\end{enumerate}
+\subsection{Efficiency}
+\label{efficiency}
+\begin{enumerate}[label=\ref*{efficiency}.\arabic*.,leftmargin=*]
+\item The system should
+\end{enumerate}
+\subsection{Dependability}
+\label{dependability}
+\begin{enumerate}[label=\ref*{dependability}.\arabic*.,leftmargin=*]
+\item The system should be available at all times
+\begin{enumerate}[label*=\arabic*.]
+\item The core of the system be usable without an internet connection
+\end{enumerate}
+\end{enumerate}
+\subsection{Security}
+\label{security}
+\begin{enumerate}[label=\ref*{security}.\arabic*.,leftmargin=*]
+\item The system should hold all customer information securely
+\item The system should be secure from theft
+\item The system should be secure from hackers
+\end{enumerate}
+\subsection{Environmental}
+\label{environmental}
+\begin{enumerate}[label=\ref*{environmental}.\arabic*.,leftmargin=*]
+\item The system should be environmentally friendly
+\end{enumerate}
+\subsection{Operational}
+\label{operational}
+\begin{enumerate}[label=\ref*{operational}.\arabic*.,leftmargin=*]
+\item The system should be suitable for people aged 16 and over
+\end{enumerate}
+\subsection{Development}
+\label{development}
+\begin{enumerate}[label=\ref*{development}.\arabic*.,leftmargin=*]
+\item The system should be well documented
+\begin{enumerate}[label*=\arabic*.]
+\item All code should be properly commented
+\item The
+\end{enumerate}
+\end{enumerate}
+\subsection{Regulatory}
+\label{regulatory}
+\begin{enumerate}[label=\ref*{regulatory}.\arabic*.,leftmargin=*]
+\item The system should conform to the Pedal Bicycles Safety Regulations (PBSR)
+\item The system should comply with Statutory Instrument No. 1168 (1983)
+\end{enumerate}
+\subsection{Ethical}
+\label{ethical}
+\begin{enumerate}[label=\ref*{ethical}.\arabic*.,leftmargin=*]
+\item The system should 
+\end{enumerate}
+\subsection{Legislative}
+\label{legislative}
+\begin{enumerate}[label=\ref*{legislative}.\arabic*.,leftmargin=*]
+\item The system should comply with the Data Protection Act 1998
+\end{enumerate}
+
 \section{Use cases}
 \label{sec:use-cases}
 
@@ -258,10 +328,13 @@ In keeping with the agile approach that we took to the design the functional req
 
 \end{landscape}
 
-
 \chapter{System Architecture}
+W
 \section{Architectural Design}
 
+\chapter{Data Design}
+We were initially undecided about whether the system would require a database
+\section{Data Description}
 \subsection{Bicycle User Access}
 
 \paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
@@ -284,10 +357,6 @@ In keeping with the agile approach that we took to the design the functional req
 \paragraph{Internet communication}
 
 All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
-
-
-\chapter{Data Design}
-\section{Data Description}
 \section{Data Dictionary}
 
 \chapter{Component Design}
@@ -310,81 +379,50 @@ We compared the
 \begin{table}[h]
 \resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
 
-    \begin{tabular}{ | m{1.2cm} | p{4.7cm} | p{4.7cm} |}
-    \hline
-    \textbf{Device} & \multicolumn{1}{|c|}{\textbf{Advantages}} & \multicolumn{1}{|c|}{\textbf{Disadvantages}} \\ \hline
+  \begin{tabular}{ | m{1.2cm} | p{4.7cm} | p{4.7cm} |}
+  \hline
+  \textbf{Device} & \multicolumn{1}{|c|}{\textbf{Advantages}} & \multicolumn{1}{|c|}{\textbf{Disadvantages}} \\ \hline
    
-    Radar & 
-    
-    \begin{itemize}[leftmargin=*]
-     
-    	\item Sees through fog perfectly
-   
-    	\item A radar hit returns distance and an objects speed
-    	
-    \end{itemize} &
-   
-    \begin{itemize}[leftmargin=*]   
-       	\item Current consumer radar offer low resolution
-       	
-       	\item Radar struggles to determine object positions
-       	
-       	\item Fixed objects can not be discerned from stationary vehicles
-       	
-       	\item Expensive in comparison to cameras  
-       \end{itemize}  \\ \hline
+  Radar &
+  \begin{itemize}[leftmargin=*] 
+    \item Sees through fog perfectly
+    \item A radar hit returns distance and an objects speed	
+  \end{itemize} &
+  \begin{itemize}[leftmargin=*]   
+    \item Current consumer radar offer low resolution
+    \item Radar struggles to determine object positions
+    \item Fixed objects can not be discerned from stationary vehicles
+    \item Expensive in comparison to cameras  
+  \end{itemize}  \\ \hline
        
-    Lidar & 
-    
-    \begin{itemize}[leftmargin=*]   
-    	\item Evaluating an objects distance is easier than with a camera
-    
-    	\item 3D map, meaning finding an objects position is trivial 
-    
-    	\item Emits light and can therefore work without the need of ambient light.
-    \end{itemize} &
-    
-      \begin{itemize}[leftmargin=*]   
-    
-    	\item Low resolution 
-    
-    	\item Limited range; best results up to 70m
-    
-    	\item Moving parts - more prone to damage from movement
-    
-    	\item Expensive in comparison to cameras
-    
-	\end{itemize} \\ \hline 
+  Lidar & 
+  \begin{itemize}[leftmargin=*]   
+    \item Evaluating an objects distance is easier than with a camera
+    \item 3D map, meaning finding an objects position is trivial 
+    \item Emits light and can therefore work without the need of ambient light.
+  \end{itemize} &
+  \begin{itemize}[leftmargin=*]   
+    \item Low resolution 
+    \item Limited range; best results up to 70m
+    \item Moving parts - more prone to damage from movement
+    \item Expensive in comparison to cameras
+  \end{itemize} \\ \hline 
       
-    Colour Camera &
-    
-     \begin{itemize}[leftmargin=*]   
-        	\item Inexpensive
-        	
-        	\item Due to their uses of reflected light, their range during daylight is arbitrary 
-        	
-        	\item Very high resolution (3000 lines, compared to a LIDARs 64)
-        	
-        	\item Due to their colour detection and resolution they offer future computer vision updates. e.g. reading road markings, signs, etc.
-        	
-        	\item No moving parts.
-     \end{itemize} &
-        
-     \begin{itemize}[leftmargin=*]   
-       	\item At night they require emitted light (headlight)
-       
-       \item Have to content with light variations (e.g. moving shadows)
-       
-       \item Emitted light at night may not generate a high enough lumens per square foot
-      
-       \item Computer vision requires higher processing power
-        
-    \end{itemize} \\ \hline 
-    
-   
-    
-    
-    \end{tabular}
+  Colour Camera &
+  \begin{itemize}[leftmargin=*]   
+    \item Inexpensive
+    \item Due to their uses of reflected light, their range during daylight is arbitrary     	
+    \item Very high resolution (3000 lines, compared to a LIDARs 64)    	
+    \item Due to their colour detection and resolution they offer future computer vision updates. e.g. reading road markings, signs, etc.    	
+    \item No moving parts.
+  \end{itemize} &
+  \begin{itemize}[leftmargin=*]   
+    \item At night they require emitted light (headlight)
+    \item Have to content with light variations (e.g. moving shadows)
+    \item Emitted light at night may not generate a high enough lumens per square foot
+    \item Computer vision requires higher processing power      
+  \end{itemize} \\ \hline    
+\end{tabular}
 
 
 \caption[Table caption text]{Display the advantages and disadvantages of different hardware for object detection and tracking} 
@@ -480,7 +518,8 @@ There was also some issues pointed out by users. Many asking ``how does it save 
 \section{Screen Objects and Actions}
 
 \chapter{Conclusion}
-  
+
+\part*{Appendices}
 \appendix
 %TOM: need to write why we decided on electronic brakes...
 \chapter{Electronic Braking System}
@@ -506,7 +545,7 @@ In this mini-report we will be showing the preliminary research that we did befo
 \newpage
 \section{Statistics}
 \subsection{Number of cyclists}
-According to the most recent National Travel Survey statistics (2013) 43\% of the population owns a bicycle
+According to the most recent National Travel Survey statistics (2013) \textbf{43\% of the population owns a bicycle} 
 \subsection{Accidents}
 \subsection{Fatalities}
 \subsection{Road types}
