@@ -24,7 +24,7 @@
 
 % Title Page
 \title{Software Design Study\\Final Report}
-\author{Jack Browne, 1236782\\Thomas Clarke, 1162927\\Keiran Crook, xxxxxxx}
+\author{Jack Browne, 1236782\\Thomas Clarke, 1162927\\Keiran Crook, 1257447}
 
 
 \begin{document}
@@ -347,11 +347,205 @@ In keeping with the agile approach that we took to the design the functional req
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.25]{figures/bicycle_system_use_case}
-\caption{Use case...}
+\includegraphics[scale=0.5]{figures/bicycle_system_use_case}
+\caption{Use case diagram showing basic expected use cases}
 \label{fig:ebicycle_system_use_case}
 \end{figure}
-
+\noindent\textbf{Use Case:} Create account \\
+\textbf{Description:} If the user does not have an account with the system, the user can create an account using the mobile application \\
+\textbf{Preconditions:} \begin{itemize}
+\item The user has access to the mobile application
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The system requests email and password for the new account
+\item The user inputs their email and password for the new account
+\item The system checks an account under the same email has not already been made
+\item The system sends a verification email to the users email address while temporarily storing details until verification
+\item The user clicks the verification link in the email
+\item The account details are then moved to the online database while informing the user of the success of creating the account
+\end{enumerate}
+\textbf{Extensions:} \\\\
+3a Account under the address has already been made
+\begin{enumerate}
+\item The system warns the user that an account under the given email address has already been made
+\item Go to step 1
+\end{enumerate}
+3b Connection to online server cannot be made
+\begin{enumerate}
+\item System warns user that a connection cannot be made to the server
+\item Go to step 1
+\end{enumerate}
+5a Email was not verified within 30 days
+\begin{enumerate}
+\item The user does not click the verification link within 30 days
+\item The details previously given are deleted from temporary storage
+\item End use case
+\end{enumerate}
+\textbf{Use Case:} Sign in\\
+\textbf{Description:} The user can sign in to access their account and be able to use some features of the system if registered as a user\\
+\textbf{Preconditions:} \begin{itemize}
+\item The user has access to the mobile application
+\item The mobile device is paired with the bicycle system via bluetooth
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The system requests an email and password for the users account
+\item The user inputs their email and password for their account
+\item The system checks to see if the account is registered as a user for the system
+\item The system checks online database to see if account exists
+\item The account details match for an account in the database
+\item The system gathers the accounts saved settings and changes the bicycles settings accordingly
+\item The user is then provided access to the system
+\end{enumerate}
+\textbf{Extensions:} \\\\
+3a The account is not registered as a user for the system
+\begin{enumerate}
+\item The system warns the user that the details provided do not match with any registered users for the system
+\item Go to step 1
+\end{enumerate}
+4a Connection to online server cannot be made
+\begin{enumerate}
+\item System warns user that a connection cannot be made to the server
+\item Go to step 1
+\end{enumerate}
+4b Account details are not found on the database
+\begin{enumerate}
+\item System warns user that account does not exist
+\item Go to step 1
+\end{enumerate}
+\textbf{Use Case:} Register user\\
+\textbf{Description:} Additional users can be registered to bicycle so that more than one person has access to the systems features\\
+\textbf{Preconditions:} \begin{itemize}
+\item The user has access to the mobile application
+\item The mobile device is paired with the bicycle system via bluetooth
+\item The user is registered as a master user
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The user selects to add a user to the system
+\item The system requests email and password for the user to be added
+\item The user inputs email and password for the user to be added and request to add the user
+\item The system checks online database to see if it is a valid account
+\item Account is valid and user is now registered
+\end{enumerate}
+\textbf{Extensions:} \\\\
+1a Register master user
+\begin{enumerate}
+\item If no user is found, the system requests account for master user
+\item system continues from step 2
+\end{enumerate}
+4a Account not valid
+\begin{enumerate}
+\item System warns user that account is not valid and user cannot be added
+\item Go to step 2
+\end{enumerate}
+4b Connection to online server cannot be made
+\begin{enumerate}
+\item System warns user that a connection cannot be made to the server
+\item Go to step 2
+\end{enumerate}
+\textbf{Use Case:} Remotely lock bicycle \\
+\textbf{Description:} The cyclist remotely locks the bicycle wheels in place using a mobile device\\
+\textbf{Preconditions:} \begin{itemize}
+\item The bicycle is stationary
+\item The cyclist has access to the mobile application
+\item The mobile device is paired with the bicycle system via bluetooth
+\item The bicycle system is registered to the user's mobile phone
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The mobile application provides an option to lock the bicycle
+\item The cyclist selects the option to lock the bicycle
+\item The system locks the bicycle wheels in place, rendering them unusable
+\end{enumerate}
+\textbf{Extensions:} \\\\
+2a Bicycle not in range
+\begin{enumerate}
+\item Mobile application warns user that bicycle is not in range
+\item Go to step 1
+\end{enumerate}
+\textbf{Use Case:} Collision Avoidance\\
+\textbf{Description:} The system detects a possible collision and informs the user. After alerting the user and user still takes no action, the bicycle automatically brakes to lower risk and impact of any collisions\\
+\textbf{Preconditions:} \begin{itemize}
+\item A mobile device is paired with the bicycle system via bluetooth
+\item The mobile device is currently running the system application and is registered with the bicycle system
+\item The cyclist is currently using the bicycle
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The system monitors the bicycles surroundings using sensors attached to the bicycle
+\item The system detects an object moving towards the bicycles path
+\item The system beeps to alert the cyclist that there is an object dangerously close to the bicycle and evasive action is needed
+\item The system then automatically applies the brakes while alerting people behind with a brake light until the cyclist is no longer in danger of a collision
+\end{enumerate}
+\textbf{Extensions:} \\\\
+3a The cyclist avoids the collision
+\begin{enumerate}
+\item System stops alerting the cyclist
+\item Go to step 1
+\end{enumerate}
+\textbf{Use Case:} Change bicycle settings\\
+\textbf{Description:} The cyclist wants to change the settings on the bicycle system which controls how much the bicycle assists with cycling. The settings include to what maximum speed the bicycle assists with pedalling, how much the bicycle boost will accelerate the bicycle and how much force the brake assist helps stop the bicycle. \\
+\textbf{Preconditions:} \begin{itemize}
+\item The cyclist has access to the mobile application
+\item The mobile device is paired with the bicycle system via bluetooth
+\item The bicycle system is registered with the mobile phone
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The cyclist opens up the settings tab on the mobile application
+\item The cyclist adjusts the settings
+\item Once finished adjusting settings, the cyclist then leaves the settings menu
+\item The mobile device sends the new settings to the bicycle system via bluetooth and also to an online database via wifi or mobile internet
+\item New settings are then stored on the bicycle and online database under the cyclists account while informing the cyclist of the successful storage
+\item The bicycle adjusts itself according to the new settings
+\end{enumerate}
+\textbf{Extensions:} \\\\
+4a Bicycle is not in range
+\begin{enumerate}
+\item Mobile application warns user that the bicycle is not in range and that settings will be stored once a connection can be made
+\item The mobile application listens for the bicycle to be in range of the mobile devices bluetooth as a background process
+\item The system reruns step 4 once a connection to the bicycle can be made
+\end{enumerate}
+4b Connection to online server cannot be established
+\begin{enumerate}
+\item Mobile application warns user that a connection cannot be made to online server and that settings will be stored once a connection can be made
+\item The mobile application attempts a connection on regular intervals as a background process
+\item The system sends and stores new settings on the bicycle system and runs step 6
+\end{enumerate}
+\textbf{Use Case:} Monitor tire pressure\\
+\textbf{Description:} The system constantly checks the air pressure in the bicycle tires. The system will automatically inflate the tires if pressure is too low. If a mobile device is connected and registered with the system, it can also display the tire pressure\\
+\textbf{Preconditions:} \begin{itemize}
+\item The bicycle is currently being used
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The system monitors the air pressure in the bicycle tires
+\item Go to step 1
+\end{enumerate}
+\textbf{Extensions:} \\\\
+1a Tire pressure in one of the tires is lower than recommended
+\begin{enumerate}
+\item The system automatically inflates the tire with low pressure
+\item Go to step 1
+\end{enumerate}
+1b A mobile device is paired and registered to the bicycle and a cyclist is currently viewing performance
+\begin{enumerate}
+\item The system displays the current tire pressure in both tires
+\item If pressure in either tire is too low, run extension 1a while alerting the user that pressure is too low and tires are automatically being inflated
+\item Go to step 1
+\end{enumerate}
+\textbf{Use Case:} Brake check\\
+\textbf{Description:} The system checks how well the brakes are performing \\
+\textbf{Preconditions:} \begin{itemize}
+\item The bicycle is currently being used
+\item Brakes have been applied
+\end{itemize}
+\textbf{Flow of events:} \begin{enumerate}
+\item The bike keeps a record of the bicycles current speed and starts a timer
+\item Once the speed of the bicycle reaches 0, the time is then recorded and then compared with a time limit
+\item Go to step 1
+\end{enumerate}
+\textbf{Extensions:} \\\\
+2a The time recorded exceeds the time limit and a mobile device is paired, registered and the interface is currently on show
+\begin{enumerate}
+\item The system warns the user that brakes are not performing as well as they should and are in need of maintenance
+\item The system reruns step 1 and alert disappears once time has improved and is lower than the time limit
+\end{enumerate}
 \chapter{Design Decisions}
 
 \section{Bicycle Brakes}
