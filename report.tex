@@ -811,7 +811,20 @@ All internet traffic between the bicycle and the user will go through the HTTPS 
 
 \subsection{Software}
 
-\begin{algorithm}\caption{Euclid's algorithm}\label{euclid}\begin{algorithmic}[1]\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}   \State $r\gets a\bmod b$   \While{$r\not=0$}\Comment{We have the answer if r is 0}      \State $a\gets b$      \State $b\gets r$      \State $r\gets a\bmod b$   \EndWhile\label{euclidendwhile}   \State \textbf{return} $b$\Comment{The gcd is b}\EndProcedure\end{algorithmic}\end{algorithm}
+\begin{algorithm}
+\caption{Euclid's algorithm}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+   \State $r\gets a\bmod b$
+   \While{$r\not=0$}\Comment{We have the answer if r is 0}
+      \State $a\gets b$
+      \State $b\gets r$
+      \State $r\gets a\bmod b$
+   \EndWhile\label{euclidendwhile}
+   \State \textbf{return} $b$\Comment{The gcd is b}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
 
 \section{Collision Avoidance System}
@@ -893,7 +906,7 @@ After taking all of this into account we eventually decided to stick with using 
 \end{itemize}
 This discussion also helped point out some of other design problems that we would need to address in the next prototype; the biggest of these being the phone battery. If a user were to cycle somewhere and then before cycling back their smartphone ran out of battery they would not be able to unlock the bike to cycle home. This could have a been major design flaw if left unaddressed. Another potential problem that was overlooked in the initial design is that phones do not conform to one particular shape or size; the latest iPhone 6 plus is 6.22 x 3.06 inches while the Sony Xperia M measures 4.88 x 2.44 inches.
 
-There was also some issues pointed out by users. Many asking ``how does it save my settings?" or ``how do you log in?". This was something that was forgotten in the initial design and would need to be addressed in the next iteration. Also, some users found that the bike battery level was not prominent enough on the interface. 
+There was also some issues pointed out by users. Many asking ``how does it save my settings?" or ``how do you log in?". This was something that was forgotten in the initial design and would need to be addressed in the next iteration. There was some confusion with users as to how the alerts worked in the interface, as it seemed that they pointed towards the lock icon which provoked thoughts of pressing the lock icon to read further. Also, some users found that the bike battery level was not prominent enough on the interface. 
 \section{Prototype 2}
 
 \chapter{Final Design}
