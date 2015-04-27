@@ -92,7 +92,7 @@ To interface this system there will be a smartphone application, enabling users 
 \section{Rejected features}
 During our research we discussed a multitude of different solutions (or parts of solutions); some of which were very similar to our final design and some which are markedly different. Many of these solutions were rejected reasonably quickly while others were still being discussed during later iterations of the design. However all of the ideas below were eventually rejected because they were either unsuitable or unnecessary.
 
-\paragraph{Safety based route planner} An idea that was considered for a long time was a route planning application. This was intended to work alongside the collision avoidance system as part of an wider ecosystem of safety technologies. Core to this would be crowdsourcing information from all other road users; traffic speeds, accidents, road conditions, etc.. All of this information could then be combined and analysed in order to provide the cyclist with the safest route. We deemed the safest route to be: 
+\paragraph{Safety based route planner} \label{subsec:rejected} An idea that was considered for a long time was a route planning application. This was intended to work alongside the collision avoidance system as part of an wider ecosystem of safety technologies. Core to this would be crowdsourcing information from all other road users; traffic speeds, accidents, road conditions, etc.. All of this information could then be combined and analysed in order to provide the cyclist with the safest route. We deemed the safest route to be: 
 \begin{enumerate}
 \item One with less traffic, as discovered from research [enter research], there was a positive correlation between increased traffic and increased cyclist accidents. 
 \item One which avoided areas with a certain risk level, both short and long term. A known accident blackspot might be a long term risk. If an accident has just occurred then the surrounding area might be a short term risk.
@@ -284,12 +284,13 @@ In keeping with the agile approach that we took to the design the functional req
 \item The system should be easy to use
 \begin{enumerate}[label*=\arabic*.]
 \item The user should be able to customise the system behaviour easily
+\item The system should give appropriate error messages when necessary
 \end{enumerate}
 \end{enumerate}
 \subsection{Efficiency}
 \label{efficiency}
 \begin{enumerate}[label=\ref*{efficiency}.\arabic*.,leftmargin=*]
-\item The system should
+\item All elements of the system should load within 1 second
 \end{enumerate}
 \subsection{Dependability}
 \label{dependability}
@@ -322,7 +323,6 @@ In keeping with the agile approach that we took to the design the functional req
 \item The system should be well documented
 \begin{enumerate}[label*=\arabic*.]
 \item All code should be properly commented
-\item The
 \end{enumerate}
 \end{enumerate}
 \subsection{Regulatory}
@@ -334,7 +334,7 @@ In keeping with the agile approach that we took to the design the functional req
 \subsection{Ethical}
 \label{ethical}
 \begin{enumerate}[label=\ref*{ethical}.\arabic*.,leftmargin=*]
-\item The system should 
+\item The system should not promote bad cycling habits
 \end{enumerate}
 \subsection{Legislative}
 \label{legislative}
@@ -641,13 +641,25 @@ Wireless communication for bicycle compoenents (mainly between the computer syst
  and given the time criticalness of the application for safety, it was decided that the communication pf the bicycle component should be wired.
 
 \chapter{System Architecture}
-W
 \section{Architectural Design}
 
 \chapter{Data Design}
-We were initially undecided about whether the system would require a database
 \section{Data Description}
-\subsection{Bicycle User Access}
+This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea [section \ref{subsec:rejected}] we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
+\subsection{Bicycle Settings}
+From a very early stage we decided that in order to make the user experience as good as possible the user should be able to easily customise the settings of the bike. Ideally we want every single aspect of the bike to be customisable - that may not be possible due to limitations of the hardware or software available, but that was our overall aim. 
+
+Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach. Here the current readings can be read in order to tell the user the current state of the bike and the user would update the settings in the same way as before. However, although easier and cheaper to implement, there are a whole load of problems the user would encounter with this method: 
+\begin{itemize}
+  \item If the bike recovered 
+\end{itemize}
+we decided that the settings should be stored locally on the bike and will then be changed via the interface and updated on the bikes local memory. Then, whenever the user gets on the bike they would not need to play with settings as they would already be loaded. We then considered taking this one step further by removing the local memory and installing a variety of sensors (in actual fact the sensors would likely be there anyway).
+
+We then, for obvious reasons, wanted to ensure that settings could be `saved' and recalled between sessions. 
+
+
+\subsection{User Access}
+The primary use for having data stored remotely is that it would allow 
 
 \paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
 
@@ -669,6 +681,8 @@ We were initially undecided about whether the system would require a database
 \paragraph{Internet communication}
 
 All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
+\subsection{Future applications}
+Many modern applications now make use of the huge amount of information available online by networking with other applications such as Google+ and Facebook. This is true of many of the cycling applications that we looked at which allow users to do things like share their routes with friends, view cycling statistics about each other and some even introduce some friendly competition. Although this is not an element of our design it something to keep in mind for the future - and by storing user accounts in a cloud server it is much easier to associate each account with a Facebook or Google+ account at a later date.
 \section{Data Dictionary}
 
 \chapter{Component Design}
@@ -789,6 +803,21 @@ Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1
 
 Conclusion - decision complying with criteria at the start
 
+\section{CPU}
+The Central Processing Unit (CPU) is key to the whole system - it is the CPU that will be programmed to make the crucial decisions.
+\subsection{Component Requirements}
+In general the requirements for a CPU are fairly simple - computing power - and is often not a major consideration. However, given the mobile nature and safety critical elements of this design there are a few important things we had to keep in mind while choosing an appropriate CPU.
+
+\begin{itemize}
+  \item The CPU should be able to analyse potential collisions in (near) real-time
+  \item The CPU should 
+\end{itemize}
+\subsection{Interface Design}
+The CPU is the HUB of the whole system - it will be connected to every component of the system.
+
+The CPU will be constantly reading the inputs from all of the sensors in the system, processing the data and then sending signals to the output systems; the braking system or the user interface for example. 
+\subsection{Possible Solutions}
+\paragraph{Conculsion}
 
 %JACK brakes and why we decided to reject the automatic steering.
 
@@ -1105,6 +1134,268 @@ Some may be positively affected by the project and other negatively. In the anal
 \clearpage
 
 \chapter{Prototype 2}
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/title}
+\caption{Title screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/not_paired}
+\caption{Message prompting the user to pair the phone with a bicycle}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/already_reg}
+\caption{This message will display when the device is paired with a brand new bicycle - it has no master user}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/reg_warn}
+\caption{There can only be one master user for a bicycle so there is a warning telling users they are about to set the master user}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/no_conn_master}
+\caption{An internet connection is needed to perform the initial setup - registering as a master user of a bike}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/startup}
+\caption{Startup screen allowing users to either login or register}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/connecting}
+\caption{Showing the status of the device - connecting to the server}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/connect_err}
+\caption{Error message displaying when the device could not connect to the server}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/unrecognised_err}
+\caption{Error message displaying the user credentials could not be located on the database}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/unrecognised_warn}
+\caption{If the user logs in with valid credentials but they are not a registed user of the bike in question they will not be allowed access until the master user adds them}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/create_success}
+\caption{Message telling the user that they have successfully created a new account}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/pass_conf_err}
+\caption{Error message telling the user why their account could not be created}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/missing_err}
+\caption{General error message telling users they must fill in all boxes. Could be incorporated with other features (highlighting missing boxes, etc.)}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/offline_warn}
+\caption{Users will be able to cycle without an internet connection however they may not be able to save changes to their settings}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/main}
+\caption{Main menu}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/accounts}
+\caption{The master user will be able to use this screen to change the registered users of the bike}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/add_user_warn}
+\caption{Warning, explaining that adding a user gives them control over the bike when they want it}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/add_user}
+\caption{Screen to enter the new bike users credentials}
+\end{figure}
+\clearpage\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/account_added}
+\caption{A user is successfully registered with the bike}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/add_user_conn}
+\caption{Connecting to the server to find the new user}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/add_user_err_conn}
+\caption{It is not possible to add a user without an internet connection}
+\end{figure}
+\clearpage\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/add_user_unrecognised}
+\caption{If the user could not be found}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/add_user_boxes_err}
+\caption{Error message if user fills out the form incorrectly}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/locked}
+\caption{Screen that displays when bike is locked}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings}
+\caption{Screen allowing the user to adjust settings}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_help_1}
+\caption{Alert box explain what the setting does}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_help_2}
+\caption{Alert box explain what the setting does}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_help_3}
+\caption{Alert box explain what the setting does}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_2}
+\caption{Some more settings}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_2_check}
+\caption{Dropdown menu}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/factory_reset}
+\caption{Warning when performing a factory reset}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/performance}
+\caption{The performance screen. This is the main riding screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/performance_reset}
+\caption{Warning when resetting performance stats}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/performance_resetted}
+\caption{The performance screen following a reset}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/brake_maintenance}
+\caption{A brake maintenance alert, this could display over any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/main_brake_warn}
+\caption{The main menu showing the warning icon at the top}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/prototype_2/collision_activate}
+\caption{Warning explaining collision detection system before it is de/activated}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/main_collision}
+\caption{Main menu screen showing that collision detection is on}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/prototype_2/performance_control_alert}
+\caption{Alert showing that the collision detection system has started to take control. Could display on any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/prototype_2/main_control_alert}
+\caption{Alert showing that the collision detection system has started to take control. Could display on any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.8]{figures/prototype_2/settings_control_alert}
+\caption{Alert showing that the collision detection system has started to take control. Could display on any screen}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_connection_warn}
+\caption{Without an internet connection changes to settings will be saved locally, but it is possible that they will get lost}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/settings_saved}
+\caption{Alert showing that the updated settings have been saved}
+\end{figure}
+\clearpage
+\begin{figure}
+\centering
+\includegraphics[scale=0.9]{figures/prototype_2/map}
+\caption{Basic map screen so that users can get routing information from Google Maps}
+\end{figure}
+\clearpage
 %\input{chapters/appendix}
 
 \bibliographystyle{plainnat}
