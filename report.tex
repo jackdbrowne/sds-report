@@ -11,6 +11,11 @@
 \usepackage{array}
 \usepackage{lscape}
 \usepackage{gensymb}
+\usepackage{pbox}
+\usepackage{nameref}
+\usepackage[chapter]{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
 \usepackage{geometry}
  \geometry{
  a4paper,
@@ -217,7 +222,7 @@ This process has four key stages:
 \item[Deliver] This stage was a series of prototype-feedback loops. We would come up with a prototype, scrutinise it for potential design flaws, adapt the design and repeat. This process continued up until the point where we had our final design.
 \end{description}
 
-\begin{figure}[h]
+\begin{figure}[t!]
 \centering
 \includegraphics[scale=0.4]{figures/diamond}
 \caption{A visual representation of the double diamond model}
@@ -546,146 +551,11 @@ In keeping with the agile approach that we took to the design the functional req
 \item The system warns the user that brakes are not performing as well as they should and are in need of maintenance
 \item The system reruns step 1 and alert disappears once time has improved and is lower than the time limit
 \end{enumerate}
+
 \chapter{Design Decisions}
 
-\section{Bicycle Brakes}
+\paragraph{}This section explains the considerations that were involved for each critical component on the product and the iterations until a practical solution was found. The practical solutions and the iterations that lead to the final solution is in section \textbf{\ref{sec:component_solutions} \nameref{sec:component_solutions}} on page \textbf{\pageref{sec:component_solutions}}. 
 
-\paragraph{}Our system was primarily based around automatically stopping the bicycle when a collision was predicted, and a core component of that was the brakes. The brakes had to quickly and reliably halt the bicycle with a minimal stopping distance. We researched what had an affect on the latter and how it could be reduced. The stopping distance of a bicycle is calculated similarly to a vehicle (from when its brakes are fully applied), with the following considerable factors; tyre pressure, tyre diameter, tyre tread type, bicycle weight, cyclist weight, the coefficient of friction between the surface, current speed, driver reaction time and vehicle reaction time. Our system takes the reaction time of the cyclist away from the equation, as it should apply the bicycle brakes before the cyclist would have a chance to react. 
-
-\subsection{Brake Lever}
-
-\paragraph{}The bicycle brakes had to have the ability to be activated via the bicycles on board computer and manually, via the cyclist, like a standard bicycle would. Different types of bicycle brakes were researched, for the aforementioned feasibility, but also that would provide the shortest braking distance. Common bicycle brakes use a bowman cable, hydraulic hose, or rods which are attached the brake lever on one end and to the brakes on the other. The bowman and rods use the pressing of a level to pull the cables and, in doing so, pressing brake pads against a wheel rim or disc. The hydraulic hose, works like a vehicle hydraulic brake, where the lever being pressed forcing fluid towards the braking system causing a build up of pressure and causes the brakes pads to be pressed. 
-
-\paragraph{}We initially looked at a way of connecting these wire/hydraulic cables to, in addition to the standard brake lever, to an electrical device, such as a motor (connected to the computer), which had the ability to increase and decrease the cable tension/pressure. The figures \ref{fig:early_motor_cable_tension} and  %need image for early idea for detailed
-on page \pageref{app:brakes_early_sketches} shows a simplistic early sketch of how this may have operated.  An issue with this solution was that, given the front and back brakes are at different distances from the handle bar brake levers, different tension/pressure is needed, and therefore two separate electric devices would have been needed, for each brake. There are multiple problems with having two devices; it would be difficult to maintain an equal distribution to the front and back brakes and if a non equal distribution occurred, then safety issues arise. More devices also increases the number of components where a fault could occur and thereby increased the amount of maintenance.  
- 
- \begin{figure}[h]
-\centering
-\includegraphics[scale=0.25]{figures/early_sketches/braking_system/motor_cable_tension}
-\caption{Early design sketch using a motor to increase and decrease the tension of a bayman cable for use in the bicycle braking system}
-\label{fig:early_motor_cable_tension}
-\end{figure}
- 
-\paragraph{}We decided that the users manual braking levers should be connected to the the onboard computer, via an electrical component, and would activated with same components as when automatically activated. This provided additional functionality, such as more control over the brakes and the force distribution to the front and back tyres; offer the user the ability to control how sensitive the brakes are (only for manual use), which is something that involves time consuming altering of mechanical components on a standard bicycle, but in this case the cyclist could easily alter the sensitivity to suit different riding conditions. Figures \ref{fig:early_brake_level_pressure} and \ref{fig:early_brake_level_pressure_enlarged} (page \pageref{app:early_sketches}), show sketches of where the component would be placed and how it would determine how much the brake levels have been compressed; the latter figure showing an enlarged and more detailed perspective.  
-
-\begin{figure}[!htb]]
-\centering
-\includegraphics[scale=0.45]{figures/early_sketches/braking_system/brake_lever_pressure_switch}
-\caption{Early design sketch of brake level attached to a pressure sensor for electrical braking system}
-\label{fig:early_brake_level_pressure}
-\end{figure}
-
-\begin{figure}[!htb]]
-\centering
-\includegraphics[scale=0.225]{figures/early_sketches/braking_system/brake_lever_pressure_sensor_enlarged}
-\caption{Early design sketch of brake lever and pressure sensor enlarged from figure \ref{fig:early_brake_level_pressure} for electrical braking system}
-\label{fig:early_brake_level_pressure_enlarged}
-\end{figure}
-
-\paragraph{}We researched the type of sensor that we could use for converting the force applied via the compression of the lever and discovered a component called a `Load Cell' or by some manufacturers, a `Force Transducer' (see fig \ref{}  on \pageref{}) which output an electrical signal proportional to the amount of force applied. 
-After analysis of our early design and the load cell components design, we came to the conclusion that the the components was not suitable for our application, as it appeared that the components was used in application for industrial measurements; we also realised that the internal design of the brake levers would require an attached spring, so the lever would decompress once released, like on a standard bicycle (whereby the lever decompresses via the released hold on the wire). This lead to the research into spring based sensors (e.g. a spring bases resistor/potentiometer). 
-
-\paragraph{}
-A spring potentiometer  was discovered to be used in many application, two most significant being for the foot pedal of a vehicle and, especially the twist throttle of a motorcycle. Figure \ref{fig:spring_pot} 
-
-In figure \ref{fig:early_brake_level_pressure_enlarged_spring} a A spring would be required for 
-
-``Electric actuation of the rear wheel brakes?brake by wire?offers further advantages: fast response, high power and ultra-precise control, even with intervention by the ESP stability system. Moreover, there?s no residual torque, that slight scraping of the linings against the disks, as can occur with hydraulic brakes."
-
-
-\subsection{Braking Component}
-
-
-\subsubsection{Rim Brakes}
-These are brakes 
-
-
-\subsubsection{Disc Brakes}
-
-
-The inspiration for the final solution was via the research into braking technologies used in current vehicles. In particular the Electric Hydraulic Combe Brakes (ECHB); figures \ref{fig:audi_EHCB_1} and \ref{fig:audi_EHCB_2} in appendix section \ref{app:brakes_current_technology} page \pageref{app:brakes_current_technology}. An electrical motor would be placed in the 
-
-
-
-%need to calculate stopping distance :/ 
-
-\section{Communication}
-
-\subsection{Wireless}
-
-\begin{landscape}
-
-\begin{table}[h]
-\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
-
-    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} |}
-    \hline
-    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryptionl} & \textbf{Connection Latency} & \textbf{Avg Power Consumption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
-   
-   Bluetooth v2.0 + EDR & 2.1 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW &   \\ \hline
-   Bluetooth v2.1 + EDR & 3 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & \\ \hline
-   Bluetooth v3.0 HS & 24 Mbit/s & & 128 bit stream cipher & & & & \\ \hline
-
-   
-    \end{tabular}
-
-
-\caption[Table caption text]{Wireless communication methods comparison} 
-\label{table:wireless_comp}
-\end{minipage} }
-\end{table}
-
-\end{landscape}
-
-Wireless communication for bicycle compoenents (mainly between the computer system and electric brakes), though small, posed the risk of disconnection %maybe some research about disconnection
- and given the time criticalness of the application for safety, it was decided that the communication pf the bicycle component should be wired.
-
-\chapter{System Architecture}
-\section{Architectural Design}
-
-\chapter{Data Design}
-\section{Data Description}
-This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea [section \ref{subsec:rejected}] we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
-\subsection{Bicycle Settings}
-From a very early stage we decided that in order to make the user experience as good as possible the user should be able to easily customise the settings of the bike. Ideally we want every single aspect of the bike to be customisable - that may not be possible due to limitations of the hardware or software available, but that was our overall aim. 
-
-Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach. Here the current readings can be read in order to tell the user the current state of the bike and the user would update the settings in the same way as before. However, although easier and cheaper to implement, there are a whole load of problems the user would encounter with this method: 
-\begin{itemize}
-  \item If the bike recovered 
-\end{itemize}
-we decided that the settings should be stored locally on the bike and will then be changed via the interface and updated on the bikes local memory. Then, whenever the user gets on the bike they would not need to play with settings as they would already be loaded. We then considered taking this one step further by removing the local memory and installing a variety of sensors (in actual fact the sensors would likely be there anyway).
-
-We then, for obvious reasons, wanted to ensure that settings could be `saved' and recalled between sessions. 
-
-
-\subsection{User Access}
-The primary use for having data stored remotely is that it would allow 
-
-\paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
-
-\subsubsection{\textbf{Security}}
-
-\paragraph{Requirements}
-
-\begin{itemize}
-\item A smart phone should be able to be used a `key' to the bicycle
-\item The Bicycle should be associated with one master user and their account.
-\item The master account should be able to allow other users and their accounts pair, unlock and use the bicycle
-
-\end{itemize}
-
-
-\subsubsection{Communications}
-
-
-\paragraph{Internet communication}
-
-All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
-\subsection{Future applications}
-Many modern applications now make use of the huge amount of information available online by networking with other applications such as Google+ and Facebook. This is true of many of the cycling applications that we looked at which allow users to do things like share their routes with friends, view cycling statistics about each other and some even introduce some friendly competition. Although this is not an element of our design it something to keep in mind for the future - and by storing user accounts in a cloud server it is much easier to associate each account with a Facebook or Google+ account at a later date.
-\section{Data Dictionary}
-
-\chapter{Component Design}
 \section{Collision Avoidance System}
 The collision avoidance system is the key component of this whole product. It is this system that really sets this whole product apart
 \subsection{Component Requirements}
@@ -705,7 +575,7 @@ We compared the
 \begin{table}[h]
 \resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
 
-  \begin{tabular}{ | m{1.2cm} | p{4.7cm} | p{4.7cm} |}
+  \begin{tabular}{ | m{3cm} | p{5cm} | p{5cm} |}
   \hline
   \textbf{Device} & \multicolumn{1}{|c|}{\textbf{Advantages}} & \multicolumn{1}{|c|}{\textbf{Disadvantages}} \\ \hline
    
@@ -756,7 +626,210 @@ We compared the
 \end{minipage} }
 \end{table}
 
+\section{Camera Hardware}
 
+\section{On board Computer}
+
+\paragraph{}We initially researched a sole microcontroller that could be used for whole system functionality, as they are vastly used today in automatically controlled product (e.g. vehicle engine control systems), they offer onboard ram and therefore do not need the configuration of separate components, reducing the risk of complications.  After research into the image processing algorithms we would be use for our detection and tracking of vehicles is was determined that a micro controller would not be sufficient to process the data, under detection and tracking algorithms, in real time. Processing in real time is crucial for for this safety critical application and would become redundant if it did not. A quicker, multiple core, CPU was needed, that could offer parallel processing, which is essential as the application has to detect and track vehicle simultaneously, from multiple cameras. The size of the RAM in micro controller also posed possible complications, given the amount of data that needed to be stored from each frame that was received from the multiple cameras.
+
+\paragraph{}Microcontrollers are still necessary as they be used in the system to be able to connect to the CPUs digital Input and output, much like a keyboard connects to a standard computer, where a micro controller embedded in the keyboard is first used to determine which key was pressed by the user. These micro-controllers are used to 
+
+\section{Bicycle Brakes}
+
+\paragraph{}Our system was primarily based around automatically stopping the bicycle when a collision was predicted, and a core component of that was the brakes. The brakes had to quickly and reliably halt the bicycle with a minimal stopping distance. We researched what had an affect on the latter and how it could be reduced. The stopping distance of a bicycle is calculated similarly to a vehicle (from when its brakes are fully applied), with the following considerable factors; tyre pressure, tyre diameter, tyre tread type, bicycle weight, cyclist weight, the coefficient of friction between the surface, current speed, driver reaction time and vehicle reaction time. Our system takes the reaction time of the cyclist away from the equation, as it should apply the bicycle brakes before the cyclist would have a chance to react. 
+
+\subsection{Brake Lever}
+\label{sec:brake_lever}
+
+\paragraph{}The bicycle brakes had to have the ability to be activated via the bicycles on board computer and manually, via the cyclist, like a standard bicycle would. Different types of bicycle brakes were researched, for the aforementioned feasibility, but also that would provide the shortest braking distance. Common bicycle brakes use a bowman cable, hydraulic hose, or rods which are attached to the brake lever on one end and to the brakes on the other. The bowman and rods use the pressing of a level to pull the cables and, in doing so, pressing brake pads against a wheel rim or disc. The hydraulic hose, works like a vehicle hydraulic brake, where the lever being pressed forcing fluid towards the braking system causing a build up of pressure and causes the brakes pads to be pressed. 
+
+
+%explain that "research" lead to the wanting to keep the standard of brake lever design and feeling that bicycle users were use to.
+
+\paragraph{}We initially looked at a way of connecting these wire/hydraulic cables to, alongside the standard brake lever, to an electrical device, such as a motor (connected to the computer), which had the ability to increase and decrease the cable tension/pressure. We decided disregard this solution (explained in more detail in section \ref{sec:braking_component}, on page \pageref{sec:braking_component}) and decided that the users manual braking levers should be connected to the the onboard computer, via an electrical component, and would be activated with the same components as when automatically activated. This provided additional functionality, such as more control over the brakes and the force distribution to the front and back tyres; offers the user the ability to control how sensitive the brakes are (only for manual use), which is something that involves time consuming altering of mechanical components on a standard bicycle, but in this case the cyclist could easily alter the sensitivity to suit different riding conditions. Figures \ref{fig:early_brake_level_pressure} and \ref{fig:early_brake_level_pressure_enlarged} (page \pageref{app:early_sketches}), show sketches of where the component would be placed and how it would determine how much the brake levels have been compressed; the latter figure showing an enlarged and more detailed perspective.  
+
+\begin{figure}[!htb]]
+\centering
+\includegraphics[scale=0.55]{figures/early_sketches/braking_system/brake_lever_pressure_switch}
+\caption{Early design sketch of brake level attached to a pressure sensor for electrical braking system}
+\label{fig:early_brake_level_pressure}
+\end{figure}
+
+\begin{figure}[!htb]]
+\centering
+\includegraphics[scale=0.25]{figures/early_sketches/braking_system/brake_lever_pressure_sensor_enlarged}
+\caption{Early design sketch of brake lever and pressure sensor enlarged from figure \ref{fig:early_brake_level_pressure} for electrical braking system}
+\label{fig:early_brake_level_pressure_enlarged}
+\end{figure}
+
+\paragraph{}We researched the type of sensor that we could use for converting the force applied via the compression of the lever and discovered a component called a `Load Cell' or by some manufacturers, a `Force Transducer' (see fig \ref{}  on \pageref{}) which outputs an electrical signal proportional to the amount of force applied. 
+After analysis of our early design and the load cell components design, we came to the conclusion that the component was not suitable for our application, as it appeared that the component was used in applications for industrial measurements; we also realised that the internal design of the brake levers would require an attached spring, so the lever would decompress once released, like on a standard bicycle (whereby the lever decompresses via the released hold on the wire). This lead to the research into spring based sensors (e.g. a spring based resistor/potentiometer). 
+
+\paragraph{}
+A spring potentiometer was discovered to be used in many applications; the two most significant applications being for a vehicle foot pedal, and even more so, for twist throttles on a motorcycle. Figure \ref{fig:spring_pot} (appendix section \ref{app:brakes_current_technology}, page \pageref{fig:spring_pot}) illustrates the design of such a component. It has a rotary subcomponent which is attached to a spring and rotating this subcomponent clockwise causes a change in resistance, which affects the electrical output. This electrical output can be used to determine how much the lever has been pressed and therefore how much to apply the brakes. An important factor of this component, is that it can be self returning (via the spring), offering similar functionality to what people have come accustomed to on a standard bicycle brake levers.
+
+In figure \ref{fig:early_brake_level_pressure_enlarged_spring} a A spring would be required for 
+
+``Electric actuation of the rear wheel brakes?brake by wire?offers further advantages: fast response, high power and ultra-precise control, even with intervention by the ESP stability system. Moreover, there?s no residual torque, that slight scraping of the linings against the disks, as can occur with hydraulic brakes."
+
+%one more sketch showing the internal use of the chosen spring potentiometer 
+
+\subsection{Braking Component}
+\label{sec:braking_component}
+
+As briefly mentioned in section \ref{sec:brake_lever}, was to offer the standard manual braking alongside the automatic braking, and figure \ref{fig:early_motor_cable_tension} (appendix \ref{app:early_sketches}, on page \pageref{fig:early_motor_cable_tension}) shows a simplistic early sketch of how this may have operated for one brake. This implies there would be two electrical motors attached to the brake cable. This was short-lived solution, as an issue with this solution was that, given the front and back brakes are at different distances from the handle bar brake levers, different tension/pressure is needed, and therefore two separate motors for pulling and release the cables would have been needed, for each brake. There are multiple problems with having two motors; it would be difficult to maintain an equal distribution to the front and back brakes and if a non equal distribution occurred, then safety issues arise. More devices also increases the number of components where a fault could occur and thereby risks increasing the amount of maintenance.  
+
+\paragraph{}In keeping with the electrical components we had decided to use in the brake lever, and the above flaws of using an electrical component, such as a motor, combined with the standard functionality of a bicycle, we decided that the braking component should also be electrically activated, but in this case it could be an electrical motor attached directly to the brake and used rotary motion to apply or release the brakes directly. This type of device, in conjunction with section \ref{sec:brake_lever} concluded component, offers a fast response, precise control of the brakes, and the ability to include known braking technology to increase control and reduce skidding.
+
+We researched into current electrical braking, in bicycle and vehicles. There was near to nil examples for electric brakes on bicycles as it's not a technology that has been required, but we did discover a professor \cite{wireless_bicycle_brakes} who had developed a wireless braking system (see figure \ref{fig:wireless_bicycle_brakes}, appendix \ref{app:brakes_current_technology}, on page \pageref{fig:wireless_bicycle_brakes}), that used an electric motor to activate the disc brake. We also drew inspiration from the vehicle manufacturer Audi and their Electric Hydraulic Combe brakes (EHCB) (see figures \ref{fig:audi_EHCB_1} and \ref{fig:audi_EHCB_2} in appendix section \ref{app:brakes_current_technology} page \pageref{app:brakes_current_technology}). See section \ref{sec:comp_design_brakes} for the braking system component.
+
+%need to calculate stopping distance :/ 
+
+\subsection{Communication}
+
+\subsubsection{Wireless}
+
+\begin{landscape}
+
+\begin{table}[h]
+\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
+
+    \begin{tabular}{ | m{3cm} | m{3cm} | m{3.5cm} | m{3cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} |}
+    \hline
+    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryption} & \textbf{Connection Latency} & \textbf{Avg Power Consumption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
+   
+   Bluetooth v2.0 + EDR & 2.1 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & &  \\ \hline
+   Bluetooth v2.1 + EDR & 3 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & & \\ \hline
+   Bluetooth v3.0 HS & 24 Mbit/s & & 128 bit stream cipher & & & & \\ \hline
+   Bluetooth v4.0 + EDR & 3 Mbit/s & & 128-bit AES with Counter Mode CBC-MAC & 6ms & & & Bluetooth v3.0 \\ \hline
+   Neat Field Communication (NFC) & 424 Kbit/s & & \pbox{20cm}{AES \\(not required by \\standard)} & 100ms & & < 20cm & N/A \\ \hline
+   Wi-fi 802.11b & 11 Mbit/s & WPAv2 & AES 256 bit & & & 250 m & n \\ \hline
+   Wi-fi 802.11g & 54 Mbit/s & WPAv2 & AES 256 bit & & & 250m & 802.11b \\ \hline
+   Wi-fi 802.11n & \pbox{20cm}{600 Mbit/s \\(theoretical)} & WPAv2 & AES 256 bit & & & 250m & \pbox{20cm}{802.11a  \\802.11b \\802.11g} \\ \hline
+   Wi-fi 802.11ac &  \pbox{20cm}{1.3 Gbit/s \\(theoretical)} & WPAv2 & AES 256 bit & & & & \pbox{20cm}{802.11g \\802.11n} \\ \hline
+   Mobile 3G & 3 Mbit/s & \pbox{20cm}{UEA1 \\UIA1} & KASUMI & & & 5 - 22 miles [2] & 2G \\ \hline
+   LTE 4G & \pbox{20cm}{3 - 10 Mbit/s \\(theoretical 100 \\Mbit/s)} & \pbox{20cm}{UEA1 \\UIA1} & SNOW 3G & & & 5 - 22miles [2] & \pbox{20cm}{2G \\3G}  \\ \hline
+   
+    \end{tabular}
+
+
+\caption[Table caption text]{Wireless communication methods comparison} 
+\label{table:wireless_comp}
+\end{minipage} }
+\end{table}
+
+\end{landscape}
+
+\subsubsection{Wired}
+
+
+\begin{table}[h]
+\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
+
+    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{3.5cm} | m{2.5cm} | m{2.5cm} |}
+    \hline
+    \textbf{Wired comms} & \textbf{Data Rates} & \textbf{Max Cable Length (without repeater) } & \textbf{Operating Temp min} & \textbf{Operating Temp Min} \\ \hline
+  
+  Ethernet Cat 5  & 10/100 Mbit/s & 100m & -20\degree C & 65\degree C\\ \hline 
+  Ethernet Cat 5e & 10/100/1000 Mbit/s & 100m & -20\degree C & 65\degree C \\ \hline
+  Ethernet Cat 6 & 10/100/1000 Mbit/s and 10 Gbit/s & \pbox{20cm}{100m @ 1000Mbit/s \\55m @ Gbit/s} & -20\degree C & 65\degree C \\ \hline
+   USB 2.0 & \pbox{20cm}{450 Mbit/s \\(theoretical)} & 5m & & \\ \hline
+   USB 3.0 & \pbox{20cm}{5 Gbit/s \\(theoretical)} & 3m & & \\ \hline
+   USB 3.1 & \pbox{20cm}{10 Gbit/s \\(theoretical)} & 3m & & \\ \hline
+    \end{tabular}
+
+
+\caption[Table caption text]{Wired communication methods comparison} 
+\label{table:wireless_comp}
+\end{minipage} }
+\end{table}
+
+Wireless communication for bicycle compoenents (mainly between the computer system and electric brakes), though small, posed the risk of disconnection %maybe some research about disconnection
+ and given the time criticalness of the application for safety, it was decided that the communication pf the bicycle component should be wired.
+
+\chapter{System Architecture}
+
+
+\section{Assisted Cycling}
+
+\chapter{System Architecture}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.2]{figures/system_architecture/overall_sys_arch}
+\caption{Overall system architecture}
+\label{fig:overall_sys_arch}
+\end{figure}
+
+\section{Architectural Design}
+
+\chapter{Data Design}
+\section{Data Description}
+This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea [section \ref{subsec:rejected}] we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
+\subsection{Bicycle Settings}
+From a very early stage we decided that in order to make the user experience as good as possible the user should be able to easily customise the settings of the bike. Ideally we want every single aspect of the bike to be customisable - that may not be possible due to limitations of the hardware or software available, but that was our overall aim. 
+
+Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach. Here the current readings can be read in order to tell the user the current state of the bike and the user would update the settings in the same way as before. However, although easier and cheaper to implement, there are a whole load of problems the user would encounter with this method: 
+\begin{itemize}
+  \item If the bike recovered 
+\end{itemize}
+we decided that the settings should be stored locally on the bike and will then be changed via the interface and updated on the bikes local memory. Then, whenever the user gets on the bike they would not need to play with settings as they would already be loaded. We then considered taking this one step further by removing the local memory and installing a variety of sensors (in actual fact the sensors would likely be there anyway).
+
+We then, for obvious reasons, wanted to ensure that settings could be `saved' and recalled between sessions. 
+
+
+\subsection{User Access}
+The primary use for having data stored remotely is that it would allow 
+
+\paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
+
+\subsubsection{\textbf{Security}}
+
+\paragraph{Requirements}
+
+\begin{itemize}
+\item A smart phone should be able to be used a `key' to the bicycle
+\item The Bicycle should be associated with one master user and their account.
+\item The master account should be able to allow other users and their accounts pair, unlock and use the bicycle
+
+\end{itemize}
+
+
+\subsubsection{Communications}
+
+
+\paragraph{Internet communication}
+
+All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
+
+\subsection{Future applications}
+Many modern applications now make use of the huge amount of information available online by networking with other applications such as Google+ and Facebook. This is true of many of the cycling applications that we looked at which allow users to do things like share their routes with friends, view cycling statistics about each other and some even introduce some friendly competition. Although this is not an element of our design it something to keep in mind for the future - and by storing user accounts in a cloud server it is much easier to associate each account with a Facebook or Google+ account at a later date.
+\section{Data Dictionary}
+
+\chapter{Component Solutions}
+\label{sec:component_solutions}
+\section{Braking System}
+\label{sec:comp_design_brakes}
+
+\subsection{Software}
+
+\begin{algorithm}
+\caption{Euclid's algorithm}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
+   \State $r\gets a\bmod b$
+   \While{$r\not=0$}\Comment{We have the answer if r is 0}
+      \State $a\gets b$
+      \State $b\gets r$
+      \State $r\gets a\bmod b$
+   \EndWhile\label{euclidendwhile}
+   \State \textbf{return} $b$\Comment{The gcd is b}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{Collision Avoidance System}
 
 \subsection{Interface Description} What does the components interact with (other software, hardware) diagram?
 
@@ -850,7 +923,7 @@ After taking all of this into account we eventually decided to stick with using 
 \end{itemize}
 This discussion also helped point out some of other design problems that we would need to address in the next prototype; the biggest of these being the phone battery. If a user were to cycle somewhere and then before cycling back their smartphone ran out of battery they would not be able to unlock the bike to cycle home. This could have a been major design flaw if left unaddressed. Another potential problem that was overlooked in the initial design is that phones do not conform to one particular shape or size; the latest iPhone 6 plus is 6.22 x 3.06 inches while the Sony Xperia M measures 4.88 x 2.44 inches.
 
-There was also some issues pointed out by users. Many asking ``how does it save my settings?" or ``how do you log in?". This was something that was forgotten in the initial design and would need to be addressed in the next iteration. Also, some users found that the bike battery level was not prominent enough on the interface. 
+There was also some issues pointed out by users. Many asking ``how does it save my settings?" or ``how do you log in?". This was something that was forgotten in the initial design and would need to be addressed in the next iteration. There was some confusion with users as to how the alerts worked in the interface, as it seemed that they pointed towards the lock icon which provoked thoughts of pressing the lock icon to read further. Also, some users found that the bike battery level was not prominent enough on the interface. 
 \section{Prototype 2}
 
 \chapter{Final Design}
@@ -859,8 +932,14 @@ There was also some issues pointed out by users. Many asking ``how does it save 
 \section{Screen Objects and Actions}
 
 \chapter{Conclusion}
+<<<<<<< Updated upstream
 
 \part*{Appendices}
+
+  
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+ 
 \appendix
 %TOM: need to write why we decided on electronic brakes...
 \chapter{Braking System}
@@ -883,9 +962,15 @@ There was also some issues pointed out by users. Many asking ``how does it save 
 \label{table:bicycle_friction}
 \end{table}
 
-%\section{Early Sketches 
-%\label{app:early_sketches}
+\section{Early Sketches}
+\label{app:early_sketches}
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/early_sketches/braking_system/motor_cable_tension}
+\caption{Early design sketch using a motor to increase and decrease the tension of a bayman cable for use in the bicycle braking system}
+\label{fig:early_motor_cable_tension}
+\end{figure}
 
 \section{Current Technology}
 \label{app:brakes_current_technology}
@@ -909,6 +994,14 @@ There was also some issues pointed out by users. Many asking ``how does it save 
 \caption{Spring operated potentiometer \citep{spring_pot}}
 \label{fig:spring_pot}
 \end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/electronic_braking/wireless_bicycle_brakes_labelled}
+\caption{Labelled Prototype of wireless by Pro Hermanns \citep{wireless_bicycle_brakes}}
+\label{fig:wireless_bicycle_brakes}
+\end{figure}
+
 
 \chapter{Research Report}
 In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover the best way in which to improve safety in cycling. In order to do this we analysed a range of statistics as well as speaking directly to different stakeholders and ...
@@ -1397,7 +1490,4 @@ Some may be positively affected by the project and other negatively. In the anal
 \end{figure}
 \clearpage
 %\input{chapters/appendix}
-
-\bibliographystyle{plainnat}
-\bibliography{bibliography}
 \end{document}
