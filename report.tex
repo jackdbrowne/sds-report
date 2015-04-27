@@ -4,6 +4,7 @@
 \usepackage{hyperref}
 \usepackage{url}
 \usepackage{graphicx}
+\usepackage{tabularx}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[english]{babel}
@@ -749,11 +750,6 @@ Wireless communication for bicycle compoenents (mainly between the computer syst
 
 \chapter{System Architecture}
 
-
-\section{Assisted Cycling}
-
-\chapter{System Architecture}
-
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{figures/system_architecture/overall_sys_arch}
@@ -765,11 +761,11 @@ Wireless communication for bicycle compoenents (mainly between the computer syst
 
 \chapter{Data Design}
 \section{Data Description}
-This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea [section \ref{subsec:rejected}] we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
+This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea (section \ref{subsec:rejected}) we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
 \subsection{Bicycle Settings}
 From a very early stage we decided that in order to make the user experience as good as possible the user should be able to easily customise the settings of the bike. Ideally we want every single aspect of the bike to be customisable - that may not be possible due to limitations of the hardware or software available, but that was our overall aim. 
 
-Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach where the current readings can be read by the computer in order to tell the user the current state of the bike and the user would update the settings and whatever it is that is being changed would change. This is very easy and cheap to implement but not really very suitable for the following reasons:
+Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach where the current readings can be read by the computer in order to tell the user the current state of the bike and the user would update the settings and whatever it is that is being changed would change. Here the values would not be saved, they would just be read from the sensors every time. This is very easy and cheap to implement but it turns out it is not really very suitable, for the following reasons:
 \begin{itemize}
   \item This works very well for purely mechanical settings, such as suspension firmness or ride height, however we would also like some more adaptive settings, such as brake assist level and maximum motor speed. These settings are hard to adjust mechanically and would probably require some computer control.
   \item This is very sensitive to the accuracy of the sensors, if one of the sensors starts to give faulty readings it will be very difficult to recover the behaviour that you had set up.
@@ -777,10 +773,10 @@ Under our initial plan we wanted to keep things as simple as possible and went w
 \end{itemize}
 From here we moved to a system where the settings are stored locally on the bike and will then be changed via the interface and updated on the bikes local memory. Then, whenever the user gets on the bike they would not need to play with settings as they would already be loaded. This addresses many of the problems mentioned above but is not perfect.
 \begin{itemize}
-  \item Although users will now quite easily be able to save a backup of their settings and transfer them to a new bike - they will not be able to recover settings on the go and the system will not really be practical for somebody who uses multiples bikes (somebody who lives a two addresses, for example)
-  \item Equally, this system would need to be adapted to allow for multiple users on the same bike
+  \item Although users will now quite easily be able to save a backup of their settings and transfer them to a new bike - they will not be able to recover settings on the go and the system will not really be practical for somebody who uses multiples bikes (somebody who lives a two addresses, for example).
+  \item Equally, this system would need to be adapted to allow for multiple users on the same bike.
 \end{itemize}
-This is what led us to our final cloud based approach. All of the settings will be stored in a database and when a user logs into a bike they will be able to download their settings and have the bike set up in the way that they like. 
+This is what led us to our final cloud based approach. We first approached this by saying that the settings are a property of the bike, that multiple users can modify. However, after talking to our user group we found that it would clearly be more appropriate for the settings to be attributed to the users themselves. This would be particularly beneficial for users who have multiple bikes but also resolves a potential annoyance whereby a user may have had to change the bike settings every time they go to use it (if somebody has used the bike in the meantime). The drawback to this approach is that it does not allow for one user to have different settings for each of their bikes, since the settings are not attributed to the bikes but rather the users. However, the users that we spoke to said that this way would be more beneficial to them.
 
 
 \subsection{User Access}
@@ -1107,7 +1103,22 @@ Some of the stakeholders shown are directly affected, cyclists for example. Wher
 
 Some may be positively affected by the project and other negatively. In the analysis we will show the likely reactions of some of the key holders and the reasons for this reaction.
 \newpage
-\includegraphics[scale=0.5, angle=90]{figures/stakeholder_map}
+\includegraphics[scale=0.7, angle=90]{figures/stakeholder_map}
+\newpage
+\begin{center}
+\begin{tabularx}{\linewidth}{|c|X|X|c|X|}
+\hline
+\textbf{Stakeholder} & \textbf{Goals} & \textbf{Behaviour} & \textbf{-ve or +ve?} & \textbf{Likely Reaction} \\ \hline
+Bike shops & To sell bikes & Helpful, supportive & +ve & Promote the bike \\ \hline
+Cyclists & To commute via bike & Supportive & +ve & Possibly purchase the bike or purchase other bikes as a result of safety in numbers \\ \hline
+Drivers & To commute & Unhelpful and destructive & -ve & Strongly resist. Drivers in general definitely do not want an increase of cycling numbers \\ \hline
+Pedestrians & To commute/get around & Unhelpful & -ve & Probably resist slightly since some cyclists have reputation for riding on pavement, running red lights, etc.  \\ \hline
+Environmentalists & To protect the environment & Helpful, supportive & +ve & Would strongly support anything that leads to a reduction in CO2 emissions\\ \hline
+Health service & To provide healthcare to the public & Helpful, supportive & +ve & Mixed. Would support increase in cycling as it is generally healthy. May worry about increased severity accidents\\ \hline
+Bike Thieves & To make money from the theft of bicycles & Silently supportive & +ve & Would be happy about the prospect of more expensive bikes on the market \\ \hline
+Government & To provide overall management to the transport system & Mixed & +ve & Mixed. Some areas of government would probably appreciate more cyclists on the road. However, an increased number of cyclists could lead to increased pressure to build cycle lanes and further infrastructure\\ \hline
+\end{tabularx}
+\end{center}
 
 \chapter{Prototype 1}
 \begin{figure}
@@ -1494,5 +1505,4 @@ Some may be positively affected by the project and other negatively. In the anal
 \caption{Basic map screen so that users can get routing information from Google Maps}
 \end{figure}
 \clearpage
-%\input{chapters/appendix}
 \end{document}
