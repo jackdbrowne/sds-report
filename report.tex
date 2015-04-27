@@ -769,17 +769,22 @@ This system is not heavily data driven and for a long time during the design the
 \subsection{Bicycle Settings}
 From a very early stage we decided that in order to make the user experience as good as possible the user should be able to easily customise the settings of the bike. Ideally we want every single aspect of the bike to be customisable - that may not be possible due to limitations of the hardware or software available, but that was our overall aim. 
 
-Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach. Here the current readings can be read in order to tell the user the current state of the bike and the user would update the settings in the same way as before. However, although easier and cheaper to implement, there are a whole load of problems the user would encounter with this method: 
+Under our initial plan we wanted to keep things as simple as possible and went with a purely sensor based approach where the current readings can be read by the computer in order to tell the user the current state of the bike and the user would update the settings and whatever it is that is being changed would change. This is very easy and cheap to implement but not really very suitable for the following reasons:
 \begin{itemize}
-  \item If the bike recovered 
+  \item This works very well for purely mechanical settings, such as suspension firmness or ride height, however we would also like some more adaptive settings, such as brake assist level and maximum motor speed. These settings are hard to adjust mechanically and would probably require some computer control.
+  \item This is very sensitive to the accuracy of the sensors, if one of the sensors starts to give faulty readings it will be very difficult to recover the behaviour that you had set up.
+  \item It is practically impossible to recover settings. If the bike were to suffer a major error there is no way to save settings or move them to a new bike.
 \end{itemize}
-we decided that the settings should be stored locally on the bike and will then be changed via the interface and updated on the bikes local memory. Then, whenever the user gets on the bike they would not need to play with settings as they would already be loaded. We then considered taking this one step further by removing the local memory and installing a variety of sensors (in actual fact the sensors would likely be there anyway).
-
-We then, for obvious reasons, wanted to ensure that settings could be `saved' and recalled between sessions. 
+From here we moved to a system where the settings are stored locally on the bike and will then be changed via the interface and updated on the bikes local memory. Then, whenever the user gets on the bike they would not need to play with settings as they would already be loaded. This addresses many of the problems mentioned above but is not perfect.
+\begin{itemize}
+  \item Although users will now quite easily be able to save a backup of their settings and transfer them to a new bike - they will not be able to recover settings on the go and the system will not really be practical for somebody who uses multiples bikes (somebody who lives a two addresses, for example)
+  \item Equally, this system would need to be adapted to allow for multiple users on the same bike
+\end{itemize}
+This is what led us to our final cloud based approach. All of the settings will be stored in a database and when a user logs into a bike they will be able to download their settings and have the bike set up in the way that they like. 
 
 
 \subsection{User Access}
-The primary use for having data stored remotely is that it would allow 
+In order to properly implement the bike settings we would need each user to have their own login
 
 \paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
 
