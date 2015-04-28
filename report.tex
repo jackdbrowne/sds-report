@@ -179,7 +179,7 @@ As can be expected; cyclists are always concerned about the theft of their bike.
 
 However, we can reasonably assume that consumers who spend more on their products will be  willing to spend a little extra on security or insurance. This might go some way to counteracting the concern about theft. Another way to alleviate these concerns might be to incorporate anti-theft devices into the product itself, similarly to ‘Find my iPhone’ and similar products.
 \paragraph{Conclusion}
-From the research we decided that an appropriate cost for producing this bike is \pounds1000. Even though this is significantly more than the average spend for a bike we feel that it is justified for a product of this quality since it is in the region that cycling commuters currently spend (particularly once accessories are taken into account). Also, this still comes at considerably less cost than many of the commuting alternatives (diriving, public transport,etc).
+From the research we decided that an appropriate cost for producing this bike is \pounds1000. Even though this is significantly more than the average spend for a bike we feel that it is justified for a product of this quality since it is in the region that cycling commuters currently spend (particularly once accessories are taken into account). Also, this still comes at considerably less cost than many of the commuting alternatives (driving, public transport,etc).
 
 \subsection{Weight}
 There are not many statistics out there regarding the weight of consumer bicycles so most of this research came from talking to cyclists and cycle shops.
@@ -762,12 +762,20 @@ Wireless communication for bicycle compoenents (mainly between the computer syst
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.2]{figures/system_architecture/overall_sys_arch}
-\caption{Overall system architecture}
+\caption{Deployment of the overall system architecture}
 \label{fig:overall_sys_arch}
 \end{figure}
 
 \section{Architectural Design}
 
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.4, angle=90]{figures/system_architecture/UML_Class_Diagram}
+\caption{UML Class diagram}
+\label{fig:UML_Class_Diagram}
+\end{figure}
+
+The UML class diagram shown in figure \ref{fig:UML_Class_Diagram} displays the final structure for the software components of the system. 
 \chapter{Data Design}
 \section{Data Description}
 This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea (section \ref{subsec:rejected}) we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
