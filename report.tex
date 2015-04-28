@@ -240,48 +240,57 @@ In keeping with the agile approach that we took to the design the functional req
 \section{Functional Requirements}
 \label{sec:func_req}
 \begin{enumerate}[label=\ref*{sec:func_req}.\arabic*.,leftmargin=*]
-\item The system should 
-\begin{enumerate}[label*=\arabic*.]
-\item The user should be able to customise the system behaviour easily
-\end{enumerate}
-\end{enumerate}
+\item The system must monitor tyre pressure
+\begin{description}
+\item[Description] The system must keep a real-time view on the pressure in both bicycle tires and present information to the user. If the tires are below a certain pressure, the system must automatically inflate the tires to an optimal pressure
+\item[Reason] Deflated tires affects cycling performance and also may damage the bicycle. Automatic inflation will improve the cyclists confidence to cycle
+\end{description}
 
-\textbf{ID:} FR1\\
-\textbf{Title:} The system must monitor tyre pressure.\\
-\textbf{Description:} The system must keep a real-time view on the pressure in both bicycle tires and present information to the user. If the tires are below a certain pressure, the system must automatically inflate the tires to an optimal pressure\\
-\textbf{Reason:} Deflated tires affects cycling performance and also may damage the bicycle. Automatic inflation will improve the cyclists confidence to cycle\\\\
-\textbf{ID:} FR2\\
-\textbf{Title:} The system's mobile app must be available to download\\
-\textbf{Description:} The user must be able to download and install the mobile app onto their mobile phone via a website or popular app store\\
-\textbf{Reason:} User has easy access to the software\\\\
-\textbf{ID:}  FR3\\
-\textbf{Title:}  The system must provide notifications to the user\\
-\textbf{Description:} The system must provide easy to read notifications to the user\\
-\textbf{Reason:} Alerting the user of hazards will improve safety\\
-\textbf{Dependencies:} FR5, FR6\\\\
-\textbf{ID:}  FR4\\
-\textbf{Title:}  User information must be stored in a database\\
-\textbf{Description:} The system must keep records of usernames, passwords, bicycle location, user phone numbers.\\
-\textbf{Reason:} To enable security features\\\\
-\textbf{ID:}  FR5\\
-\textbf{Title:}  Collision detection\\
-\textbf{Description:} The system detects vehicles (possibly pedestrians, too), tracks them and predicts their future trajectory from their velocity, yaw, etc. \\
-\textbf{Dependencies:}\\\\
-\textbf{ID:} FR6\\
-\textbf{Title:}  Collision Avoidance\\
-\textbf{Description:} If a predicted trajectory will cause a collision, then the cyclist is either warned or the system takes over.\\
-\textbf{Dependencies:} FR5\\
-\textbf{Reason:} A humans reaction time can place them at risk.\\\\
-\textbf{ID:} FR7\\
-\textbf{Title:}  Remote locking\\
-\textbf{Description:} The user must be able to lock the bicycle wheels in place using an application on a separate device\\
-\textbf{Dependencies:} FR2, FR8\\
-\textbf{Reason:} To reduce the risk of the bicycle being stolen.\\\\
-\textbf{ID:} FR8\\
-\textbf{Title:}  Bicycle Interface\\
-\textbf{Description:} The cyclist/user should be able to interface with the bicycle and change settings.\\
-\textbf{Dependencies:} FR2\\
-\textbf{Reason:} Cyclists have different cycling methods.\\\\
+\item The system's mobile app must be available to download
+\begin{description}
+\item[Description] The user must be able to download and install the mobile app onto their mobile phone via a website or popular app store
+\item[Reason] User has easy access to the software
+\end{description}
+
+\item The system must provide notifications to the user
+\begin{description}
+\item[Description] The system must provide easy to read notifications to the user
+\item[Reason] Alerting the user of hazards will improve safety
+\item[Dependencies] FR5, FR6
+\end{description}
+
+\item User information must be stored in a database
+\begin{description}
+\item[Description] The system must keep records of usernames, passwords, bicycle location, user phone numbers
+\item[Reason] To enable security features
+\end{description}
+
+\item Collision detection
+\begin{description}
+\item[Description] The system detects vehicles (possibly pedestrians, too), tracks them and predicts their future trajectory from their velocity, yaw, etc.
+\item[Reason] To enable security features
+\end{description}
+
+\item Collision Avoidance
+\begin{description}
+\item[Description] If a predicted trajectory will cause a collision, then the cyclist is either warned or the system takes over.
+\item[Reason] A humans reaction time can place them at risk.
+\end{description}
+
+\item Remote locking
+\begin{description}
+\item[Description] The user must be able to lock the bicycle wheels in place using an application on a separate device
+\item[Reason] To reduce the risk of the bicycle being stolen.
+\item[Dependencies] FR2, FR8
+\end{description}
+
+\item Bicycle Interface
+\begin{description}
+\item[Description] The cyclist/user should be able to interface with the bicycle and change settings.
+\item[Reason] Cyclists have different cycling methods.
+\item[Dependencies] FR2
+\end{description}
+\end{enumerate}
 
 \section{Non-functional Requirements}
 \subsection{Usability}
@@ -651,7 +660,7 @@ We compared the
 
 \begin{figure}[!htb]]
 \centering
-\includegraphics[scale=0.55]{figures/early_sketches/braking_system/brake_lever_pressure_switch}
+\includegraphics[scale=0.25]{figures/early_sketches/braking_system/brake_lever_pressure_switch}
 \caption{Early design sketch of brake level attached to a pressure sensor for electrical braking system}
 \label{fig:early_brake_level_pressure}
 \end{figure}
@@ -780,33 +789,37 @@ This is what led us to our final cloud based approach. We first approached this 
 
 
 \subsection{User Access}
-In order to properly implement the bike settings we would need each user to have their own login
-
-\paragraph{} Based around security and convenience, users would have their own separate accounts and the bicycle would be associated with one master account. Only the master user and users, that the aforementioned has allowed, can access the bicycle and use it. This offers security and convenience as users have their own account with their preferences for the bicycle to automatically use. 
-
-\subsubsection{\textbf{Security}}
-
-\paragraph{Requirements}
+In order to properly implement the bike settings we would need each user to have their own unique login so that the could associate settings with that account. This actually became quite a major issue for us because we had the following requirements:
 
 \begin{itemize}
-\item A smart phone should be able to be used a `key' to the bicycle
-\item The Bicycle should be associated with one master user and their account.
-\item The master account should be able to allow other users and their accounts pair, unlock and use the bicycle
-
+\item A user should be able to access multiple bikes, if they so wish
+\item Multiple users should be able to access one bike
+\item A user should be able to have their personal settings download automatically on any bike that they use
+\item A user should be able to access their bikes with relative ease
+\item User access should be restricted to certain people
 \end{itemize}
 
+\subsubsection{Security}
+The key issue that we had to solve was how to pair users with bikes in such a way that it is easy to do but also doesn't allow any random person to pair themselves. After considering many solutions; such as allowing anybody to pair, but restricting who can lock and unlock the bike to just one person. This wasn't practical because it meant you wouldn't be able to cycle somewhere and lock the bike without the locking users credentials, which then compromises the integrity of the system. Another approach that was considered was assigning accounts to the bikes rather than the users - but this would not be very good either because then users would need to remember account details to log into different bikes - and it also makes the settings more difficult to implement.
 
-\subsubsection{Communications}
-
-
-\paragraph{Internet communication}
-
-All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
+The final solution that we eventually came up with was almost a combination of both ideas - we had to make a slight trade-off towards security over ease of use in this situation. We decided on a system of master accounts. Where on the initial setup of the bike a master account is assigned and then this master account holder is then able add or remove other users to the bike. This is not ideal for users who jointly own a bike where there is no obvious master account holder and it is also not ideal for a bike that is used by lots of different people because it could require the master account holder to be making regular changes. However we felt that these situations are rare, workable and also that the security implications make this necessary trade-off. 
 
 \subsection{Future applications}
 Many modern applications now make use of the huge amount of information available online by networking with other applications such as Google+ and Facebook. This is true of many of the cycling applications that we looked at which allow users to do things like share their routes with friends, view cycling statistics about each other and some even introduce some friendly competition. Although this is not an element of our design it something to keep in mind for the future - and by storing user accounts in a cloud server it is much easier to associate each account with a Facebook or Google+ account at a later date.
-\section{Data Dictionary}
 
+\section{Communications}
+All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
+
+As well as this all user passwords should be stored using a secure hashing algorithm, this means that the plaintext passwords are not saved anywhere and if the database was compromised the user passwords would still be protected. As a further level of protection passwords should be salted to prevent against dictionary attacks on the password hashes.
+\section{Data Schema}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/sql}
+\label{fig:sql_schema}
+\caption{Basic SQL schema for the database}
+\end{figure}
+
+In figure \ref{fig:sql_schema} you can see the basic SQL schema required for this system. In order to achieve the many-to-many relationship required between bikes and users we had to incorporate a `bike\_user' table to link the two. As well as this we had to be able to identify the master user this could be done in a few different ways. We could have had a boolean field in the relationship table identifying whether this was a master relationship, along with this we would need a constraint to specify that there should be one and only one master flag set to true for each bike\_id. The approach we actually went for was to have the master\_id stored in the bike table directly. This removes the need to check that there is one and only one master and also makes it much easier to manage the situation where the master user `gives up' the bike. This will require it's own constraint; that the master user is already specified as a user of that bike in the bike\_user table.
 \chapter{Component Solutions}
 \label{sec:component_solutions}
 \section{Braking System}
@@ -926,23 +939,23 @@ This discussion also helped point out some of other design problems that we woul
 
 There was also some issues pointed out by users. Many asking ``how does it save my settings?" or ``how do you log in?". This was something that was forgotten in the initial design and would need to be addressed in the next iteration. There was some confusion with users as to how the alerts worked in the interface, as it seemed that they pointed towards the lock icon which provoked thoughts of pressing the lock icon to read further. Also, some users found that the bike battery level was not prominent enough on the interface. 
 \section{Prototype 2}
+The second prototype was a marked improvement over the initial one, addressing many of the major problems. Users particularly liked the simplicity of the registration system in that it does not request lots of unnecessary information. This is something that we will be carrying over into our final design. 
 
+Another element that users particularly liked was the usability of the accounts screen - commenting that many similar systems try to do too much in this area which makes the important things hard to find. We tried to keep this is simple as possible, allowing users to only add or remove access rights for any given user. However, in this same area there was something that users didn't like - the need for a password when adding or removing a user. This was intended as a safety element to stop users from being accidentally removed but users tended to find this confusing given that it was directly under a email input box. We will have to think more carefully about this in our final design.  
+
+In this prototype we added lots of forms for different things - registering, login, adding users - obviously each of these forms needs validation but a few users commented that the amount of pop-up boxes that we have could get very annoying. Maybe in our final design we might try to do more of the validation using asynchronous background calls (using something like AJAX).
+
+For the most part people thought that the new alert boxes, a solid box, were good  and an improvement over the old speech bubble style. However some people did ask whether the alerts were prominent enough, given that they are alerting to quite important events, but most of these people were reassured when we told them that this alert is only for convenience, the primary alert is an audible one from the bike itself.
 \chapter{Final Design}
 \section{Overview of User Interface}
 \section{Screen Images}
 \section{Screen Objects and Actions}
 
 \chapter{Conclusion}
-<<<<<<< Updated upstream
 
 \part*{Appendices}
 
-  
-\bibliographystyle{plainnat}
-\bibliography{bibliography}
- 
 \appendix
-%TOM: need to write why we decided on electronic brakes...
 \chapter{Braking System}
 \section{Research}
 
@@ -1505,4 +1518,10 @@ Government & To provide overall management to the transport system & Mixed & +ve
 \caption{Basic map screen so that users can get routing information from Google Maps}
 \end{figure}
 \clearpage
+
+  
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+ 
+
 \end{document}
