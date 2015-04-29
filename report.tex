@@ -75,6 +75,7 @@ Finally we will present our critical analysis of the prototypes that we created 
 \begin{description}
 \item[RTA] Road Traffic Accident
 \item[UCI] Union Cycliste Internationale
+\item [I/O] Input/Output
 \end{description}
 \section{References}
 The design decisions that we made are based on our earlier research and we will continually refer to this research throughout the report, all of which is documented in the Research Report found in the appendix. 
@@ -639,10 +640,11 @@ We compared the
 \section{Camera Hardware}
 
 \section{On board Computer}
+\label{sec:computer}
 
 \paragraph{}We initially researched a sole microcontroller that could be used for whole system functionality, as they are vastly used today in automatically controlled product (e.g. vehicle engine control systems), they offer onboard ram and therefore do not need the configuration of separate components, reducing the risk of complications.  After research into the image processing algorithms we would be use for our detection and tracking of vehicles is was determined that a micro controller would not be sufficient to process the data, under detection and tracking algorithms, in real time. Processing in real time is crucial for for this safety critical application and would become redundant if it did not. A quicker, multiple core, CPU was needed, that could offer parallel processing, which is essential as the application has to detect and track vehicle simultaneously, from multiple cameras. The size of the RAM in micro controller also posed possible complications, given the amount of data that needed to be stored from each frame that was received from the multiple cameras.
 
-\paragraph{}Microcontrollers are still necessary as they be used in the system to be able to connect to the CPUs digital Input and output, much like a keyboard connects to a standard computer, where a micro controller embedded in the keyboard is first used to determine which key was pressed by the user. These micro-controllers are used to 
+\paragraph{}Microcontrollers are still necessary as they be used in the system to be able to connect to the CPUs digital Input and output, much like a keyboard connects to a standard computer, where a micro controller embedded in the keyboard is first used to determine which key was pressed by the user. These micro-controllers are used to connect the electrical components 
 
 \section{Bicycle Brakes}
 
@@ -672,15 +674,10 @@ We compared the
 \label{fig:early_brake_level_pressure_enlarged}
 \end{figure}
 
-\paragraph{}We researched the type of sensor that we could use for converting the force applied via the compression of the lever and discovered a component called a `Load Cell' or by some manufacturers, a `Force Transducer' (see fig \ref{}  on \pageref{}) which outputs an electrical signal proportional to the amount of force applied. 
-After analysis of our early design and the load cell components design, we came to the conclusion that the component was not suitable for our application, as it appeared that the component was used in applications for industrial measurements; we also realised that the internal design of the brake levers would require an attached spring, so the lever would decompress once released, like on a standard bicycle (whereby the lever decompresses via the released hold on the wire). This lead to the research into spring based sensors (e.g. a spring based resistor/potentiometer). 
 
-\paragraph{}
-A spring potentiometer was discovered to be used in many applications; the two most significant applications being for a vehicle foot pedal, and even more so, for twist throttles on a motorcycle. Figure \ref{fig:spring_pot} (appendix section \ref{app:brakes_current_technology}, page \pageref{fig:spring_pot}) illustrates the design of such a component. It has a rotary subcomponent which is attached to a spring and rotating this subcomponent clockwise causes a change in resistance, which affects the electrical output. This electrical output can be used to determine how much the lever has been pressed and therefore how much to apply the brakes. An important factor of this component, is that it can be self returning (via the spring), offering similar functionality to what people have come accustomed to on a standard bicycle brake levers.
+\paragraph{}We researched the type of sensor that we could use for converting the force applied via the compression of the lever and discovered a component called a 'Load Cell' or by some manufacturers, a 'Force Transducer' (see fig \ref{}  on \pageref{}) which outputs an electrical signal proportional to the amount of force applied. After analysis of our early design and the load cell components design, we came to the conclusion that the component was not suitable for our application, as it appeared that the component was used in applications for industrial measurements; we also realised that the internal design of the brake levers would require an attached spring, so the lever would decompress once released, like on a standard bicycle (whereby the lever decompresses via the released hold on the wire). This lead to the research into spring based sensors (e.g. a spring based resistor/potentiometer). 
 
-In figure \ref{fig:early_brake_level_pressure_enlarged_spring} a A spring would be required for 
-
-``Electric actuation of the rear wheel brakes?brake by wire?offers further advantages: fast response, high power and ultra-precise control, even with intervention by the ESP stability system. Moreover, there?s no residual torque, that slight scraping of the linings against the disks, as can occur with hydraulic brakes."
+\paragraph{}A spring potentiometer was discovered to be used in many applications; the two most significant applications being for a vehicle foot pedal, and even more so, for twist throttles on a motorcycle. Figure \ref{fig:spring_pot} (appendix section \ref{app:brakes_current_technology}, page \pageref{fig:spring_pot}) illustrates the design of such a component. It has a rotary subcomponent which is attached to a spring and rotating this subcomponent clockwise causes a change in resistance, which affects the electrical output. This electrical output can be used to determine how much the lever has been pressed and therefore how much to apply the brakes. An important factor of this component, is that it can be self returning (via the spring), offering similar functionality to what people have come accustomed to on a standard bicycle brake levers.
 
 %one more sketch showing the internal use of the chosen spring potentiometer 
 
@@ -830,23 +827,57 @@ As well as this all user passwords should be stored using a secure hashing algor
 In figure \ref{fig:sql_schema} you can see the basic SQL schema required for this system. In order to achieve the many-to-many relationship required between bikes and users we had to incorporate a `bike\_user' table to link the two. As well as this we had to be able to identify the master user this could be done in a few different ways. We could have had a boolean field in the relationship table identifying whether this was a master relationship, along with this we would need a constraint to specify that there should be one and only one master flag set to true for each bike\_id. The approach we actually went for was to have the master\_id stored in the bike table directly. This removes the need to check that there is one and only one master and also makes it much easier to manage the situation where the master user `gives up' the bike. This will require it's own constraint; that the master user is already specified as a user of that bike in the bike\_user table.
 \chapter{Component Solutions}
 \label{sec:component_solutions}
+
+
 \section{Braking System}
 \label{sec:comp_design_brakes}
 
+\paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}.
+
+\subsection{Prototype Iteration I}
+\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK! needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors if the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components, to the main computer board, after the analog signals have been converted to digital representation (via the ADC). The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value} and that value determines the motor speed.
+
+\begin{algorithm}[h]
+\caption{Computer Board to microcontroller brake motor control}\label{lag:comp_board_motor_control}
+\begin{algorithmic}[1]
+\Function{CalculateMotorControl}{$brakeData$}\Comment{Digital braking data received from the microcontroller}
+
+\EndFunction
+
+
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Prototype Iteration ii}
+
+
 \subsection{Software}
 
-\begin{algorithm}
-\caption{Euclid's algorithm}\label{euclid}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.3]{figures/electronic_braking/circuit}
+\caption{Electronic braking schematic (with omitted components; not necessary for core explanation)}
+\label{fig:braking_schematic}
+\end{figure}
+
+\begin{algorithm}[h]
+\caption{Brake Lever}\label{alg:brake_lever}
 \begin{algorithmic}[1]
-\Procedure{Euclid}{$a,b$}\Comment{The g.c.d. of a and b}
-   \State $r\gets a\bmod b$
-   \While{$r\not=0$}\Comment{We have the answer if r is 0}
-      \State $a\gets b$
-      \State $b\gets r$
-      \State $r\gets a\bmod b$
-   \EndWhile\label{euclidendwhile}
-   \State \textbf{return} $b$\Comment{The gcd is b}
-\EndProcedure
+\Function{Brake}{$pin$}\Comment{The pin that received the analog signal}
+\State \Call{delay}{n}  \Comment{Delay for circuitry to receive analog signal e.g. 20$\mu$s} 
+\State $ADCRegisterGOBit := 1$
+\While{$ADCRegisterGOBit == $}\Comment{Wait for conversion to complete}
+   \EndWhile\
+   \State $adcResult := ADCResultRegister$\Comment{Get the result stored in the result register}
+   \If{$pin == LeftPin$}\Comment{Which Brake lever was pressed}
+   	\State $Motor := LeftMotor$
+  \ElsIf{$pin == RightPin$}
+  	\State $motor := RightMotor$\Comment{store right motor pin data in $motor$ variable}
+\EndIf
+\State $brakeLoad := \Call{CalculateBrakeForce}{adcResult}$
+\State \Call{ApplyBrake}{$motor, brakeLoad$}
+\EndFunction
 \end{algorithmic}
 \end{algorithm}
 
@@ -891,7 +922,6 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 \end{figure}
 
 Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1} shows the lane change tracking and prediction that this papers algorithms accomplish and Fig. ~\ref{fig:change_lane_image} on page~\pageref{fig:change_lane_image} shows, one of other, cyclist collisions that we want to prevent. This paper displays a high chance of solving this issue.
-
 
 
 \subsubsection{Learning Multi-Lane Trajectories using Vehicle-Based Vision \citep{multi-lane_traj}}
