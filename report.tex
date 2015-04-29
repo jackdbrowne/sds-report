@@ -820,6 +820,16 @@ Wireless communication for bicycle compoenents (mainly between the computer syst
 \end{figure}
 
 \section{Architectural Design}
+\paragraph{}The design of the architecture went through several iterations. Our initial design was to have wearable technology (as well as a mobile phone) link with the bicycle, with the wearable technology displaying the interface to the user while all complex computation is to be done in the bicycle. A component diagram was developed to show how the software components link together with the hardware components to make the overall system (see figure \ref{fig:component_arch}). However the idea of using wearable technology was scrapped and we decided on only using a mobile phone as an interface. 
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/system_architecture/component_arch}
+\caption{Component diagram of initial architecture}
+\label{fig:component_arch}
+\end{figure}
+
+\paragraph{}The UML class diagram shown in figure \ref{fig:UML_Class_Diagram} displays the final structure for the software components of the system and figure \ref{fig:overall_sys_arch} shows how we expect the final system to be deployed. We included the use of an online database as we gave the option for the user to save their preferred settings and back them up online via an account system. 
 
 \begin{figure}[h]
 \centering
@@ -828,7 +838,7 @@ Wireless communication for bicycle compoenents (mainly between the computer syst
 \label{fig:UML_Class_Diagram}
 \end{figure}
 
-The UML class diagram shown in figure \ref{fig:UML_Class_Diagram} displays the final structure for the software components of the system. 
+
 \chapter{Data Design}
 \section{Data Description}
 This system is not heavily data driven and for a long time during the design there was to be no backend database at all. Once we had decided against the crowdsourced route planning idea (section \ref{subsec:rejected}) we felt that there was no need to have data stored in a backend database/cloud and that it would create more problems than it would solve (security, accessibility, etc.). However when we began to design the user interface we started to look at this from a more user centred position and saw the obvious benefits to having data stored remotely.
