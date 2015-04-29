@@ -835,7 +835,7 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 \paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}.
 
 \subsection{Prototype Iteration I}
-\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK! needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors if the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components, to the main computer board, after the analog signals have been converted to digital representation (via the ADC). The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value} and that value determines the motor speed.
+\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data from the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors if the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components, to the main computer board, after the analog signals have been converted to digital representation (via the ADC). The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed.
 
 \begin{algorithm}[h]
 \caption{Computer Board to microcontroller brake motor control}\label{lag:comp_board_motor_control}
@@ -986,8 +986,27 @@ In this prototype we added lots of forms for different things - registering, log
 For the most part people thought that the new alert boxes, a solid box, were good  and an improvement over the old speech bubble style. However some people did ask whether the alerts were prominent enough, given that they are alerting to quite important events, but most of these people were reassured when we told them that this alert is only for convenience, the primary alert is an audible one from the bike itself.
 \chapter{Final Design}
 \section{Overview of User Interface}
+The final user interface was designed mostly by using the feedback given by users 
+
 \section{Screen Images}
+Although we intend for this application to be available for all major smartphone operating systems we created the following mockups using the iOS theme.
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/log_in}
+\caption{Final design of the log in screen}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/settings}
+\caption{Final design of the settings screen}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/performance}
+\caption{Final design of the rider performance screen}
+\end{figure}
 \section{Screen Objects and Actions}
+
 
 \chapter{Conclusion}
 
@@ -1122,10 +1141,10 @@ Looking at, and mimicking, successful innovations in car safety technology was o
 \newpage
 \section{Other research}
 \subsection{Route planning}
-If we are to incorporate some sort of safety based route planning into our final solution we will need some method for determining the relative safety of any given road/route.
+Looking more deeply into route planning we realised that in order to incorporate it into our final solution we would need some method for determining the relative safety of any given road/route.
 
 \subsubsection{User Perception}
-One way to do this is to try and to model a cyclist's perception. An attempt at this is the Bicycle Compatibility Index (BCI) [1]; an American idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
+One way to do this is to try and to model a cyclist's perception of the roads they cycle on. An attempt at this is the Bicycle Compatibility Index (BCI) \cite{bci-manual}; an American idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
 
 The BCI was developed using the perspectives of cyclists; asking them to view videoclips and evaluate how comfortable they would be cycling on that road in the conditions shown. The index is then calculated using the method show in in figure \ref{fig:bci_calc}.
 \begin{figure}
@@ -1142,7 +1161,7 @@ The BCI also gives an indication towards what an index value means regarding how
 \begin{figure}
 \centering
 \includegraphics[scale=0.7]{figures/research_report/bci_los}
-\caption{The}
+\caption{The 'Level of Service' designations for the BCI}
 \label{fig:bci_los}
 \end{figure}
 
