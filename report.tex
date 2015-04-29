@@ -18,6 +18,8 @@
 \usepackage{algorithmicx}
 \usepackage{algpseudocode}
 \usepackage{geometry}
+\usepackage{float}
+\restylefloat{table}
  \geometry{
  a4paper,
  total={210mm,297mm},
@@ -581,9 +583,13 @@ The collision avoidance system is the key component of this whole product. It is
 
 \paragraph{}
 
-We compared the 
 
-\begin{table}[h]
+
+\section{On board Sensors}
+\paragraph{} There were a few sensors to consider (as shown in table \ref{table:detect_hardware_comp}) but we decided to use cameras in the end. This was not an immediate and obvious choice however, as this type of sensor could not immediately collect data on the distance of objects unlike lidar or radar. So our initial choice was to use lidar to sense surroundings and produce a local 3D map and detect and track objects on this map. This method allowed the use of algorithms to detect the orientation of vehicles in the vicinity of the bicycle which would make for easier prediction of the objects movement.
+
+
+\begin{table}[H]
 \resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
 
   \begin{tabular}{ | m{3cm} | p{5cm} | p{5cm} |}
@@ -637,7 +643,10 @@ We compared the
 \end{minipage} }
 \end{table}
 
-\section{Camera Hardware}
+\subsection{Methods}
+\paragraph{} After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned in \citep{1300862}): motion detection, vehicle tracking and activity understanding.
+
+
 
 \section{On board Computer}
 \label{sec:computer}
@@ -836,6 +845,7 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 
 \subsection{Prototype Iteration I}
 \paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data from the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors if the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components, to the main computer board, after the analog signals have been converted to digital representation (via the ADC). The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed.
+
 
 \begin{algorithm}[h]
 \caption{Computer Board to microcontroller brake motor control}\label{lag:comp_board_motor_control}
@@ -1193,7 +1203,7 @@ Government & To provide overall management to the transport system & Mixed & +ve
 \chapter{Prototype 1}
 \begin{figure}
 \centering
-\includegraphics[scale=0.]{figures/prototype_1/title}
+\includegraphics[scale=0.9]{figures/prototype_1/title}
 \caption{Title screen}
 \end{figure}
 \clearpage
