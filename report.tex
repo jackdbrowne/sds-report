@@ -567,7 +567,7 @@ In keeping with the agile approach that we took to the design the functional req
 
 \chapter{Design Decisions}
 
-\paragraph{}This section explains the considerations that were involved for each critical component on the product and the iterations until a practical solution was found. The practical solutions and the iterations that lead to the final solution is in section \textbf{\ref{sec:component_solutions} \nameref{sec:component_solutions}} on page \textbf{\pageref{sec:component_solutions}}. 
+\paragraph{}This section explains the considerations that were involved for each critical component on the product and the iterations until a practical solution was found. The practical solutions and the iterations that lead to the final solution are in section \textbf{\ref{sec:component_solutions} \nameref{sec:component_solutions}} on page \textbf{\pageref{sec:component_solutions}}. 
 
 \section{Collision Avoidance System}
 The collision avoidance system is the key component of this whole product. It is this system that really sets this whole product apart
@@ -643,10 +643,57 @@ The collision avoidance system is the key component of this whole product. It is
 \end{minipage} }
 \end{table}
 
-\subsection{Methods}
-\paragraph{} After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned in \citep{1300862}): motion detection, vehicle tracking and activity understanding.
+\subsection{Methods for monitoring surroundings}
+\paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
 
+\subsubsection{Collision Warning Systems (CWS)}
+\paragraph{}CWS are usually incorporated into large vehicles such as transit buses because they are very prone to accidents due to it being more difficult for the driver to detect possible collisions with a more limited view of the vehicles surroundings. Although transit buses are a much greater size than bicycles, the idea of a CWS still remains. \cite{CWS_transit_buses} describe the primary functions of a CWS as:
+\begin{itemize}
+\item Detect objects on the road under the tires
+\item 360-degree coverage
+\item Side and rear coverage for lane change manoeuvres 
+\item High resolution
+\item Distinguish between different objects
+\item Spot rapidly approaching vehicles at longer distances
+\item Estimate velocity of objects
+\item Sensor system must not be too expensive
+\item Few sensors
+\item Reliable and easy to use and maintain
+\end{itemize}
 
+\cite{CWS_transit_buses} also mentions how a user interface should work in a CWS. Main features of an interface should include :
+
+\begin{itemize}
+\item Situation awareness: The situation around the user is displayed to the user
+\item Alert: Non-intrusive indication informing the user of a potential collision
+\item Warning: Intrusive indication informing the user of a dangerous collision is about to happen
+\item Notification: Intrusive indication that a collision has occurred
+\item Recording: Sensor data has been recorded for later analysis
+\end{itemize}
+
+\paragraph{}Most of these stages of interaction however should not apply to our system. For instance it would be obvious to the user if a collision has occurred; the situation surround the user would be much more visible on a bicycle; the system should prevent collisions from ever happening in the first place so a warning is not needed and sensor data would not need to be analysed for later review. In our case only an alert is much more appropriate as the user will only need to be informed of potential collisions and the system should take care of the rest automatically.
+
+\paragraph{}Another interesting idea proposed by \cite{CWS_transit_buses} is the use of cameras in stereo to obtain 3D information. This would mean that is possible to obtain information on the distance of objects using only cameras.
+
+\paragraph{}There are a few concepts here that would work great for our system. However, a requirement of our system is to avoid collisions, not just warn the cyclist about them. Methods here should help provide a method of detecting objects to incorporate into further analysis so that the system can avoid collisions. 
+
+\subsubsection{Vehicle Tracking}
+\cite{prediction_3D_vehicle_tracking} suggest that there are 4 main categories of vehicle tracking:
+\begin{itemize}
+\item \textbf{Region-Based Tracking:} These are dependent on the variation of the image region in regards to the moving object. The background image is maintained and the motion is detected by removing the background from the current image. The algorithms only seem to work well on highways with little traffic as they cannot handle multiple vehicles in one image. 3D images of vehicles also cannot be acquired to get an approximation of the pose and orientation. 
+\item \textbf{Active Contour-Based Tracking:} These represent the outlines of moving objects as contours. These provide more efficient descriptions of moving objects in comparison to region-based tracking algorithms. However, tracking more than one vehicle is still a problem. Also recovering a 3D pose of a moving object is a demanding problem. 
+\item \textbf{Feature-Based Tracking:} These recognise and track objects by extracting elements, forming higher level features with them and matching the features between images. These adapt very quickly and successfully to allow real-time processing of multiple moving objects. However, the rate of recognition of vehicles is low due to distortion from perspective projection and movement relative to the camera. Also they cannot recover 3D poses nor handle tracking of multiple vehicles.
+\item \textbf{Model-Based Tracking:} These track vehicles by matching a projected model over the image data. 3D wireframe models have been adopted in these algorithms.
+\end{itemize}
+
+\paragraph{}These methods of vehicle tracking all mention the use of 3D images. There are a few advantages of using 3D modelling, such as:
+\begin{itemize}
+\item Prior knowledge of 3D surfaces of vehicles provides robust tracking even when images include multiple vehicles.
+\item 3D poses of vehicles can be obtained using camera calibration to set up geometric correspondence between 2D image coordinates and 3D world coordinates. 
+\item Algorithms can be applied to take into account vehicles greatly changing their orientation.
+\item 3D models can be generated offline.
+\end{itemize}
+\paragraph{}However there are also disadvantages of using 3D models as well. The main disadvantage being how computationally expensive it is. There are methods of reducing the complexity of using 3D models, such as the use of parametric models \citep{kollnig19973d}, but will still require more resources than when working in 2D.
 
 \section{On board Computer}
 \label{sec:computer}
