@@ -643,6 +643,23 @@ The collision avoidance system is the key component of this whole product. It is
 \end{minipage} }
 \end{table}
 
+\subsection{Cameras}
+If we are to use cameras, it is desirable to obtain a large field of view to obtain as most information as possible with little sensors. It may also be desirable to use colour cameras rather than cameras operating in black and white if we decide to use colour in detection and tracking; but if not black and white cameras will save costs. 
+
+\paragraph{Fisheye Lens}Cameras that use a fisheye lens can cover a 170 degree angle which will provide a nice wide coverage. However, the drawbacks of using these cameras is that it will require algorithms to fix the distortion in order to create an image to analyse. Also fisheye lenses tend to focus very close, meaning that is not a good choice to view far away objects.
+
+\paragraph{Fan Camera}The fan camera was an idea proposed by Brauckmann, M.E. \textit{et al.} \citep{towards_all_around_sensing} (see figure \ref{fig:fan_camera} for a layout). It uses three CCD sensors and three wide angle lenses together in a single case to obtain a full 180 degree view. The advantages of using this over a fish eye lens is that it covers a wider view rather than a higher view. Also using multiple CCD sensors will give a more precise representation of brightness. However, multiple cameras will need to be connected to a video multiplexer to handle them. Also here, algorithms are needed to create a single image to be analysed.
+
+\paragraph{3D Viewing using Cameras}Although cameras are not able to obtain distance directly, it is possible to measure distance using two cameras positioned in stereo. Using a method called optical triangulation \citep{huang2011laser}, the distance of an object can be gathered knowing the distance between the two cameras. The further apart the cameras, the further the distance can be measured. IOtracker \citep{iotracker} incorporates this stereo set up into their image tracking system. \ref{fig:stereo_cameras} Demonstrates the stereo camera layout.
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/stereoCameras}
+\caption{IOTracker optical triangulation demonstration}
+\label{fig:stereo_cameras}
+\end{figure}
+
+
 \section{Methods for monitoring surroundings}
 \paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by Weiming Hu \textit{et al.}  \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
 
@@ -1078,6 +1095,22 @@ Although we intend for this application to be available for all major smartphone
 \section{Screen Objects and Actions}
 
 
+\section{Hardware Components Layout}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/BicycleDrawing}
+\caption{Final layout of hardware components on the bicycle}
+\label{fig:final_layout}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/fan_camera}
+\caption{Fan camera layout}
+\label{fig:fan_camera}
+\end{figure}
+
+\subssection{Collision Avoidance System}
 \chapter{Conclusion}
 
 \part*{Appendices}
