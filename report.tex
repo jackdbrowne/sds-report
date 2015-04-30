@@ -643,7 +643,7 @@ The collision avoidance system is the key component of this whole product. It is
 \end{minipage} }
 \end{table}
 
-\subsection{Methods for monitoring surroundings}
+\section{Methods for monitoring surroundings}
 \paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by Weiming Hu \textit{et al.}  \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
 
 \subsubsection{Collision Warning Systems (CWS)}
@@ -694,6 +694,8 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 \item 3D models can be generated offline.
 \end{itemize}
 \paragraph{}However there are also disadvantages of using 3D models as well. The main disadvantage being how computationally expensive it is. There are methods of reducing the complexity of using 3D models, such as the use of parametric models \citep{kollnig19973d}, but will still require more resources than when working in 2D.
+
+\paragraph{Using a camera}As mentioned in Object Tracking: A Survey \citep{object_tracking_a_survey}, there is a strong relationship between object representation and the tracking algorithms. There are various ways of representing objects from a camera such as contour representation (described above), representation using points or skeletal models. Representation using primitive geometric shapes seems like a more suitable choice for our system because it seems needless to track detailed contours if we are trying to avoid objects of varying sizes and we are trying to conserve resources in the system. Also I believe vehicles can be easily modelled using geometric shapes. However this paper only considers 2D representations and not the use of 3D models. Selecting the right features of an image is important in tracking. Many features can be tracked, such as colour, texture and edges. For our case, it makes more sense to detect edges as the edges of an object are what determines a collision; but detecting colours may be useful for detecting lights on vehicles, which will help when tracking vehicles in the dark. 
 
 \section{On board Computer}
 \label{sec:computer}
@@ -1232,7 +1234,25 @@ Something that this app does not do is detects faults in the bike to give tailor
 
 It does seem that the primary audience of this app is people who cycle for recreation or fitness, whereas we are predominantly targeting people who cycle for commuting or transport. However, it may be possible to overcome this problem by analysing routes of all cyclists to find the best possible routes to a given location.
 
-%FlyKly Wheel
+\subsection{Smart Wheels}
+The smart wheel is an idea to make commuting easier. The prime example of this is a product called the 'FlyKly Smart Wheel'\citep{flykly}. This wheel fits on any bicycle and includes a 250W motor,  torque sensor, motion sensor, temperature sensor and system monitoring sensors linked to a battery to provide an easier and more automatic cycle. The wheel can assist the cyclist up to 25km/h. The wheel also allows bluetooth connectivity to a mobile phone to show the user their performance and provide the ability for the user to change how much their wheel affects how much they cycle. The wheel also allows the user to lock the wheel in place with a motor lock with pin for improved safety.
+
+\subsection{Wearable Technology}
+Wearable technology is a trending topic and is likely to be more popular in the future. But as of now, very few people own any wearable technology and stick to using a mobile phone. Research into wearable technology was conducted just in case we were to incorporate any wearable technology into our system. 
+
+\paragraph{Google Glass}
+Google Glass \citep{google_glass} is a system embedded into the frame of a pair of glasses. It projects information onto the lens of the glasses so that it displays information directly to the users eyes. It also includes a camera is record what the user can see. All the functions performed by Google Glass are activated using voice, making it perform completely hands free.
+However, there are many concerns with use of Google Glass; the biggest concern has to be privacy \citep{google_glass_privacy} as it is hard to determine whether someone is recording you using the glasses. Also many people believe the glasses can be an easy distraction, which is a big factor to take into account when designing our system if we consider to integrate it into Google Glass.
+
+\paragraph{Pebble}
+Pebble \citep{pebble} is a system embedded into a watch. The design of this watch is to keep simplicity and provide functionality. It uses a black and white 'e-paper' display to allow easy readability in daylight. It is very water resistant up to 50 meters and uses an optical hard coating to make it scratch resistant. The watch links to a mobile phone via bluetooth to provide notifications which gives it a variety of uses. The pebble can be used as a fitness tracker and can be linked to mobile fitness apps on the mobile phone. This would be useful on a bike as the strap allows the user to strap the watch to the handlebars of the bicycle and use it to display the users performance as they cycle.
+
+\section{Economy}
+In a British Cycling Economy report \citep{british_economy_report}, it explains that cycling accessories contribute to over half the amount to the UK economy than the sales of bikes themselves. Typically bought accessories include helmets, locks and pumps as these are considered “necessary”. Also it mentions that interviews with commuters who cycle revealed that fear of theft and improper storage at their commute destination affects their choice in purchasing a bike; this has been influencing a growth in the investment of folding bicycles. Commuters also typically purchase safety clothing with their bicycle (ie, gloves and reflective gear). 
+
+On average, Commuters spend £195 on bike accessories whereas recreational cyclists spend on average £70. Enthusiasts however spend on average £1,295 on accessories, which is more than their average spent on bicycles themselves at £1,200 (with a range spanning £600 - £1,600). These values will need to be taken into account when calculating the cost of the final product during the design phase. 
+
+We may consider implementing the use of “necessary” items in our project in order to spread the use of the final product. We may also need to consider how to make our final product theft proof, while also making it compact and easy to store or carry to encourage its use.
 
 \newpage
 \section{Car technologies}
