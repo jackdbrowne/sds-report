@@ -77,7 +77,8 @@ Finally we will present our critical analysis of the prototypes that we created 
 \begin{description}
 \item[RTA] Road Traffic Accident
 \item[UCI] Union Cycliste Internationale
-\item [I/O] Input/Output
+\item[I/O] Input/Output
+\item[RAM] Random Access Memory
 \end{description}
 \section{References}
 The design decisions that we made are based on our earlier research and we will continually refer to this research throughout the report, all of which is documented in the Research Report found in the appendix. 
@@ -719,7 +720,29 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 \section{On board Computer}
 \label{sec:computer}
 
-\paragraph{}We initially researched a sole microcontroller that could be used for whole system functionality, as they are vastly used today in automatically controlled product (e.g. vehicle engine control systems), they offer onboard ram and therefore do not need the configuration of separate components, reducing the risk of complications.  After research into the image processing algorithms we would be use for our detection and tracking of vehicles is was determined that a micro controller would not be sufficient to process the data, under detection and tracking algorithms, in real time. Processing in real time is crucial for for this safety critical application and would become redundant if it did not. A quicker, multiple core, CPU was needed, that could offer parallel processing, which is essential as the application has to detect and track vehicle simultaneously, from multiple cameras. The size of the RAM in micro controller also posed possible complications, given the amount of data that needed to be stored from each frame that was received from the multiple cameras.
+\paragraph{}We initially researched a sole microcontroller that could be used for whole system functionality, as they are vastly used today in automatically controlled products (e.g. vehicle engine control systems), they offer onboard RAM and therefore do not need the configuration of separate components, reducing the risk of complications.  After research into the image processing algorithms we would be use for our detection and tracking of vehicles is was determined that a micro controller would not be sufficient to process the data, under detection and tracking algorithms, in real time. Processing in real time is crucial for this safety critical application and would become redundant if it did not. A quicker, multiple core, CPU was needed, that could offer parallel processing, which is essential as the application has to detect and track vehicle simultaneously from multiple cameras, among other tasks. The size of the RAM in micro controller also posed possible complications, given the amount of data that needed to be stored from each frame that was received from the multiple cameras. A computer board was decided upon, rather than obtaining separate components, such as CPU, motherboard, memory, etc. as were many reliable boards available, that have been widely used and tested for various application. The table \ref{table:board_comp} show a comparison between the various boards.
+
+
+\landscape
+
+\begin{table}[h]
+\center
+    \begin{tabular}{ | m{3cm} | m{2.5cm} | m{3cm} | m{3cm} | m{1cm} |}
+    \hline
+    \textbf{Computer Board} & \textbf{\# CPU Cores } & \textbf{CPU core clock speed} & \textbf{RAM} & \textbf{Cost}\\ \hline
+   
+ 	MinnowBoard MAX & 2 & 1.33 GHz &  2GB DDR3 & £90.34\\ \hline
+	RASPBERRY PI 1 MODEL 1 &  1 & 700MHz & 512MB
+  
+    \end{tabular}
+
+\caption[Table caption text]{Wireless communication methods comparison} 
+\label{table:board_comp}
+\end{table}
+
+\endlandscape
+
+The Jetson TK1 computer board was chosen, as it ha been explicitly designed for vision based computation. 
 
 \paragraph{}Microcontrollers are still necessary as they be used in the system to be able to connect to the CPUs digital Input and output, much like a keyboard connects to a standard computer, where a micro controller embedded in the keyboard is first used to determine which key was pressed by the user. These micro-controllers are used to connect the electrical components 
 
@@ -918,27 +941,11 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 \section{Braking System}
 \label{sec:comp_design_brakes}
 
-\paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}.
+\paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}. 
 
 \subsection{Prototype Iteration I}
-\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data from the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors if the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components, to the main computer board, after the analog signals have been converted to digital representation (via the ADC). The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed.
 
-
-\begin{algorithm}[h]
-\caption{Computer Board to microcontroller brake motor control}\label{lag:comp_board_motor_control}
-\begin{algorithmic}[1]
-\Function{CalculateMotorControl}{$brakeData$}\Comment{Digital braking data received from the microcontroller}
-
-\EndFunction
-
-
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Prototype Iteration ii}
-
-
-\subsection{Software}
+\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components to the main computer board, after the analog signals have been converted to digital representation (via the ADC), shown in algorithm \ref{alg:brake_lever}. The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed. 
 
 
 \begin{figure}[h]
@@ -949,25 +956,66 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 \end{figure}
 
 \begin{algorithm}[h]
-\caption{Brake Lever}\label{alg:brake_lever}
+\caption{Manual Brakes Applied}\label{lag:brake}
 \begin{algorithmic}[1]
-\Function{Brake}{$pin$}\Comment{The pin that received the analog signal}
+\State $brakeLever := PressedLever$\Comment{The left or right brake lever}
+\State $brakeVoltage := \Call{AnalogVoltToDigital}{voltage}$\Comment{analog volt value to digital representation}
+\State $brakeAngle := \Call{CalculateBrakeAngle}{brakeVoltage}$\Comment{calculating angle from voltage}
+\State $\Call{ControlMotors}{brakeLever, brakeAngle}$\Comment{control motors based on brake lever and brake angle}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h]
+\caption{Analog to digital voltage conversion Lever}\label{alg:brake_lever}
+\begin{algorithmic}[1]
+\Function{AnalogVoltToDigital}{}
 \State \Call{delay}{n}  \Comment{Delay for circuitry to receive analog signal e.g. 20$\mu$s} 
 \State $ADCRegisterGOBit := 1$
 \While{$ADCRegisterGOBit == $}\Comment{Wait for conversion to complete}
    \EndWhile\
    \State $adcResult := ADCResultRegister$\Comment{Get the result stored in the result register}
-   \If{$pin == LeftPin$}\Comment{Which Brake lever was pressed}
-   	\State $Motor := LeftMotor$
-  \ElsIf{$pin == RightPin$}
-  	\State $motor := RightMotor$\Comment{store right motor pin data in $motor$ variable}
-\EndIf
-\State $brakeLoad := \Call{CalculateBrakeForce}{adcResult}$
-\State \Call{ApplyBrake}{$motor, brakeLoad$}
+\State $return adcResult$
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
 
+\begin{algorithm}[h]
+\caption{Calculating brake lever angle from voltage}\label{alg:brake_angle}
+\begin{algorithmic}[1]
+\Function{CalculateBrakeAngle}{$voltage$}\Comment{digital voltage received from the microcontroller}
+\State $brakeVoltage = voltage$\Comment{The voltage received from operating the electrical lever}
+\State $MAXLEVERANGLE := 45$\Comment{Max angle the break lever can rotate the potentiometer}
+\State $MINLEVERANGLE := 0$\Comment{Min angle the break lever can rotate the potentiometer}
+\State $DEGREESPERVOLT := 0.72$\Comment{0.72\degree is 0.01 volts}
+\State $VOLTPERDEGREE := 0.01$\Comment{0.01 volts to each 0.72\degree}
+\State $brakeAngle := brakeVoltage / VOLTPERDEGREE * DEGREEPERVOLT$
+\State $return brakeAngle$\Comment{return the calculated brake angle}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h]
+\caption{Control Brake Motors}\label{alg:motor_control}
+\begin{algorithmic}[1]
+\Function{ControlMotors}{$brakeLever, brakeAngle$}
+
+\If{$brakeLever == LEFTLEVER$}
+	\State{$motor := BACKMOTOR$}
+\Else
+	\State{$motor := FRONTMOTOR$}
+\EndIf
+
+\If{$brakeAngle < \Call{CurrentAngle}{motor}$}
+	\State{$\Call{rotateMotorCounterClockwise}{brakeAngle}$}
+\Else
+	\State{$\Call{rotateMotorClockwise}{brakeAngle}$}
+\EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Prototype Iteration ii}
+Instead of the Jetson TK1 processing the decisions regrading the braking system when manually operated, it was decided that the embedded program on the microcontroller should decide upon the motor control based on the input. This was decided as having the Jetson TK1 process task that could be done on the microcontroller, used valuable resources. There is no more communication delay from the computer board and microcontroller. The 2-way serial UART connection remains, as the Jetson Tk1 still needs to provide motor control command to the microcontroller when an automatic braking occurs, which would override any braking by the user that could reduce the braking impact. Some of the algorithms on first iteration also didn't account for the user pressing the brakes simultaneously, or whether the currently running code would block until finalised. The \ref{alg:motor_control} would have to operate both motors simultaneously. The microcontroller does not have multiple cores and therefore has to used single core multiple threading software techniques. If both the brake levers have been operated then each part of the motor control for the front wheel and the brake wheel will be operated for small amounts of time. The amount of time each task will be given is also in proportion to angle at which he brake lever has been pressed, as that brake is a higher priority as the user wants it to apply more force to the disk brake.
 
 \section{Collision Avoidance System}
 
