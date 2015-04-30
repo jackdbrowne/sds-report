@@ -644,10 +644,10 @@ The collision avoidance system is the key component of this whole product. It is
 \end{table}
 
 \subsection{Methods for monitoring surroundings}
-\paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
+\paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by Weiming Hu \textit{et al.}  \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
 
 \subsubsection{Collision Warning Systems (CWS)}
-\paragraph{}CWS are usually incorporated into large vehicles such as transit buses because they are very prone to accidents due to it being more difficult for the driver to detect possible collisions with a more limited view of the vehicles surroundings. Although transit buses are a much greater size than bicycles, the idea of a CWS still remains. \cite{CWS_transit_buses} describe the primary functions of a CWS as:
+\paragraph{}CWS are usually incorporated into large vehicles such as transit buses because they are very prone to accidents due to it being more difficult for the driver to detect possible collisions with a more limited view of the vehicles surroundings. Although transit buses are a much greater size than bicycles, the idea of a CWS still remains. Mertz, C. \textit{et al.} \cite{CWS_transit_buses} describe the primary functions of a CWS as:
 \begin{itemize}
 \item Detect objects on the road under the tires
 \item 360-degree coverage
@@ -661,7 +661,7 @@ The collision avoidance system is the key component of this whole product. It is
 \item Reliable and easy to use and maintain
 \end{itemize}
 
-\cite{CWS_transit_buses} also mentions how a user interface should work in a CWS. Main features of an interface should include :
+Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user interface should work in a CWS. Main features of an interface should include :
 
 \begin{itemize}
 \item Situation awareness: The situation around the user is displayed to the user
@@ -673,12 +673,12 @@ The collision avoidance system is the key component of this whole product. It is
 
 \paragraph{}Most of these stages of interaction however should not apply to our system. For instance it would be obvious to the user if a collision has occurred; the situation surround the user would be much more visible on a bicycle; the system should prevent collisions from ever happening in the first place so a warning is not needed and sensor data would not need to be analysed for later review. In our case only an alert is much more appropriate as the user will only need to be informed of potential collisions and the system should take care of the rest automatically.
 
-\paragraph{}Another interesting idea proposed by \cite{CWS_transit_buses} is the use of cameras in stereo to obtain 3D information. This would mean that is possible to obtain information on the distance of objects using only cameras.
+\paragraph{}Another interesting idea proposed by Mertz, C. \textit{et al.} \cite{CWS_transit_buses} is the use of cameras in stereo to obtain 3D information. This would mean that is possible to obtain information on the distance of objects using only cameras.
 
 \paragraph{}There are a few concepts here that would work great for our system. However, a requirement of our system is to avoid collisions, not just warn the cyclist about them. Methods here should help provide a method of detecting objects to incorporate into further analysis so that the system can avoid collisions. 
 
 \subsubsection{Vehicle Tracking}
-\cite{prediction_3D_vehicle_tracking} suggest that there are 4 main categories of vehicle tracking:
+{Weiming Hu \textit{et al.} \cite{prediction_3D_vehicle_tracking} suggest that there are 4 main categories of vehicle tracking:
 \begin{itemize}
 \item \textbf{Region-Based Tracking:} These are dependent on the variation of the image region in regards to the moving object. The background image is maintained and the motion is detected by removing the background from the current image. The algorithms only seem to work well on highways with little traffic as they cannot handle multiple vehicles in one image. 3D images of vehicles also cannot be acquired to get an approximation of the pose and orientation. 
 \item \textbf{Active Contour-Based Tracking:} These represent the outlines of moving objects as contours. These provide more efficient descriptions of moving objects in comparison to region-based tracking algorithms. However, tracking more than one vehicle is still a problem. Also recovering a 3D pose of a moving object is a demanding problem. 
@@ -1153,14 +1153,47 @@ Although we intend for this application to be available for all major smartphone
 \chapter{Research Report}
 In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover the best way in which to improve safety in cycling. In order to do this we analysed a range of statistics as well as speaking directly to different stakeholders and ...
 \newpage
-\section{Statistics}
-\subsection{Number of cyclists}
-According to the most recent National Travel Survey statistics (2013) \textbf{43\% of the population owns a bicycle} 
-\subsection{Accidents}
-\subsection{Fatalities}
+\section{Accidents}
+\subsection{Weather Conditions}
+During the winter months, new hazards occur and visibility of the cyclist is poorer. In the UK, slipping on ice is the most common cause of non-collision accidents, contributing 26\% of these accidents; 8\% happen on wet roads, being the second most common \citep{winter_safety}. Potholes account for 3\% of non-collision injuries and mechanical failures account for 2.5\% \citep{non-collision_casestudy}.
+
+%According to the most recent National Travel Survey statistics (2013) \textbf{43\% of the population owns a bicycle} 
+
+\subsection{Casualties}
+\begin{table}[H]
+\begin{tabular}{| l | l | l | l |}
+\hline
+ & \textbf{Child} & \textbf{Adult} & \textbf{All} \\ \hline
+ Killed & 6 & 103 & 109 \\ \hline
+ Seriously Injured & 276 & 2867 & 3143 \\ \hline
+ Slightly Injured & 1676 & 14510 & 16186 \\ \hline
+ Total & 1958 & 17480 & 19438 \\ \hline
+\end{tabular}
+\caption[Table caption text]{Cyclist casualties reported to the police in 2013 \citep{cycling_accidents}}
+\label{table:casualties}
+\end{table}
+
+\paragraph{}Every year, there are around 19000 of reported cases of cyclists being killed or injured. However these are only cases that are reported to the police. This does not take into account cyclists in accidents not on the road, and there are many cases of cyclist injuries not being reported to the police, even when seriously injured and taken to hospital \citep{cycling_accidents}.
+A much larger portion of accidents occur with adults rather than children. This gives us reason to develop a bicycle system which focuses mostly on adult cyclists, but will aim to be usuable for a broader audience. 
 \subsection{Road types}
+\paragraph{}The Royal Society for the Prevention of Accidents \cite{cycling_accidents} mention that most cycling accidents happen in urban areas. Almost two thirds of cyclists that are killed or seriously injured have the accidents happen around a road junction, with T-junctions bein the most commonly involved. It also mentions that roundabouts are particularly dangerous junctions. The severity of injuries increases with the speed limit applied to the road. Although more accidents happen on urban roads (75\%), half of cyclist deaths occur on rural roads. The Royal Society for the Prevention of Accidents \cite{rural_road_safety} also suggest this may be due to the nature of rural roads having more bends while also having fewer facilities for cyclists. This means that our system should apply to rural roads as well as urban roads, by not just focusing on situations that only happen on urban roads. 
 \subsection{Time of day}
-\subsection{Vehicles}
+\paragraph{}Around 80\% of accidents occur in daylight \citep{cycling_accidents}. The most dangerous hours for cyclists are between 3:00pm to 6:00pm and 8:00am to 9:00am. These are typical commuting hours where road traffic is greater, which would mean that commuters are more prone to accidents. So our system should focus towards this audience. However, cycling accidents are more likely to be fatal while it is dark. Which would mean our system should provide sufficient visibility to accomodate this.
+\subsection{Types of accident}
+\subsubsection{Accidents involing no collisions}
+\paragraph{}These types of accident are cause by the cyclist loosing control of the bicycle. These contribute to around 16\% of fatal or serious cyclist accidents \citep{cycling_accidents}. 
+
+\subsubsection{Collision between bicycle and vehicle}
+
+The most common cause of this type of accident is either the cyclist or vehicle driver failing to look properly \citep{cycling_accidents}. At junctions, drivers contribute 57\% of accidents where someone failed to look properly and for cyclists it is 43\%
+
+\paragraph{Drivers that cause the accidents}. Factors where drivers cause these accidents include poor manoeuvres (17\%) and careless or driving in a hurry (17\%). Drivers are also more likely to cause accidents when speeding, driving under the influece of alcohol or travelling too fast for the road conditions.
+
+\paragraph{Cyclists that cause the accidents}In the case of cyclists causing collisions, 20\% of serious collisions are caused by cyclists entering the road from a pavement.
+ 
+\paragraph{} Cars or taxis are more likely to be involved in collisions. In most cases, the cyclist is hit by the front of the vehicle. Although most cases are caused by drivers, cyclists contribute a significant portion. So the system should be required to prevent these types of accident caused by both vehicle driver and cyclist.
+
+
 \newpage
 \section{Questionnaires}
 \newpage
