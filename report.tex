@@ -881,7 +881,7 @@ Many modern applications now make use of the huge amount of information availabl
 All internet traffic between the bicycle and the user will go through the HTTPS protocol, which uses the Transport Layer Security (TLS) protocol to offer encrypted data. TLS Uses X.509 certificates (Public Key Certificate standard), which uses asymmetric cryptography, to ensure the authenticity of party and to exchange a symmetric key. The authenticity of our domain w This symmetric key can be used for the rest of the session or after a time interval. The use of X.509 certificate will require the use of  certificate authorities, as people can most people will not be able to trust the authenticity of a self signed certificate.
 
 As well as this all user passwords should be stored using a secure hashing algorithm, this means that the plaintext passwords are not saved anywhere and if the database was compromised the user passwords would still be protected. As a further level of protection passwords should be salted to prevent against dictionary attacks on the password hashes.
-\section{Data Schema}
+\section{Database Schema}
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/sql}
@@ -1052,7 +1052,17 @@ In this prototype we added lots of forms for different things - registering, log
 For the most part people thought that the new alert boxes, a solid box, were good  and an improvement over the old speech bubble style. However some people did ask whether the alerts were prominent enough, given that they are alerting to quite important events, but most of these people were reassured when we told them that this alert is only for convenience, the primary alert is an audible one from the bike itself.
 \chapter{Final Design}
 \section{Overview of User Interface}
-The final user interface was designed mostly by using the feedback given by users 
+In order to ensure our design was User Centred the final user interface was designed mostly by using the user feedback to our prototypes but along with this we tried to follow the design principles set out by Donald Norman\cite{don_norman}. Here we will go through each of the principles and describe the ways in which we attempted to follow them.
+\subsection*{Consistency}
+This is the principle that similar looking things should have similar outcomes. This improves the learnability of an application by enabling people to quickly building up patterns about how things work. Inconsistency forces people remember a whole load of exceptions to rules in order to actually use the application, this makes the application mentally draining to use and may quite often cause people stop using the application all together.
+
+The primary way in which we did that was by using the 
+\subsection*{Visibility}
+\subsection*{Affordance}
+\subsection*{Mapping}
+\subsection*{Feedback}
+\subsection*{Constraints}
+Here the idea 
 
 \section{Screen Images}
 Although we intend for this application to be available for all major smartphone operating systems we created the following mockups using the iOS theme.
@@ -1203,7 +1213,7 @@ It does seem that the primary audience of this app is people who cycle for recre
 
 \newpage
 \section{Car technologies}
-Looking at, and mimicking, successful innovations in car safety technology was one of the predominant methods for com
+We looked at many different technologies, both emerging and established, that are in use in cars. This provided lots of inspiration and helped us to analyse what might work (and also what might not). Car technologies provide us with lots of information because they are much more developed that bike technologies and also there is a very wide user base.
 \newpage
 \section{Other research}
 \subsection{Route planning}
