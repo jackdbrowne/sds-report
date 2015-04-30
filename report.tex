@@ -697,6 +697,8 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 
 \paragraph{Using a camera}As mentioned in Object Tracking: A Survey \citep{object_tracking_a_survey}, there is a strong relationship between object representation and the tracking algorithms. There are various ways of representing objects from a camera such as contour representation (described above), representation using points or skeletal models. Representation using primitive geometric shapes seems like a more suitable choice for our system because it seems needless to track detailed contours if we are trying to avoid objects of varying sizes and we are trying to conserve resources in the system. Also I believe vehicles can be easily modelled using geometric shapes. However this paper only considers 2D representations and not the use of 3D models. Selecting the right features of an image is important in tracking. Many features can be tracked, such as colour, texture and edges. For our case, it makes more sense to detect edges as the edges of an object are what determines a collision; but detecting colours may be useful for detecting lights on vehicles, which will help when tracking vehicles in the dark. 
 
+\paragraph{Range Image Sequence} Range images are obtained using using a single-line laser range finder \citep{qualitative_car_tracking}. Car detection is based on prior knowledge of shape, size of vehicles and the assumption of the data being recorded off the ground plane. Vehicles consist of one to two line segments. Straight lines are detected using the Hough Transform (available in a c++ library \cite{cpp_houghTransform}).
+
 \section{On board Computer}
 \label{sec:computer}
 
