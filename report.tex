@@ -1056,19 +1056,46 @@ In order to ensure our design was User Centred the final user interface was desi
 \subsection*{Consistency}
 This is the principle that similar looking things should have similar outcomes. This improves the learnability of an application by enabling people to quickly building up patterns about how things work. Inconsistency forces people remember a whole load of exceptions to rules in order to actually use the application, this makes the application mentally draining to use and may quite often cause people stop using the application all together.
 
-The primary way in which we did that was by using the 
+We maintained consistency by following the operating system's own interface guidelines. For example this application will be available on both the Android and iOS operating systems but these have very different interfaces and users of one may find it initially difficult to start using the other - there will be a learning curve. In order to make it 
+%iOS buttons
+%Sounds
+%Fonts
 \subsection*{Visibility}
+Visibility is the principle whereby the user should be able to locate all of the functions of the system with relative ease. It is not to say that all functions should be in one long list just that they should not be hidden. An example of this is the screenshot function on most smartphones which can only be activated through a key sequence - a new user could only find this by reading through the manual, or by accident.
+
+This application is fairly simple by design and thus does not have many functions associated with it, but the three main screens are always accessible via the menu at the bottom of the screen. This never changes (provided that the user remains logged in). Every function of the system can be accessed via one of these three screens. 
+
 \subsection*{Affordance}
+The affordance principle is that the visual appearance of an object should give some indication about how to use it - buttons should make it obvious that you have to press them and sliders should make it obvious that you should slide them. This can actually be done through the use of design conventions; for example blue, underlined text gives an indication of being a link even though there is nothing inherently obvious about that it is just a convention that people have gotten used to.
+
+It is actually quite difficult to achieve this on a mobile device with no mouse pointer - a change in mouse pointer often indicates quite a lot. It is mostly done through conventions as well as by using the standard elements of the native operating system. 
 \subsection*{Mapping}
+The idea of this principle is that there should be a clear and obvious relationship between the users action and the affect this has on the overall system. It is also important that this relationship is consistent; the same button should always have the same effect but also similar controls should always do similar things.
+
+
 \subsection*{Feedback}
+The principle of feedback says that the user should receive some sort of notification whenever they perform an action. It is surprisingly common for this to be forgotten about - for example when a button triggers a long running task and you don't know whether the task is actually being carried out or whether the button should be pressed again. Even worse than this is when the system does give any indication that the task has completed successfully (or unsuccessfully). This can often leave a user unknowingly wasting a lot of time after a task has finished and requires extra effort from them to actually check the progress.
+
+We will treat these as two separate issues:
+\begin{itemize}
+\item The first case is not as relevant for this application as it may be in many others because there are not many long running tasks, the system primarily monitors information rather than processes it. However, there were a few occasions where we had to take this into account. Whenever there are connections being made to the server this is dependent on the speed of the internet connection (or maybe even the presence of a connection at all) which can be unreliable, particularly when using mobile internet. In these scenarios a dialog box is displayed over the screen telling the user what is happening - they are being logged in or there settings are being,  updated.
+\item A good example of the second case in this system is whenever the user updates their settings. When they update their settings they will be notified by a box appearing at the top of the screen explaining whether the update was successful or not, and if not, why.
+\end{itemize}
 \subsection*{Constraints}
-Here the idea 
+Although most applications use some form of validation in order to stop invalid data from being processed, and this is entirely necessary, it is actually better to stop this from being entered in the first place. This is often done fairly well in mouse based applications - stopping users from clicking on options that aren't available - but not so well when it comes to data entry. Most data entry is done by typing a value into a text box and this is usually then not validated until the data has been submitted. This is often frustrating because it means multiple attempts are required to successfully submit a form which just generally slows the process down.
+
+There are two main ways in which we have done this in our final design:
+\begin{itemize}
+\item \textbf{Sliders} The majority of our data entry appears on the settings page and are predominantly numerical with an upper and lower limit. For example the maximum speed will be limited by the power of the motors - it should not be possible to set this to 100mph. A very clever and user friendly way to restrict this range is by using sliders. 
+\item \textbf{Hiding options} All of the features of the system (except for log in and registration) are unavailable until the user is logged in. So before they log in there is no use in showing them the options for the Settings and Performance pages. These are simply hidden while the system is in this state (figure \ref{fig:login})
+\end{itemize}
 
 \section{Screen Images}
 Although we intend for this application to be available for all major smartphone operating systems we created the following mockups using the iOS theme.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.6]{figures/final_design/log_in}
+\label{fig:login}
 \caption{Final design of the log in screen}
 \end{figure}
 \begin{figure}[h]
