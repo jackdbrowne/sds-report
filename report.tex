@@ -19,7 +19,7 @@
 \usepackage{algpseudocode}
 \usepackage{geometry}
 \usepackage{float}
-\restylefloat{table}
+%\restylefloat{table}
  \geometry{
  a4paper,
  total={210mm,297mm},
@@ -573,7 +573,7 @@ The collision avoidance system is the key component of this whole product. It is
 
 
 
-\section{On board Sensors}
+\subsection{On board Sensors}
 \paragraph{} There were a few sensors to consider (as shown in table \ref{table:detect_hardware_comp}) but we decided to use cameras in the end. This was not an immediate and obvious choice however, as this type of sensor could not immediately collect data on the distance of objects unlike lidar or radar. So our initial choice was to use lidar to sense surroundings and produce a local 3D map and detect and track objects on this map. This method allowed the use of algorithms to detect the orientation of vehicles in the vicinity of the bicycle which would make for easier prediction of the objects movement.
 
 
@@ -631,7 +631,7 @@ The collision avoidance system is the key component of this whole product. It is
 \end{minipage} }
 \end{table}
 
-\subsection{Cameras}
+\subsubsection{Cameras}
 If we are to use cameras, it is desirable to obtain a large field of view to obtain as most information as possible with little sensors. It may also be desirable to use colour cameras rather than cameras operating in black and white if we decide to use colour in detection and tracking; but if not black and white cameras will save costs. 
 
 \paragraph{Fisheye Lens}Cameras that use a fisheye lens can cover a 170 degree angle which will provide a nice wide coverage. However, the drawbacks of using these cameras is that it will require algorithms to fix the distortion in order to create an image to analyse. Also fisheye lenses tend to focus very close, meaning that is not a good choice to view far away objects.
@@ -648,7 +648,7 @@ If we are to use cameras, it is desirable to obtain a large field of view to obt
 \end{figure}
 
 
-\section{Methods for monitoring surroundings}
+\subsection{Methods for monitoring surroundings}
 \paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by Weiming Hu \textit{et al.}  \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
 
 \subsubsection{Collision Warning Systems (CWS)}
@@ -714,13 +714,18 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 
 \begin{table}[h]
 \center
-    \begin{tabular}{ | m{3cm} | m{2.5cm} | m{3cm} | m{3cm} | m{1cm} |}
+    \begin{tabular}{ | m{3cm} | m{2cm} | m{3cm} | m{3cm} | m{3.5cm} | m{1cm} |}
     \hline
-    \textbf{Computer Board} & \textbf{\# CPU Cores } & \textbf{CPU core clock speed} & \textbf{RAM} & \textbf{Cost}\\ \hline
-   
- 	MinnowBoard MAX & 2 & 1.33 GHz &  2GB DDR3 & �90.34\\ \hline
-	RASPBERRY PI 1 MODEL 1 &  1 & 700MHz & 512MB
-  
+
+    \center{\textbf{Computer Board}} & \center{\textbf{\# CPU Cores}} & \textbf{CPU core clock speed} & \textbf{RAM} & textbf{Wireless Connectivity} & \textbf{Cost}\\ \hline
+
+ 	  MinnowBoard MAX & 2 & 1.33 GHz & 2GB DDR3 & USB & �90.34\\ \hline
+	RASPBERRY PI 1 MODEL 1 &  1 & 700MHz & 512MB & USB & �17.52\\ \hline
+          Pandaboard & 2 & 1GHz & 1GB DRR2 & 802.11 b/g/n and Bluetooth 2.1 + EDR & 113.09 \\ \hline
+         Jetson TK1 & 4 & 2.5GHz & 2GB & Additional PCIe board or USB&  �124.78\\ \hline
+         Odroid-XUS & \pbox{20cm}{1. 4 \\2. 4} & \pbox{20cm}{1.2GHz \\2. 1,6GHz} & 2GB DDR3 & USB & 116.34 \\ \hline 
+         MicroZed & 2 & 667MHz & 1GB DDR3 & USB & �129.33 \\ \hline
+
     \end{tabular}
 
 \caption[Table caption text]{Wireless communication methods comparison} 
@@ -780,66 +785,72 @@ We researched into current electrical braking, in bicycle and vehicles. There wa
 %need to calculate stopping distance :/ 
 
 \subsection{Communication}
+\paragraph{}We had to decide how the subsystems of the product would communicate with each other. The electrical brake lever and braking components could have been adapted to be wireless, but there was no application for such measures and it would have added further complexity, reduce transmission speeds and posed a risk of disconnection, which was not acceptable given the time criticalness of the application. These components are connected to the computer board and micro controllers via standard electrical wiring, which is hidden within the inside of the bicycle frame. A decision whether core components such as the vision cameras and smart phones would connect to the computer board was more considered decision, whereby the advantages and disadvantages of both methods were considered. A devices were also considered and practicality of different methods.The most imported specifications of popular wireless and wired communications were collected and collated into a table \ref{table:wireless_comp} and \ref{table:wired_comp}, respectively.
 
-\subsubsection{Wireless}
+\subsubsection{Cameras}
+The vision cameras were primarily designed to be used via a usb interface and thereby they performed at their optimal capabilities when using this method. This was an ideal solution though, as cameras are a fixed component, that the user does not have to adjust or interfere with and therefore a wired usb connection through the inside of the bicycle frame could be used. 
+
+\subsubsection{SmartPhone}We concluded that the smartphone should connected to the on board computer via Bluetooth 4.0. The first reason for this decision was that smartphone have varying manufacturers and therefore have a number of different wired connection methods, which we would have had to have accommodated for by the user having to connect their smartphone into a USB port (The USB on the device is solely so the user can charge their device.). Secondly, with the use of a wireless method we had the option to incorporate other features, such as remote locking of the bicycle. The decision of bluetooth 4.0 was its known capabilities of operating under low power; a crucial necessity for our application which was dependent on a battery power supply. A method know as WiFi Direct (or Wi-Fi P2P) which is a peer-to-peer wifi connection that does not require a physical wireless access point, such as a router; instead one device will be determined to act as the access point during pairing, meaning that only one of the two devices has to be equipped with Wi-Fi Direct.  This required more power to operate and it wasn't as integrated into smart devices as Bluetooth and was therefore dismissed. NFC was disregarded for its immediate limitation with its maximum range, as is was not suitable for a device that may be required to communicate with other devices, given that the average length of a bicycle is 178cm and therefore limits the positioning of those devices on a bicycle. 
+
+\subsubsection{On-board computer}With the decision that the connection the smartphone would be via Bluetooth 4.0, this was obviously an essential component that needed to be attached to the Jetson TK1 computer board, to enable communication with the smartphone, for displaying sensor information and for radius remote locking. The computer had to be able to access the internet to interface with the database, for details regarding the specific user and multiple wireless methods were considered. 
+
+\paragraph{Internet Access via tethering} A device such as an embedded computer with bluetooth or Wi-Fi modules could connect to another device that also has either of these modules (or via physical connection), plus the compatibility to connect to the internet, and use a technology known as ?tethering? to share internet access. This would reduce overall costs of a device, but would require an external device to gain internet access.
+
+Wi-Fi access point is usually the best type of access to the internet, providing faster and more stable data transfer than 4G. Unfortunately it is still a technology that is designed to be used within a radius of a central point (access point) and is therefore not feasible for connected devices on a moving bicycle to a central database, etc.  
+
+Future use?.  handover
+
+3G
+
+This is the third generation of mobile technology and is still in great use today. It is the standard that networks providing 3G must ensure a data transfer of more than 200 Kbit/s, though most cell towers will provide speeds 
 
 \begin{landscape}
 
 \begin{table}[h]
-\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
 
-    \begin{tabular}{ | m{3cm} | m{3cm} | m{3.5cm} | m{3cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} |}
+   \center
+    \begin{tabular}{ | m{3cm} | m{3cm} | m{3.5cm} | m{3cm} | m{3cm} | m{2.5cm} |}
     \hline
-    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryption} & \textbf{Connection Latency} & \textbf{Avg Power Consumption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
+    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
    
-   Bluetooth v2.0 + EDR & 2.1 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & &  \\ \hline
-   Bluetooth v2.1 + EDR & 3 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & & \\ \hline
-   Bluetooth v3.0 HS & 24 Mbit/s & & 128 bit stream cipher & & & & \\ \hline
-   Bluetooth v4.0 + EDR & 3 Mbit/s & & 128-bit AES with Counter Mode CBC-MAC & 6ms & & & Bluetooth v3.0 \\ \hline
-   Neat Field Communication (NFC) & 424 Kbit/s & & \pbox{20cm}{AES \\(not required by \\standard)} & 100ms & & < 20cm & N/A \\ \hline
-   Wi-fi 802.11b & 11 Mbit/s & WPAv2 & AES 256 bit & & & 250 m & n \\ \hline
-   Wi-fi 802.11g & 54 Mbit/s & WPAv2 & AES 256 bit & & & 250m & 802.11b \\ \hline
-   Wi-fi 802.11n & \pbox{20cm}{600 Mbit/s \\(theoretical)} & WPAv2 & AES 256 bit & & & 250m & \pbox{20cm}{802.11a  \\802.11b \\802.11g} \\ \hline
-   Wi-fi 802.11ac &  \pbox{20cm}{1.3 Gbit/s \\(theoretical)} & WPAv2 & AES 256 bit & & & & \pbox{20cm}{802.11g \\802.11n} \\ \hline
-   Mobile 3G & 3 Mbit/s & \pbox{20cm}{UEA1 \\UIA1} & KASUMI & & & 5 - 22 miles [2] & 2G \\ \hline
-   LTE 4G & \pbox{20cm}{3 - 10 Mbit/s \\(theoretical 100 \\Mbit/s)} & \pbox{20cm}{UEA1 \\UIA1} & SNOW 3G & & & 5 - 22miles [2] & \pbox{20cm}{2G \\3G}  \\ \hline
+   Bluetooth v2.0 + EDR & 2.1 Mbit/s & Pairing Authentication Protocol & 128 bit stream cipher & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} & v1.2  \\ \hline
+   Bluetooth v2.1 + EDR & 3 Mbit/s & Pairing Authentication Protocol & 128 bit stream cipher & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} & v2.0 \\ \hline
+   Bluetooth v3.0 HS & 24 Mbit/s & Pairing Authentication Protocol & 128 bit stream cipher & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} &  v2.1 and v2.0\\ \hline
+   Bluetooth v4.0 + EDR & 3 Mbit/s &Pairing Authentication Protocol & 128-bit AES with Counter Mode CBC-MAC & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} & v3.0, v2.1 and v2.0 \\ \hline
+   Neat Field Communication (NFC) & 424 Kbit/s & N/A & \pbox{20cm}{AES \\(not required by \\standard)} & < 20cm & N/A \\ \hline
+   Wi-fi 802.11b & 11 Mbit/s & WPAv2 & AES 256 bit & 250 m & 802.11a\\ \hline
+   Wi-fi 802.11g & 54 Mbit/s & WPAv2 & AES 256 bit & 250m & 802.11b \\ \hline
+   Wi-fi 802.11n & \pbox{20cm}{600 Mbit/s \\(theoretical)} & WPAv2 & AES 256 bit & 250m & \pbox{20cm}{802.11a  \\802.11b \\802.11g} \\ \hline
+   Wi-fi 802.11ac &  \pbox{20cm}{1.3 Gbit/s \\(theoretical)} & WPAv2 & AES 256 bit  & 250m & \pbox{20cm}{802.11g \\802.11n} \\ \hline
+   Mobile 3G & 3 Mbit/s & \pbox{20cm}{UEA1 \\UIA1} & KASUMI & 5 - 22 miles [2] & 2G \\ \hline
+   LTE 4G & \pbox{20cm}{3 - 10 Mbit/s \\(theoretical 100 \\Mbit/s)} & \pbox{20cm}{UEA1 \\UIA1} & SNOW 3G & 5 - 22miles [2] & \pbox{20cm}{2G \\3G}  \\ \hline
    
     \end{tabular}
 
-
 \caption[Table caption text]{Wireless communication methods comparison} 
 \label{table:wireless_comp}
-\end{minipage} }
 \end{table}
 
 \end{landscape}
 
-\subsubsection{Wired}
-
-
 \begin{table}[h]
-\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
+\center
 
-    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{3.5cm} | m{2.5cm} | m{2.5cm} |}
+    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{3.5cm} | }
     \hline
-    \textbf{Wired comms} & \textbf{Data Rates} & \textbf{Max Cable Length (without repeater) } & \textbf{Operating Temp min} & \textbf{Operating Temp Min} \\ \hline
+    \textbf{Wired comms} & \textbf{Data Rates} & \textbf{Max Cable Length (without repeater) } \\ \hline
   
-  Ethernet Cat 5  & 10/100 Mbit/s & 100m & -20\degree C & 65\degree C\\ \hline 
-  Ethernet Cat 5e & 10/100/1000 Mbit/s & 100m & -20\degree C & 65\degree C \\ \hline
-  Ethernet Cat 6 & 10/100/1000 Mbit/s and 10 Gbit/s & \pbox{20cm}{100m @ 1000Mbit/s \\55m @ Gbit/s} & -20\degree C & 65\degree C \\ \hline
-   USB 2.0 & \pbox{20cm}{450 Mbit/s \\(theoretical)} & 5m & & \\ \hline
-   USB 3.0 & \pbox{20cm}{5 Gbit/s \\(theoretical)} & 3m & & \\ \hline
-   USB 3.1 & \pbox{20cm}{10 Gbit/s \\(theoretical)} & 3m & & \\ \hline
+  Ethernet Cat 5  & 10/100 Mbit/s & 100m\\ \hline 
+  Ethernet Cat 5e & 10/100/1000 Mbit/s & 100m\\ \hline
+  Ethernet Cat 6 & 10/100/1000 Mbit/s and 10 Gbit/s & \pbox{20cm}{100m @ 1000Mbit/s \\55m @ Gbit/s} \\ \hline
+   USB 2.0 & \pbox{20cm}{450 Mbit/s \\(theoretical)} & 5m \\ \hline
+   USB 3.0 & \pbox{20cm}{5 Gbit/s \\(theoretical)} & 3m\\ \hline
+   USB 3.1 & \pbox{20cm}{10 Gbit/s \\(theoretical)} & 3m\\ \hline
     \end{tabular}
 
-
 \caption[Table caption text]{Wired communication methods comparison} 
-\label{table:wireless_comp}
-\end{minipage} }
+\label{table:wired_comp}
 \end{table}
-
-Wireless communication for bicycle compoenents (mainly between the computer system and electric brakes), though small, posed the risk of disconnection %maybe some research about disconnection
- and given the time criticalness of the application for safety, it was decided that the communication of the bicycle component should be wired.
 
 \chapter{System Architecture}
 
@@ -901,7 +912,7 @@ In order to properly implement the bike settings we would need each user to have
 \end{itemize}
 
 \subsubsection{Security}
-The key issue that we had to solve was how to pair users with bikes in such a way that it is easy to do but also doesn't allow any random person to pair themselves. After considering many solutions; such as allowing anybody to pair, but restricting who can lock and unlock the bike to just one person. This wasn't practical because it meant you wouldn't be able to cycle somewhere and lock the bike without the locking users credentials, which then compromises the integrity of the system. Another approach that was considered was assigning accounts to the bikes rather than the users - but this would not be very good either because then users would need to remember account details to log into different bikes - and it also makes the settings more difficult to implement.
+The key issue that we had to solve was how to pair users with bicycles in such a way that it is easy to do but also doesn't allow any random person to pair themselves. After considering many solutions; such as allowing anybody to pair, but restricting who can lock and unlock the bike to just one person. This wasn't practical because it meant you wouldn't be able to cycle somewhere and lock the bike without the locking users credentials, which then compromises the integrity of the system. Another approach that was considered was assigning accounts to the bikes rather than the users - but this would not be very good either because then users would need to remember account details to log into different bikes - and it also makes the settings more difficult to implement.
 
 The final solution that we eventually came up with was almost a combination of both ideas - we had to make a slight trade-off towards security over ease of use in this situation. We decided on a system of master accounts. Where on the initial setup of the bike a master account is assigned and then this master account holder is then able add or remove other users to the bike. This is not ideal for users who jointly own a bike where there is no obvious master account holder and it is also not ideal for a bike that is used by lots of different people because it could require the master account holder to be making regular changes. However we felt that these situations are rare, workable and also that the security implications make this necessary trade-off. 
 
@@ -930,7 +941,7 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 
 \paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}. 
 
-\subsection{Prototype Iteration I}
+\subsection{Iteration I}
 
 \paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components to the main computer board, after the analog signals have been converted to digital representation (via the ADC), shown in algorithm \ref{alg:brake_lever}. The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed. 
 
@@ -1001,7 +1012,7 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Prototype Iteration ii}
+\subsection{Iteration II}
 Instead of the Jetson TK1 processing the decisions regrading the braking system when manually operated, it was decided that the embedded program on the microcontroller should decide upon the motor control based on the input. This was decided as having the Jetson TK1 process task that could be done on the microcontroller, used valuable resources. There is no more communication delay from the computer board and microcontroller. The 2-way serial UART connection remains, as the Jetson Tk1 still needs to provide motor control command to the microcontroller when an automatic braking occurs, which would override any braking by the user that could reduce the braking impact. Some of the algorithms on first iteration also didn't account for the user pressing the brakes simultaneously, or whether the currently running code would block until finalised. The \ref{alg:motor_control} would have to operate both motors simultaneously. The microcontroller does not have multiple cores and therefore has to used single core multiple threading software techniques. If both the brake levers have been operated then each part of the motor control for the front wheel and the brake wheel will be operated for small amounts of time. The amount of time each task will be given is also in proportion to angle at which he brake lever has been pressed, as that brake is a higher priority as the user wants it to apply more force to the disk brake.
 
 \section{Collision Avoidance System}
@@ -1188,11 +1199,62 @@ Although we intend for this application to be available for all major smartphone
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figures/fan_camera}
-\caption{Fan camera layout}
+\caption{Fan camera layout developed by Brauckmann \textit{et al.} \citep{towards_all_around_sensing}}
 \label{fig:fan_camera}
 \end{figure}
 
-\subsection{Collision Avoidance System}
+\paragraph{}We decided to use cameras as our primary sensor due to their robustness and affordability. Compared to using a laser range finder such as LIDAR, it seemed like the better option as it did not include moving parts that could easily break; which is an important feature to have when implemented on a bicycle as a bicycle is much more susceptible to wear and tear. The cameras on either side of the bike are positioned in stereo, while each camera is composed of a fan camera (shown in figure \ref{fig:fan_camera}). On the front of the bicycle, a single camera (again a fan camera) is used and placed higher up than the rest of the cameras (underneath the handlebars). This is for the bicycle to detect vehicles that are far in front of the bicycle. We decided not to use two cameras in stereo on the front of the bicycle; for one it would be obstructive for the cyclist to have two cameras sticking out on either side of the bicycle, but also the cameras would need to be positioned quite far apart in order to detect vehicles at a range. The stereo cameras on the front of the bicycle would also need to be placed further down on the bicycle in order to detect vehicles using the same algorithms as the other stereo cameras.
+
+\section{Collision Avoidance System}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/block_diagram_tracking}
+\caption{Block Diagram for car tracking system (based on work by Zhao \textit{et al.}\cite{qualitative_car_tracking})}
+\label{fig:block_diagram}
+\end{figure}
+
+There will be three steps towards a system that monitors nearby objects: detection, tracking and motion estimation. These steps will be described below.
+\subsection{Detecting a vehicle and tracking}
+\subsubsection{In Front of bicycle}
+A single fan camera will be used to detect vehicles at range in front of the bicycle. In order for the bicycle to detect vehicles, we will first need to use an edge detector algorithm. The methods describe by Rosenfeld \textit{et al.} \citep{edge_detection} should work here. Using greyscale images, the system can detect edges by examining the average grey level of pairs of neighbouring pixels that meet at a point. The relative orientation of these neighbouring pixels will determine the orientation of the edges.
+
+\paragraph{Exploiting Symmetry}
+As decribed by Brauckmann \textit{et al.} \citep{towards_all_around_sensing} for the use of their system, we can adopt the method here. The system, with the use of an edge detection method described earlier, will detect edges and have vertical symmetry. This is because vehicles from behind tend to look symmetrical (see figure \ref{fig:cars_follow} for a demonstration). This is useful for the situation where the cyclist is behind cars in the same lane. The idea is to prevent the cyclist from hitting the back of any cars, maybe due to the cyclist being unaware that the vehicle in front has applied the brakes. The function for this method has been described by Zielke \textit{et al.} \cite{zielke1993intensity}. The vertical axis is very useful for measuring the vehicles lateral distance as nodding of the camera will not affect this method.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/Car_follow_scenario}
+\caption{What the system will see in a car following situation}
+\label{fig:cars_follow}
+\end{figure}
+
+\paragraph{Local Orientation Coding and Neural Networks} This was a method used by Brauckmann \textit{et al.} in their car sensing system \citep{towards_all_around_sensing}. This method was developed by Goerick \& Brauckmann \citep{goerick1994local}. The main reason for using this technique is to provide flexiibility in the vehicle detection, so that the system is not too heavily reliant on exploiting symmetry. In order to use neural networks, an appropriate feature extraction process is needed. This is why we use a local orientation coding technique (described by Goerick \& Brauckmann \citep{goerick1994local}). The local orientation coding technique will then be used in combination with a lateral histogram technique. The local orientation histograms will contain guesses for the location of a vehicle in the image. A neural network classifier will then determine that the guesses do contain a vehicle. The neural network will need to be trained in detecting certain vehicle types with the use of sample images. An image of a van will allow detection of vans wheareas an image of a car will allow detection of cars. The image used to train the neural network can be of a low resolution so that it isn't so precise on detecting a vehicle of a certain type, so that it can detect a wider variety of vehicles.
+
+\subsubsection{The sides of the bicycle}
+
+\paragraph{}As mentioned previously, the sides of the bicycle will be monitored using cameras positioned in stereo. The method we will use is mostly based on the method used by Brauckmann \textit{et al.} \citep{towards_all_around_sensing} in their 'VisionBumper' system. This method is very useful because it is a simple method designed for a system not will not require the vehicle to plan its own trajectories. Our system will not plan its own trajectories but will only apply the brakes at appropriate times and warn the cyclist. This is because we found having a bicycle control itself will be a risk as the cyclist is required to balance the bicycle, and the cyclist may find it disorientating to have the bicycle control itself which may result in the cyclist falling of the bicycle and causing injury. 
+
+\paragraph{}Using stereo fan cameras closer to the ground on either side of the bicycle, we can detect cars getting too close to the bicycle. Having the cameras monitor the road we are able to detect a vehicle obscuring the view. In order to get images that can be determined by the system, we will need to use a process called Inverse-perspective
+mapping (for implementation, see paper \cite{inverse-perspective_mapping}). This will formulate a viewable image for the system from information gathered from the multiple CCD sensors. 
+
+\paragraph{}The position of the cameras on either side of the bicycle should provide almost 360 degree coverage around the bicycle. This will act as a 'safe zone' around the bicycle (see figure \ref{fig:safe_zone}). If a vehicle enters this safe zone, the system will have time to react. If an object obscures the road in the image gets to a certain distance away from the bicycle, the bicycle will apply the brakes accordingly. In a situation where a car enters the cyclists lane or tries to overtake in a reckless way, applying the brakes will allow the vehicle to drive past with the cyclist unharmed.
+
+\paragraph{}Although we are using a stereo camera system, we will not be using optical triangulation to measure the distance of objects. This is because the system not be able to reliably obtain two corresponding image locations of the same surface point of an object in 3D. Instead, the system will detect distortions in the processed image (obtained using inverse-perspective mapping) from both cameras. The view from the cameras should be a ground view of the road, and as a vehicle enters the bicycles 'safe zone' the cameras will pick up two different images of the object (due to being at different angles to the vehicle). The distortions in the final image after using inverse-perspective mapping will be considered possible object locations. The problem with this approach is that the cameras should not view too far out as this method requires the cameras to be constantly viewing the road, also viewing too far out will cause the bicycle to brake too early or brake when not needed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/bicycle_safe_zone}
+\caption{Image showing the typical coverage the side cameras should give}
+\label{fig:safe_zone}
+\end{figure}
+
+\subsection{Estimating distance and speed}
+In our system, distance and speed all comes down to the size of the object being tracked over time. 
+
+
+
+
+
 \chapter{Conclusion}
 
 \part*{Appendices}
