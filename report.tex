@@ -1251,78 +1251,22 @@ mapping (for implementation, see paper \cite{inverse-perspective_mapping}). This
 \subsection{Estimating distance and speed}
 In our system, distance and speed all comes down to the size of the object being tracked over time. 
 
-
-
-
-
 \chapter{Conclusion}
+In conclusion, we have designed a product that we feel commuting cyclists will be able to use for their commute to work. We think that this product will be able to significantly improve safety for users of our product, but furthermore other cyclists will feel the benefit due to the Safety in Numbers concept.
+
+In the early stages we considered a whole range of possible ideas and ways in which we could tackle this problem but in the ended we decided to go with an approach based around automated braking and collision detection. This mirrors similar technology found in cars - particularly the Blind Spot technology developed by Infiniti. We were very happy with this decision as it meant we were able to design a versatile product that be believe will work well.
+
+This product could form the basis of a smart bike in the future and we think that there are many ways in which our design could be expanded. It could be expanded to include more automation but perhaps more simply the app could be developed further to monitor more features of the bike and enable more settings to be tweaked. 
+
+The mobile app is something that works particularly well with this format because of it's versatility and in particular it could allow us to revisit the Google Glass idea that we considered in the early stages - once this technology becomes more developed.
 
 \part*{Appendices}
 
 \appendix
-\chapter{Braking System}
-\section{Research}
-
-\begin{table}[h]
-
-    \begin{tabular}{ | c | c |}
-    \hline
-    \textbf{Condition} & \textbf{Rolling Friction Coefficient (mm)} \\ \hline
-   
-   Bicycle tire on wooden track & 0.001   \\ \hline
-   Bicycle tire on concrete & 0.002 \\ \hline
-  Bicycle tire on asphalt road & 0.004 \\ \hline
-  Bicycle tire on rough paved road & 0.008 \\ \hline
-
-  \end{tabular}
-
-\caption[Table caption text]{Bicycle Rolling Resistance for differing conditions \cite{cite:bicycle_friction}} 
-\label{table:bicycle_friction}
-\end{table}
-
-\section{Early Sketches}
-\label{app:early_sketches}
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.25]{figures/early_sketches/braking_system/motor_cable_tension}
-\caption{Early design sketch using a motor to increase and decrease the tension of a bayman cable for use in the bicycle braking system}
-\label{fig:early_motor_cable_tension}
-\end{figure}
-
-\section{Current Technology}
-\label{app:brakes_current_technology}
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.7]{figures/electronic_braking/audi_EHCB_1}
-\caption{  \citep{audi_ehcb_1}}
-\label{fig:audi_EHCB_1}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.7]{figures/electronic_braking/audi_EHCB_2}
-\caption{Audi Electric Hydraulic combo Brakes  \citep{audi_ehcb_2}}
-\label{fig:audi_EHCB_2}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.7]{figures/electronic_braking/spring_pot}
-\caption{Spring operated potentiometer \citep{spring_pot}}
-\label{fig:spring_pot}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.5]{figures/electronic_braking/wireless_bicycle_brakes_labelled}
-\caption{Labelled Prototype of wireless by Pro Hermanns \citep{wireless_bicycle_brakes}}
-\label{fig:wireless_bicycle_brakes}
-\end{figure}
-
-
 \chapter{Research Report}
-In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover the best way in which to improve safety in cycling. In order to do this we analysed a range of statistics as well as speaking directly to different stakeholders and ...
+In this mini-report we will be showing the preliminary research that we did before designing our final solution. The overall aim of doing this research was to discover what was currently going wrong in cycling and where we could improve it. 
+
+We did this by analysing a range of statistics and then looking at the cycling safety products past \& present to see what has succeeded and what has failed and also is possible we have tried to analyse the reasons why. 
 \newpage
 \section{Accidents}
 \subsection{Weather Conditions}
@@ -1615,6 +1559,66 @@ Bike Thieves & To make money from the theft of bicycles & Silently supportive & 
 Government & To provide overall management to the transport system & Mixed & +ve & Mixed. Some areas of government would probably appreciate more cyclists on the road. However, an increased number of cyclists could lead to increased pressure to build cycle lanes and further infrastructure\\ \hline
 \end{tabularx}
 \end{center}
+
+\chapter{Braking System}
+\section{Research}
+
+\begin{table}[h]
+
+    \begin{tabular}{ | c | c |}
+    \hline
+    \textbf{Condition} & \textbf{Rolling Friction Coefficient (mm)} \\ \hline
+   
+   Bicycle tire on wooden track & 0.001   \\ \hline
+   Bicycle tire on concrete & 0.002 \\ \hline
+  Bicycle tire on asphalt road & 0.004 \\ \hline
+  Bicycle tire on rough paved road & 0.008 \\ \hline
+
+  \end{tabular}
+
+\caption[Table caption text]{Bicycle Rolling Resistance for differing conditions \cite{cite:bicycle_friction}} 
+\label{table:bicycle_friction}
+\end{table}
+
+\section{Early Sketches}
+\label{app:early_sketches}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.25]{figures/early_sketches/braking_system/motor_cable_tension}
+\caption{Early design sketch using a motor to increase and decrease the tension of a bayman cable for use in the bicycle braking system}
+\label{fig:early_motor_cable_tension}
+\end{figure}
+
+\section{Current Technology}
+\label{app:brakes_current_technology}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{figures/electronic_braking/audi_EHCB_1}
+\caption{  \citep{audi_ehcb_1}}
+\label{fig:audi_EHCB_1}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{figures/electronic_braking/audi_EHCB_2}
+\caption{Audi Electric Hydraulic combo Brakes  \citep{audi_ehcb_2}}
+\label{fig:audi_EHCB_2}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.7]{figures/electronic_braking/spring_pot}
+\caption{Spring operated potentiometer \citep{spring_pot}}
+\label{fig:spring_pot}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.5]{figures/electronic_braking/wireless_bicycle_brakes_labelled}
+\caption{Labelled Prototype of wireless by Pro Hermanns \citep{wireless_bicycle_brakes}}
+\label{fig:wireless_bicycle_brakes}
+\end{figure}
 
 \chapter{Prototype 1}
 \begin{figure}
