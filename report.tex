@@ -244,55 +244,42 @@ In keeping with the agile approach that we took to the design the functional req
 \section{Functional Requirements}
 \label{sec:func_req}
 \begin{enumerate}[label=\ref*{sec:func_req}.\arabic*.,leftmargin=*]
-\item The system must monitor tyre pressure
+\item The system must be able to detect potential collisions on the road around the user
 \begin{description}
-\item[Description] The system must keep a real-time view on the pressure in both bicycle tires and present information to the user. If the tires are below a certain pressure, the system must automatically inflate the tires to an optimal pressure
-\item[Reason] Deflated tires affects cycling performance and also may damage the bicycle. Automatic inflation will improve the cyclists confidence to cycle
+\item[Description] The system detects vehicles (possibly pedestrians, too), tracks them and predicts their future trajectory from their velocity, yaw, etc.
+\item[Reason] To enable the system to take the appropriate action
 \end{description}
 
-\item The system's mobile app must be available to download
+\item The system must be able to take some action to prevent the collision from happening
 \begin{description}
-\item[Description] The user must be able to download and install the mobile app onto their mobile phone via a website or popular app store
-\item[Reason] User has easy access to the software
+\item[Description] If a predicted trajectory will cause a collision, then the cyclist is either warned or the system takes over.
+\item[Reason] A humans reaction time can place them at risk.
+\item[Dependencies] 4.1.1
 \end{description}
 
 \item The system must provide notifications to the user
 \begin{description}
-\item[Description] The system must provide easy to read notifications to the user
-\item[Reason] Alerting the user of hazards will improve safety
-\item[Dependencies] FR5, FR6
+\item[Description] The system must notify the user about what is going on with the system
+\item[Reason] Will make it much easier to use
+\item[Dependencies] 4.1.2
 \end{description}
 
-\item User information must be stored in a database
+\item The system should be lockable remotely
 \begin{description}
-\item[Description] The system must keep records of usernames, passwords, bicycle location, user phone numbers
-\item[Reason] To enable security features
-\end{description}
-
-\item Collision detection
-\begin{description}
-\item[Description] The system detects vehicles (possibly pedestrians, too), tracks them and predicts their future trajectory from their velocity, yaw, etc.
-\item[Reason] To enable security features
-\end{description}
-
-\item Collision Avoidance
-\begin{description}
-\item[Description] If a predicted trajectory will cause a collision, then the cyclist is either warned or the system takes over.
-\item[Reason] A humans reaction time can place them at risk.
-\end{description}
-
-\item Remote locking
-\begin{description}
-\item[Description] The user must be able to lock the bicycle wheels in place using an application on a separate device
+\item[Description] The user should be able to prevent unwanted access to their bike via a remote device
 \item[Reason] To reduce the risk of the bicycle being stolen.
-\item[Dependencies] FR2, FR8
 \end{description}
 
-\item Bicycle Interface
+\item The system should allow the user to monitor their cycling performance
 \begin{description}
-\item[Description] The cyclist/user should be able to interface with the bicycle and change settings.
+\item[Description] The system should contain some sort of interface for monitoring some statistics such as current speed, etc.
 \item[Reason] Cyclists have different cycling methods.
-\item[Dependencies] FR2
+\end{description}
+
+\item The system could monitor tyre pressure
+\begin{description}
+\item[Description] It would be ideal if the system could keep a real-time view on the pressure in both bicycle tires and present information to the user. If the tires are below a certain pressure, the system must automatically inflate the tires to an optimal pressure
+\item[Reason] Deflated tires affects cycling performance and also may damage the bicycle. Automatic inflation will improve the cyclists confidence to cycle
 \end{description}
 \end{enumerate}
 
