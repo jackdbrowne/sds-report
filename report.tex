@@ -1189,8 +1189,6 @@ Although we intend for this application to be available for all major smartphone
 \includegraphics[scale=0.6]{figures/final_design/performance}
 \caption{Final design of the rider performance screen}
 \end{figure}
-\section{Screen Objects and Actions}
-
 
 \section{Hardware Components Layout}
 \begin{figure}[H]
@@ -1379,6 +1377,7 @@ However, there are many concerns with use of Google Glass; the biggest concern h
 \paragraph{Pebble}
 Pebble \citep{pebble} is a system embedded into a watch. The design of this watch is to keep simplicity and provide functionality. It uses a black and white 'e-paper' display to allow easy readability in daylight. It is very water resistant up to 50 meters and uses an optical hard coating to make it scratch resistant. The watch links to a mobile phone via bluetooth to provide notifications which gives it a variety of uses. The pebble can be used as a fitness tracker and can be linked to mobile fitness apps on the mobile phone. This would be useful on a bike as the strap allows the user to strap the watch to the handlebars of the bicycle and use it to display the users performance as they cycle.
 
+\newpage
 \section{Economy}
 In a British Cycling Economy report \citep{british_economy_report}, it explains that cycling accessories contribute to over half the amount to the UK economy than the sales of bikes themselves. Typically bought accessories include helmets, locks and pumps as these are considered “necessary”. Also it mentions that interviews with commuters who cycle revealed that fear of theft and improper storage at their commute destination affects their choice in purchasing a bike; this has been influencing a growth in the investment of folding bicycles. Commuters also typically purchase safety clothing with their bicycle (ie, gloves and reflective gear). 
 
@@ -1407,8 +1406,28 @@ More recent versions of this product now use a radar sensor in the rear of the c
 
 \subsubsection{Ford}
 Ford have developed their own version of the BLIS system. Ford's system works using two radar sensors mounted on each corner of the rear bumper \cite{ford_blis}. The Ford system actually appears to be very similar to the Volvo one; the notification however is done in a slightly different way. Ford have incorporated the notification light into the wing mirrors; this has the slight advantage that the driver is likely to be checking these mirrors anyway before moving and so doesn't mean they have to check somewhere else before manoeuvring. However it still has the problem that the system is not very forceful about giving the warning and so it may be easy for more careless drivers to miss the warning all together. 
+
+\subsubsection{Infiniti}
+A more advanced system has been developed by Infiniti; they separate the system into two parts:
+\begin{itemize}
+\item Blind Spot Warning \cite{infiniti_warning}
+\item Blind Spot Intervention \cite{infiniti_intervene}
+\end{itemize}
+The warning system is actually quite similar to the previous systems that we looked at but they do have a different approach to notifying the driver. Once the driver indicates to move into a blocked lane there will be an audible warning to the driver. We think that this may be a slightly better approach because it caters for those people who may not take the time to check their mirrors thoroughly and is much more difficult to miss. Also an audible warning is actually likely to be much more appropriate for any similar system implemented on a bike (because there are no mirrors).
+
+It is after this where the system gets really clever, the intervention technology kicks in. The idea of the intervention technology is that if the driver continues to move towards the obstacle in their blind spot the intervention system will actually intervene to stop a collision from occurring. It intervenes by carefully applying braking on one side of the vehicle in order guide it back to the centre of the lane.
+
+Something similar to the Blind Spot Intervention technology could be a potential consideration for use on a bike using braking in a similar way.
 \subsection{Self driving cars}
-\subsection{Self inflating tyres}
+Self driving cars are the pinnacle of car technology, although a long way from consumer release significant progress has been made in recent years. Self driving cars are essentially a combination of navigation systems, collision avoidance and automated driving systems. It is highly possible that a road full of self driving cars could reduce accidents down to almost none, by taking out the human error. This also shows what could be possible for bike technology.
+
+However, when fully analysed it is clear that many of the technologies may not be possible to implement on a bicycle because of the way a bicycle is controlled. Cars are much more stable than bikes because of their four wheels and their power coming from a controllable engine. Bikes only have two wheels which means they are much more sensitive to sudden changes in their control and are powered via pedals which are very hard to manage. 
+
+It may be possible to take the best elements of self driving cars and adapt them to fit into a bicycle setup - this would likely need to be an electric bike.
+\subsection{Central Tire Inflation}
+An actually quite old technology is Central Tire Inflation - here the idea is the tires can be inflated or deflated by a central device allowing the vehicle to work much more effectively in different road conditions. This device could be user controlled allowing them to change tire pressure centrally, but could also be connected to a series of sensors allowing them to monitor the road conditions and change the tire pressure accordingly. This has been heavily used in off-roading vehicles where the road conditions can change rapidly, but not so much in road vehicles. \cite{ctis} 
+
+An attempt has been made to implement this technology on a bicycle\cite{ctis_bike} which could be potentially useful since bikes are particularly sensitive to road conditions, however it could well be the case that bikes are more sensitive to things like pot holes which this system would not really be able to help with.
 \newpage
 \section{Other research}
 \subsection{Route planning}
@@ -1418,7 +1437,7 @@ Looking more deeply into route planning we realised that in order to incorporate
 One way to do this is to try and to model a cyclist's perception of the roads they cycle on. An attempt at this is the Bicycle Compatibility Index (BCI) \cite{bci-manual}; an American idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
 
 The BCI was developed using the perspectives of cyclists; asking them to view videoclips and evaluate how comfortable they would be cycling on that road in the conditions shown. The index is then calculated using the method show in in figure \ref{fig:bci_calc}.
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/research_report/bci}
 \caption{The calculation for the Bicycle Compatibility Index}
@@ -1429,7 +1448,7 @@ Fairly obviously, the presence of a dedicated cycle lane wider than 0.9m is the 
 
 The BCI also gives an indication towards what an index value means regarding how compatible the road is, this is shown in figure \ref{fig:bci_los}:
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.7]{figures/research_report/bci_los}
 \caption{The 'Level of Service' designations for the BCI}
