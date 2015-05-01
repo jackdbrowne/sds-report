@@ -19,7 +19,7 @@
 \usepackage{algpseudocode}
 \usepackage{geometry}
 \usepackage{float}
-\restylefloat{table}
+%\restylefloat{table}
  \geometry{
  a4paper,
  total={210mm,297mm},
@@ -727,13 +727,18 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 
 \begin{table}[h]
 \center
-    \begin{tabular}{ | m{3cm} | m{2.5cm} | m{3cm} | m{3cm} | m{1cm} |}
+    \begin{tabular}{ | m{3cm} | m{2cm} | m{3cm} | m{3cm} | m{3.5cm} | m{1cm} |}
     \hline
-    \textbf{Computer Board} & \textbf{\# CPU Cores } & \textbf{CPU core clock speed} & \textbf{RAM} & \textbf{Cost}\\ \hline
-   
- 	MinnowBoard MAX & 2 & 1.33 GHz &  2GB DDR3 & ï¿½90.34\\ \hline
-	RASPBERRY PI 1 MODEL 1 &  1 & 700MHz & 512MB
-  
+
+    \center{\textbf{Computer Board}} & \center{\textbf{\# CPU Cores}} & \textbf{CPU core clock speed} & \textbf{RAM} & textbf{Wireless Connectivity} & \textbf{Cost}\\ \hline
+
+ 	  MinnowBoard MAX & 2 & 1.33 GHz & 2GB DDR3 & USB & £90.34\\ \hline
+	RASPBERRY PI 1 MODEL 1 &  1 & 700MHz & 512MB & USB & £17.52\\ \hline
+          Pandaboard & 2 & 1GHz & 1GB DRR2 & 802.11 b/g/n and Bluetooth 2.1 + EDR & 113.09 \\ \hline
+         Jetson TK1 & 4 & 2.5GHz & 2GB & Additional PCIe board or USB&  £124.78\\ \hline
+         Odroid-XUS & \pbox{20cm}{1. 4 \\2. 4} & \pbox{20cm}{1.2GHz \\2. 1,6GHz} & 2GB DDR3 & USB & 116.34 \\ \hline 
+         MicroZed & 2 & 667MHz & 1GB DDR3 & USB & £129.33 \\ \hline
+
     \end{tabular}
 
 \caption[Table caption text]{Wireless communication methods comparison} 
@@ -793,66 +798,72 @@ We researched into current electrical braking, in bicycle and vehicles. There wa
 %need to calculate stopping distance :/ 
 
 \subsection{Communication}
+\paragraph{}We had to decide how the subsystems of the product would communicate with each other. The electrical brake lever and braking components could have been adapted to be wireless, but there was no application for such measures and it would have added further complexity, reduce transmission speeds and posed a risk of disconnection, which was not acceptable given the time criticalness of the application. These components are connected to the computer board and micro controllers via standard electrical wiring, which is hidden within the inside of the bicycle frame. A decision whether core components such as the vision cameras and smart phones would connect to the computer board was more considered decision, whereby the advantages and disadvantages of both methods were considered. A devices were also considered and practicality of different methods.The most imported specifications of popular wireless and wired communications were collected and collated into a table \ref{table:wireless_comp} and \ref{table:wired_comp}, respectively.
 
-\subsubsection{Wireless}
+\subsubsection{Cameras}
+The vision cameras were primarily designed to be used via a usb interface and thereby they performed at their optimal capabilities when using this method. This was an ideal solution though, as cameras are a fixed component, that the user does not have to adjust or interfere with and therefore a wired usb connection through the inside of the bicycle frame could be used. 
+
+\subsubsection{SmartPhone}We concluded that the smartphone should connected to the on board computer via Bluetooth 4.0. The first reason for this decision was that smartphone have varying manufacturers and therefore have a number of different wired connection methods, which we would have had to have accommodated for by the user having to connect their smartphone into a USB port (The USB on the device is solely so the user can charge their device.). Secondly, with the use of a wireless method we had the option to incorporate other features, such as remote locking of the bicycle. The decision of bluetooth 4.0 was its known capabilities of operating under low power; a crucial necessity for our application which was dependent on a battery power supply. A method know as WiFi Direct (or Wi-Fi P2P) which is a peer-to-peer wifi connection that does not require a physical wireless access point, such as a router; instead one device will be determined to act as the access point during pairing, meaning that only one of the two devices has to be equipped with Wi-Fi Direct.  This required more power to operate and it wasn't as integrated into smart devices as Bluetooth and was therefore dismissed. NFC was disregarded for its immediate limitation with its maximum range, as is was not suitable for a device that may be required to communicate with other devices, given that the average length of a bicycle is 178cm and therefore limits the positioning of those devices on a bicycle. 
+
+\subsubsection{On-board computer}With the decision that the connection the smartphone would be via Bluetooth 4.0, this was obviously an essential component that needed to be attached to the Jetson TK1 computer board, to enable communication with the smartphone, for displaying sensor information and for radius remote locking. The computer had to be able to access the internet to interface with the database, for details regarding the specific user and multiple wireless methods were considered. 
+
+\paragraph{Internet Access via tethering} A device such as an embedded computer with bluetooth or Wi-Fi modules could connect to another device that also has either of these modules (or via physical connection), plus the compatibility to connect to the internet, and use a technology known as ?tethering? to share internet access. This would reduce overall costs of a device, but would require an external device to gain internet access.
+
+Wi-Fi access point is usually the best type of access to the internet, providing faster and more stable data transfer than 4G. Unfortunately it is still a technology that is designed to be used within a radius of a central point (access point) and is therefore not feasible for connected devices on a moving bicycle to a central database, etc.  
+
+Future use?.  handover
+
+3G
+
+This is the third generation of mobile technology and is still in great use today. It is the standard that networks providing 3G must ensure a data transfer of more than 200 Kbit/s, though most cell towers will provide speeds 
 
 \begin{landscape}
 
 \begin{table}[h]
-\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
 
-    \begin{tabular}{ | m{3cm} | m{3cm} | m{3.5cm} | m{3cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} | m{2.5cm} |}
+   \center
+    \begin{tabular}{ | m{3cm} | m{3cm} | m{3.5cm} | m{3cm} | m{3cm} | m{2.5cm} |}
     \hline
-    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryption} & \textbf{Connection Latency} & \textbf{Avg Power Consumption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
+    \textbf{Wireless comms} & \textbf{Max Data Rate} & \textbf{Security Protocol} & \textbf{Encryption} & \textbf{Range} & \textbf{Backwards Compatible}\\ \hline
    
-   Bluetooth v2.0 + EDR & 2.1 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & &  \\ \hline
-   Bluetooth v2.1 + EDR & 3 Mbit/s & & 128 bit stream cipher & & Class 1 radio: 100mW & & \\ \hline
-   Bluetooth v3.0 HS & 24 Mbit/s & & 128 bit stream cipher & & & & \\ \hline
-   Bluetooth v4.0 + EDR & 3 Mbit/s & & 128-bit AES with Counter Mode CBC-MAC & 6ms & & & Bluetooth v3.0 \\ \hline
-   Neat Field Communication (NFC) & 424 Kbit/s & & \pbox{20cm}{AES \\(not required by \\standard)} & 100ms & & < 20cm & N/A \\ \hline
-   Wi-fi 802.11b & 11 Mbit/s & WPAv2 & AES 256 bit & & & 250 m & n \\ \hline
-   Wi-fi 802.11g & 54 Mbit/s & WPAv2 & AES 256 bit & & & 250m & 802.11b \\ \hline
-   Wi-fi 802.11n & \pbox{20cm}{600 Mbit/s \\(theoretical)} & WPAv2 & AES 256 bit & & & 250m & \pbox{20cm}{802.11a  \\802.11b \\802.11g} \\ \hline
-   Wi-fi 802.11ac &  \pbox{20cm}{1.3 Gbit/s \\(theoretical)} & WPAv2 & AES 256 bit & & & & \pbox{20cm}{802.11g \\802.11n} \\ \hline
-   Mobile 3G & 3 Mbit/s & \pbox{20cm}{UEA1 \\UIA1} & KASUMI & & & 5 - 22 miles [2] & 2G \\ \hline
-   LTE 4G & \pbox{20cm}{3 - 10 Mbit/s \\(theoretical 100 \\Mbit/s)} & \pbox{20cm}{UEA1 \\UIA1} & SNOW 3G & & & 5 - 22miles [2] & \pbox{20cm}{2G \\3G}  \\ \hline
+   Bluetooth v2.0 + EDR & 2.1 Mbit/s & Pairing Authentication Protocol & 128 bit stream cipher & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} & v1.2  \\ \hline
+   Bluetooth v2.1 + EDR & 3 Mbit/s & Pairing Authentication Protocol & 128 bit stream cipher & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} & v2.0 \\ \hline
+   Bluetooth v3.0 HS & 24 Mbit/s & Pairing Authentication Protocol & 128 bit stream cipher & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} &  v2.1 and v2.0\\ \hline
+   Bluetooth v4.0 + EDR & 3 Mbit/s &Pairing Authentication Protocol & 128-bit AES with Counter Mode CBC-MAC & \pbox{20cm}{Class 3 radiios: 1m \\Class 2 radios: 10m \\class 1 radios: 100m} & v3.0, v2.1 and v2.0 \\ \hline
+   Neat Field Communication (NFC) & 424 Kbit/s & N/A & \pbox{20cm}{AES \\(not required by \\standard)} & < 20cm & N/A \\ \hline
+   Wi-fi 802.11b & 11 Mbit/s & WPAv2 & AES 256 bit & 250 m & 802.11a\\ \hline
+   Wi-fi 802.11g & 54 Mbit/s & WPAv2 & AES 256 bit & 250m & 802.11b \\ \hline
+   Wi-fi 802.11n & \pbox{20cm}{600 Mbit/s \\(theoretical)} & WPAv2 & AES 256 bit & 250m & \pbox{20cm}{802.11a  \\802.11b \\802.11g} \\ \hline
+   Wi-fi 802.11ac &  \pbox{20cm}{1.3 Gbit/s \\(theoretical)} & WPAv2 & AES 256 bit  & 250m & \pbox{20cm}{802.11g \\802.11n} \\ \hline
+   Mobile 3G & 3 Mbit/s & \pbox{20cm}{UEA1 \\UIA1} & KASUMI & 5 - 22 miles [2] & 2G \\ \hline
+   LTE 4G & \pbox{20cm}{3 - 10 Mbit/s \\(theoretical 100 \\Mbit/s)} & \pbox{20cm}{UEA1 \\UIA1} & SNOW 3G & 5 - 22miles [2] & \pbox{20cm}{2G \\3G}  \\ \hline
    
     \end{tabular}
 
-
 \caption[Table caption text]{Wireless communication methods comparison} 
 \label{table:wireless_comp}
-\end{minipage} }
 \end{table}
 
 \end{landscape}
 
-\subsubsection{Wired}
-
-
 \begin{table}[h]
-\resizebox{1\textwidth}{!}{\begin{minipage}{\textwidth}
+\center
 
-    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{3.5cm} | m{2.5cm} | m{2.5cm} |}
+    \begin{tabular}{ | m{2.5cm} | m{2.5cm} | m{3.5cm} | }
     \hline
-    \textbf{Wired comms} & \textbf{Data Rates} & \textbf{Max Cable Length (without repeater) } & \textbf{Operating Temp min} & \textbf{Operating Temp Min} \\ \hline
+    \textbf{Wired comms} & \textbf{Data Rates} & \textbf{Max Cable Length (without repeater) } \\ \hline
   
-  Ethernet Cat 5  & 10/100 Mbit/s & 100m & -20\degree C & 65\degree C\\ \hline 
-  Ethernet Cat 5e & 10/100/1000 Mbit/s & 100m & -20\degree C & 65\degree C \\ \hline
-  Ethernet Cat 6 & 10/100/1000 Mbit/s and 10 Gbit/s & \pbox{20cm}{100m @ 1000Mbit/s \\55m @ Gbit/s} & -20\degree C & 65\degree C \\ \hline
-   USB 2.0 & \pbox{20cm}{450 Mbit/s \\(theoretical)} & 5m & & \\ \hline
-   USB 3.0 & \pbox{20cm}{5 Gbit/s \\(theoretical)} & 3m & & \\ \hline
-   USB 3.1 & \pbox{20cm}{10 Gbit/s \\(theoretical)} & 3m & & \\ \hline
+  Ethernet Cat 5  & 10/100 Mbit/s & 100m\\ \hline 
+  Ethernet Cat 5e & 10/100/1000 Mbit/s & 100m\\ \hline
+  Ethernet Cat 6 & 10/100/1000 Mbit/s and 10 Gbit/s & \pbox{20cm}{100m @ 1000Mbit/s \\55m @ Gbit/s} \\ \hline
+   USB 2.0 & \pbox{20cm}{450 Mbit/s \\(theoretical)} & 5m \\ \hline
+   USB 3.0 & \pbox{20cm}{5 Gbit/s \\(theoretical)} & 3m\\ \hline
+   USB 3.1 & \pbox{20cm}{10 Gbit/s \\(theoretical)} & 3m\\ \hline
     \end{tabular}
 
-
 \caption[Table caption text]{Wired communication methods comparison} 
-\label{table:wireless_comp}
-\end{minipage} }
+\label{table:wired_comp}
 \end{table}
-
-Wireless communication for bicycle compoenents (mainly between the computer system and electric brakes), though small, posed the risk of disconnection %maybe some research about disconnection
- and given the time criticalness of the application for safety, it was decided that the communication of the bicycle component should be wired.
 
 \chapter{System Architecture}
 
@@ -914,7 +925,7 @@ In order to properly implement the bike settings we would need each user to have
 \end{itemize}
 
 \subsubsection{Security}
-The key issue that we had to solve was how to pair users with bikes in such a way that it is easy to do but also doesn't allow any random person to pair themselves. After considering many solutions; such as allowing anybody to pair, but restricting who can lock and unlock the bike to just one person. This wasn't practical because it meant you wouldn't be able to cycle somewhere and lock the bike without the locking users credentials, which then compromises the integrity of the system. Another approach that was considered was assigning accounts to the bikes rather than the users - but this would not be very good either because then users would need to remember account details to log into different bikes - and it also makes the settings more difficult to implement.
+The key issue that we had to solve was how to pair users with bicycles in such a way that it is easy to do but also doesn't allow any random person to pair themselves. After considering many solutions; such as allowing anybody to pair, but restricting who can lock and unlock the bike to just one person. This wasn't practical because it meant you wouldn't be able to cycle somewhere and lock the bike without the locking users credentials, which then compromises the integrity of the system. Another approach that was considered was assigning accounts to the bikes rather than the users - but this would not be very good either because then users would need to remember account details to log into different bikes - and it also makes the settings more difficult to implement.
 
 The final solution that we eventually came up with was almost a combination of both ideas - we had to make a slight trade-off towards security over ease of use in this situation. We decided on a system of master accounts. Where on the initial setup of the bike a master account is assigned and then this master account holder is then able add or remove other users to the bike. This is not ideal for users who jointly own a bike where there is no obvious master account holder and it is also not ideal for a bike that is used by lots of different people because it could require the master account holder to be making regular changes. However we felt that these situations are rare, workable and also that the security implications make this necessary trade-off. 
 
@@ -943,7 +954,7 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 
 \paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}. 
 
-\subsection{Prototype Iteration I}
+\subsection{Iteration I}
 
 \paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components to the main computer board, after the analog signals have been converted to digital representation (via the ADC), shown in algorithm \ref{alg:brake_lever}. The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed. 
 
@@ -1014,7 +1025,7 @@ In figure \ref{fig:sql_schema} you can see the basic SQL schema required for thi
 \end{algorithmic}
 \end{algorithm}
 
-\subsection{Prototype Iteration ii}
+\subsection{Iteration II}
 Instead of the Jetson TK1 processing the decisions regrading the braking system when manually operated, it was decided that the embedded program on the microcontroller should decide upon the motor control based on the input. This was decided as having the Jetson TK1 process task that could be done on the microcontroller, used valuable resources. There is no more communication delay from the computer board and microcontroller. The 2-way serial UART connection remains, as the Jetson Tk1 still needs to provide motor control command to the microcontroller when an automatic braking occurs, which would override any braking by the user that could reduce the braking impact. Some of the algorithms on first iteration also didn't account for the user pressing the brakes simultaneously, or whether the currently running code would block until finalised. The \ref{alg:motor_control} would have to operate both motors simultaneously. The microcontroller does not have multiple cores and therefore has to used single core multiple threading software techniques. If both the brake levers have been operated then each part of the motor control for the front wheel and the brake wheel will be operated for small amounts of time. The amount of time each task will be given is also in proportion to angle at which he brake lever has been pressed, as that brake is a higher priority as the user wants it to apply more force to the disk brake.
 
 \section{Collision Avoidance System}
@@ -1189,8 +1200,6 @@ Although we intend for this application to be available for all major smartphone
 \includegraphics[scale=0.6]{figures/final_design/performance}
 \caption{Final design of the rider performance screen}
 \end{figure}
-\section{Screen Objects and Actions}
-
 
 \section{Hardware Components Layout}
 \begin{figure}[H]
@@ -1371,6 +1380,93 @@ The most common cause of this type of accident is either the cyclist or vehicle 
 
 \newpage
 \section{Questionnaires}
+\subsection{Cyclists Questionnaire}
+We started out by contacting cyclists directly, this was to see how they had interpreted the 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_1}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_2}
+\end{figure}
+It was encouraging for us to see that most cyclists actually agreed that there should be more safety measures in cycling, this indicates that they may well be open to using whatever we end up designing. Also roughly 50\% of people then also said that they thought technology could be used which may well be the route we end up going, since most modern problems can be solved using technology. It is also worth us considering the 50\% of people who did not think technology is a viable option and seeing what their suggestions are.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_3}
+\end{figure}
+It was quite surprising to learn that $\frac{1}{3}$ of cyclists that we spoke to have been involved in an accident. This is quite  a bit higher than we were expecting but strongly indicates that we were right in saying that safety is a major problem in the cycling world.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_4}
+\end{figure}
+Following on from the previous question it was actually strange that the vast majority of people actually said they felt safe while riding their bicycle. It is possible that the wording of the question `your bicycle' enticed people to say they felt safe. Nevertheless this was surprising and it's probably worth talking to non-cyclists to see whether they think that cycling is a safe activity. This could also show that many current cyclists would be reluctant to part with their bicycle and maybe an add-on component would be more appealing.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_5}
+\end{figure}
+In truth this question didn't give us too much information, all of the answers ended up roughly similar. The top two responses though were `Drivers not looking' and `Drivers driving too close' this tells us some of the types of things that cyclists find dangerous and that we could try to cut out to improve safety, and the perception of safety.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_6}
+\end{figure}
+The answer to this question was very clear, cyclists feel that it is the motorised vehicles (cars, buses and lorries) on the road which pose the biggest risk. This is useful information because it really tells us where to focus. This becomes particularly important if we decide to use some sort of technology that involves communication between bikes and the other road users.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_7}
+\end{figure}
+This was not particularly surprising, but this helped us to focus our efforts more closely on the actual group of cyclists who would be most affected. It is probably best for our product that it reaches as many people as possible, also our prior research shows that commuters are one the groups most at risk.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/drivers_8}
+\end{figure}
+This pretty much represented what we were expecting  - most cyclists do use lights (as required by law) and probably the more serious ones will also wear reflective clothing, it was surprising to see how many people actually do use helmets as this does not really reflect what was generally observed by looking at cyclists in the street. We were not surprised to learn that hardly anyone at all actually use apps or any other specialised equipment. 
+This may indicate a gap in the market, but could also indicate cyclists resistance to newer technology.
+\subsection{Car Drivers Questionnaire}
+We also spoke to car drivers because we wanted to see firstly how easy it might be to get them on board with our product, and also to get their viewpoint of the major risks on the road.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_1}
+\end{figure}
+This was quite an alarming response - only 11\% of respondents have actually spent money on additional safety accessories for their car, and in fact out of these only 1 had spent upwards of \pounds50. It can be safely assumed that drivers would be even less willing to spend money on a safety product that is primarily to aid cyclists.
+
+It is possible that there could be some sort of free package that drivers would be willing to adopt to aid cyclists (and general road safety).
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_7}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_6}
+\end{figure}
+Roughly 50\% of drivers main purpose for driving is for commuting - this along with the similar question for cyclists reinforces the position that commuting should be the main target for our product.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_8}
+\end{figure}
+This figure was almost identical to that of cyclists which was equally as surprising and could potentially mean that cyclists are in fact no more at risk than anybody else on the road. This would be bad if we continued to go down the route of cycling safety.
+ 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_3}
+\end{figure}
+In this question we were trying to figure out how much to blame car drivers were for accidents involving them and cyclists. We had to be careful with the wording of this question since people are likely to say that their driving is perfect and they are never to blame. This means that in reality we can probably shift this whole graph over to the right slightly. Even taking the values as they are over 5\% of the respondents said that they constantly forget to check their mirrors while driving.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_2}
+\end{figure}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_4}
+\end{figure}
+As expected the answers to both of the above questions were fairly similar and shows that drivers recognise the risk that cyclists pose and actually think cyclists do need more protection. This is encouraging if we did want to incorporate drivers into our solution somehow.
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/research_report/questionnaires/cars_5}
+\end{figure}
+This shows a potential lack of understand/empathy for cyclists from drivers. Most of them have never cycled regularly on the road and so probably do not know the problems that cyclists face. This could mean that our product should work independent of drivers input. 
+
 \newpage
 \section{Current products}
 We looked at a whole variety of safety products currently on the market for cars and trucks as well as bikes. The reason for this was to see why certain products were succeeding and which features of these products we might wish to incorporate into our solution. We also looked at failed products to get an idea of the potential design problems we might encounter later on as well as allowing us to rule out some of the previously attempted solutions.
@@ -1430,6 +1526,7 @@ However, there are many concerns with use of Google Glass; the biggest concern h
 \paragraph{Pebble}
 Pebble \citep{pebble} is a system embedded into a watch. The design of this watch is to keep simplicity and provide functionality. It uses a black and white 'e-paper' display to allow easy readability in daylight. It is very water resistant up to 50 meters and uses an optical hard coating to make it scratch resistant. The watch links to a mobile phone via bluetooth to provide notifications which gives it a variety of uses. The pebble can be used as a fitness tracker and can be linked to mobile fitness apps on the mobile phone. This would be useful on a bike as the strap allows the user to strap the watch to the handlebars of the bicycle and use it to display the users performance as they cycle.
 
+\newpage
 \section{Economy}
 In a British Cycling Economy report \citep{british_economy_report}, it explains that cycling accessories contribute to over half the amount to the UK economy than the sales of bikes themselves. Typically bought accessories include helmets, locks and pumps as these are considered â€œnecessaryâ€. Also it mentions that interviews with commuters who cycle revealed that fear of theft and improper storage at their commute destination affects their choice in purchasing a bike; this has been influencing a growth in the investment of folding bicycles. Commuters also typically purchase safety clothing with their bicycle (ie, gloves and reflective gear). 
 
@@ -1458,8 +1555,28 @@ More recent versions of this product now use a radar sensor in the rear of the c
 
 \subsubsection{Ford}
 Ford have developed their own version of the BLIS system. Ford's system works using two radar sensors mounted on each corner of the rear bumper \cite{ford_blis}. The Ford system actually appears to be very similar to the Volvo one; the notification however is done in a slightly different way. Ford have incorporated the notification light into the wing mirrors; this has the slight advantage that the driver is likely to be checking these mirrors anyway before moving and so doesn't mean they have to check somewhere else before manoeuvring. However it still has the problem that the system is not very forceful about giving the warning and so it may be easy for more careless drivers to miss the warning all together. 
+
+\subsubsection{Infiniti}
+A more advanced system has been developed by Infiniti; they separate the system into two parts:
+\begin{itemize}
+\item Blind Spot Warning \cite{infiniti_warning}
+\item Blind Spot Intervention \cite{infiniti_intervene}
+\end{itemize}
+The warning system is actually quite similar to the previous systems that we looked at but they do have a different approach to notifying the driver. Once the driver indicates to move into a blocked lane there will be an audible warning to the driver. We think that this may be a slightly better approach because it caters for those people who may not take the time to check their mirrors thoroughly and is much more difficult to miss. Also an audible warning is actually likely to be much more appropriate for any similar system implemented on a bike (because there are no mirrors).
+
+It is after this where the system gets really clever, the intervention technology kicks in. The idea of the intervention technology is that if the driver continues to move towards the obstacle in their blind spot the intervention system will actually intervene to stop a collision from occurring. It intervenes by carefully applying braking on one side of the vehicle in order guide it back to the centre of the lane.
+
+Something similar to the Blind Spot Intervention technology could be a potential consideration for use on a bike using braking in a similar way.
 \subsection{Self driving cars}
-\subsection{Self inflating tyres}
+Self driving cars are the pinnacle of car technology, although a long way from consumer release significant progress has been made in recent years. Self driving cars are essentially a combination of navigation systems, collision avoidance and automated driving systems. It is highly possible that a road full of self driving cars could reduce accidents down to almost none, by taking out the human error. This also shows what could be possible for bike technology.
+
+However, when fully analysed it is clear that many of the technologies may not be possible to implement on a bicycle because of the way a bicycle is controlled. Cars are much more stable than bikes because of their four wheels and their power coming from a controllable engine. Bikes only have two wheels which means they are much more sensitive to sudden changes in their control and are powered via pedals which are very hard to manage. 
+
+It may be possible to take the best elements of self driving cars and adapt them to fit into a bicycle setup - this would likely need to be an electric bike.
+\subsection{Central Tire Inflation}
+An actually quite old technology is Central Tire Inflation - here the idea is the tires can be inflated or deflated by a central device allowing the vehicle to work much more effectively in different road conditions. This device could be user controlled allowing them to change tire pressure centrally, but could also be connected to a series of sensors allowing them to monitor the road conditions and change the tire pressure accordingly. This has been heavily used in off-roading vehicles where the road conditions can change rapidly, but not so much in road vehicles. \cite{ctis} 
+
+An attempt has been made to implement this technology on a bicycle\cite{ctis_bike} which could be potentially useful since bikes are particularly sensitive to road conditions, however it could well be the case that bikes are more sensitive to things like pot holes which this system would not really be able to help with.
 \newpage
 \section{Other research}
 \subsection{Route planning}
@@ -1469,7 +1586,7 @@ Looking more deeply into route planning we realised that in order to incorporate
 One way to do this is to try and to model a cyclist's perception of the roads they cycle on. An attempt at this is the Bicycle Compatibility Index (BCI) \cite{bci-manual}; an American idea from 1998 as part of an initiative to double number of trips made by cycling or walking and to simultaneously reduce accidents by 10\%. The BCI is intended to be a measure of how well suited any particular road is to accommodate both motorists and cyclists.
 
 The BCI was developed using the perspectives of cyclists; asking them to view videoclips and evaluate how comfortable they would be cycling on that road in the conditions shown. The index is then calculated using the method show in in figure \ref{fig:bci_calc}.
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.5]{figures/research_report/bci}
 \caption{The calculation for the Bicycle Compatibility Index}
@@ -1480,7 +1597,7 @@ Fairly obviously, the presence of a dedicated cycle lane wider than 0.9m is the 
 
 The BCI also gives an indication towards what an index value means regarding how compatible the road is, this is shown in figure \ref{fig:bci_los}:
 
-\begin{figure}
+\begin{figure}[h]
 \centering
 \includegraphics[scale=0.7]{figures/research_report/bci_los}
 \caption{The 'Level of Service' designations for the BCI}
