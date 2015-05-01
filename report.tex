@@ -1203,11 +1203,62 @@ Although we intend for this application to be available for all major smartphone
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.6]{figures/fan_camera}
-\caption{Fan camera layout}
+\caption{Fan camera layout developed by Brauckmann \textit{et al.}}
 \label{fig:fan_camera}
 \end{figure}
 
-\subsection{Collision Avoidance System}
+\paragraph{}We decided to use cameras as our primary sensor due to their robustness and affordability. Compared to using a laser range finder such as LIDAR, it seemed like the better option as it did not include moving parts that could easily break; which is an important feature to have when implemented on a bicycle as a bicycle is much more susceptible to wear and tear. The cameras on either side of the bike are positioned in stereo, while each camera is composed of a fan camera (shown in figure \ref{fig:fan_camera}). On the front of the bicycle, a single camera (again a fan camera) is used and placed higher up than the rest of the cameras (underneath the handlebars). This is for the bicycle to detect vehicles that are far in front of the bicycle. We decided not to use two cameras in stereo on the front of the bicycle; for one it would be obstructive for the cyclist to have two cameras sticking out on either side of the bicycle, but also the cameras would need to be positioned quite far apart in order to detect vehicles at a range. The stereo cameras on the front of the bicycle would also need to be placed further down on the bicycle in order to detect vehicles using the same algorithms as the other stereo cameras.
+
+\section{Collision Avoidance System}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/block_diagram_tracking}
+\caption{Block Diagram for car tracking system (based on work by Zhao \textit{et al.}\cite{qualitative_car_tracking})}
+\label{fig:block_diagram}
+\end{figure}
+
+There will be three steps towards a system that monitors nearby objects: detection, tracking and motion estimation. These steps will be described below.
+\subsection{Detecting a vehicle and tracking}
+\subsubsection{In Front of bicycle}
+A single fan camera will be used to detect vehicles at range in front of the bicycle. In order for the bicycle to detect vehicles, we will first need to use an edge detector algorithm. The methods describe by Rosenfeld \textit{et al.} \citep{edge_detection} should work here. Using greyscale images, the system can detect edges by examining the average grey level of pairs of neighbouring pixels that meet at a point. The relative orientation of these neighbouring pixels will determine the orientation of the edges.
+
+\paragraph{Exploiting Symmetry}
+As decribed by Brauckmann \textit{et al.} \citep{towards_all_around_sensing} for the use of their system, we can adopt the method here. The system, with the use of an edge detection method described earlier, will detect edges and have vertical symmetry. This is because vehicles from behind tend to look symmetrical (see figure \ref{fig:cars_follow} for a demonstration). This is useful for the situation where the cyclist is behind cars in the same lane. The idea is to prevent the cyclist from hitting the back of any cars, maybe due to the cyclist being unaware that the vehicle in front has applied the brakes. The function for this method has been described by Zielke \textit{et al.} \cite{zielke1993intensity}. The vertical axis is very useful for measuring the vehicles lateral distance as nodding of the camera will not affect this method.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/Car_follow_scenario}
+\caption{What the system will see in a car following situation}
+\label{fig:cars_follow}
+\end{figure}
+
+\paragraph{Local Orientation Coding and Neural Networks} This was a method used by Brauckmann \textit{et al.} in their car sensing system \citep{towards_all_around_sensing}. This method was developed by Goerick \& Brauckmann \citep{goerick1994local}. The main reason for using this technique is to provide flexiibility in the vehicle detection, so that the system is not too heavily reliant on exploiting symmetry. In order to use neural networks, an appropriate feature extraction process is needed. This is why we use a local orientation coding technique (described by Goerick \& Brauckmann \citep{goerick1994local}). The local orientation coding technique will then be used in combination with a lateral histogram technique. The local orientation histograms will contain guesses for the location of a vehicle in the image. A neural network classifier will then determine that the guesses do contain a vehicle. The neural network will need to be trained in detecting certain vehicle types with the use of sample images. An image of a van will allow detection of vans wheareas an image of a car will allow detection of cars. The image used to train the neural network can be of a low resolution so that it isn't so precise on detecting a vehicle of a certain type, so that it can detect a wider variety of vehicles.
+
+\subsubsection{The sides of the bicycle}
+
+\paragraph{}As mentioned previously, the sides of the bicycle will be monitored using cameras positioned in stereo. The method we will use is mostly based on the method used by Brauckmann \textit{et al.} \citep{towards_all_around_sensing} in their 'VisionBumper' system. This method is very useful because it is a simple method designed for a system not will not require the vehicle to plan its own trajectories. Our system will not plan its own trajectories but will only apply the brakes at appropriate times and warn the cyclist. This is because we found having a bicycle control itself will be a risk as the cyclist is required to balance the bicycle, and the cyclist may find it disorientating to have the bicycle control itself which may result in the cyclist falling of the bicycle and causing injury. 
+
+\paragraph{}Using stereo fan cameras closer to the ground on either side of the bicycle, we can detect cars getting too close to the bicycle. Having the cameras monitor the road we are able to detect a vehicle obscuring the view. In order to get images that can be determined by the system, we will need to use a process called Inverse-perspective
+mapping (for implementation, see paper \cite{inverse-perspective_mapping}). This will formulate a viewable image for the system from information gathered from the multiple CCD sensors. 
+
+\paragraph{}The position of the cameras on either side of the bicycle should provide almost 360 degree coverage around the bicycle. This will act as a 'safe zone' around the bicycle (see figure \ref{fig:safe_zone}). If a vehicle enters this safe zone, the system will have time to react. If an object obscures the road in the image gets to a certain distance away from the bicycle, the bicycle will apply the brakes accordingly. In a situation where a car enters the cyclists lane or tries to overtake in a reckless way, applying the brakes will allow the vehicle to drive past with the cyclist unharmed.
+
+\paragraph{}Although we are using a stereo camera system, we will not be using optical triangulation to measure the distance of objects. This is because the system not be able to reliably obtain two corresponding image locations of the same surface point of an object in 3D. Instead, the system will detect distortions in the processed image (obtained using inverse-perspective mapping) from both cameras. The view from the cameras should be a ground view of the road, and as a vehicle enters the bicycles 'safe zone' the cameras will pick up two different images of the object (due to being at different angles to the vehicle). The distortions in the final image after using inverse-perspective mapping will be considered possible object locations. The problem with this approach is that the cameras should not view too far out as this method requires the cameras to be constantly viewing the road, also viewing too far out will cause the bicycle to brake too early or brake when not needed.
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/bicycle_safe_zone}
+\caption{Image showing the typical coverage the side cameras should give}
+\label{fig:safe_zone}
+\end{figure}
+
+\subsection{Estimating distance and speed}
+
+
+
+
+
+
 \chapter{Conclusion}
 
 \part*{Appendices}
