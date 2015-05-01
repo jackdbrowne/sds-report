@@ -1170,8 +1170,19 @@ Although we intend for this application to be available for all major smartphone
 \end{figure}
 \begin{figure}[h]
 \centering
+\includegraphics[scale=0.6]{figures/final_design/login_progress}
+\label{fig:login}
+\caption{The log in screen during log in, showing the user what is happening}
+\end{figure}
+\begin{figure}[h]
+\centering
 \includegraphics[scale=0.6]{figures/final_design/settings}
 \caption{Final design of the settings screen}
+\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[scale=0.6]{figures/final_design/settings_notify}
+\caption{Showing some of the notifications that may appear on the settings screen}
 \end{figure}
 \begin{figure}[h]
 \centering
@@ -1377,7 +1388,27 @@ We may consider implementing the use of “necessary” items in our project in 
 
 \newpage
 \section{Car technologies}
-We looked at many different technologies, both emerging and established, that are in use in cars. This provided lots of inspiration and helped us to analyse what might work (and also what might not). Car technologies provide us with lots of information because they are much more developed that bike technologies and also there is a very wide user base.
+We looked at many different technologies, both emerging and established, that are in use in cars. This provided lots of inspiration and helped us to analyse what might work (and also what might not). Car technologies provide us with lots of information because they are much more developed that bike technologies and also there is a very wide user base. Also it is possible that the best way to improve safety in cycling to tackle the problems with drivers rather than cyclists.
+\subsection{Blind spot technology}
+An emerging technology that is particularly relevant to cyclists is blind spot technology Many car manufacturers are currently developing their own versions of the same idea - to check blind spots for the driver before they make a manoeuvre and alert them to any potential problems. It is clear to see how this is relevant to cyclists, as it is not uncommon for them to be caught in a drivers blind spot while over/undertaking. Here we will look at some of the different implementations of this and try and see what works well and what doesn't work so well.
+\subsubsection{Volvo BLIS}
+Volvo were one of the pioneers of this technology - introducing the initial version of their Blind Spot Information System in 2005\cite{volvo_blis}. This version worked using a camera mounted on the underside of both wing mirrors and then some image processing was done to identify things that looked like a car. This would take 25 images per second and then analyse the differences between successive frames. For an early system it worked quite well, however it did not work in all conditions - in particular heavy fog or snow. Also when travelling significantly faster or slower than the vehicle in question; however this may not be as big of a problem as it seems since when there is a significant speed differential the vehicle is likely to move out of your blind spot fairly quickly. Perhaps more alarmingly, especially from a user experience point of view, is that some users said that the technology would often identify up parked cars. 
+
+\begin{figure}[h]
+\label{fig:volvo_blis}
+\centering
+\includegraphics[scale=0.1]{figures/research_report/Volvo_BLIS}
+\caption{Volvo's early camera based blind spot technology}
+\end{figure}
+
+When this system identifies a potential problem vehicle it notifies the driver using an led in the A-pillar (between the windscreen and door). This is very subtle which has both advantages and disadvantages. The main advantage being that it is unlikely to be annoying for the user, whereas a more active warning (i.e. a beeping) might be. However, the subtlety means that it is up to the driver to be checking whether the light is on - an extra check that they need to carry out before every manoeuvre.
+
+More recent versions of this product now use a radar sensor in the rear of the car which allows it to check for crossing traffic when performing reversing manoeuvres \cite{volvo_radar}.
+
+\subsubsection{Ford}
+Ford have developed their own version of the BLIS system. Ford's system works using two radar sensors mounted on each corner of the rear bumper \cite{ford_blis}. The Ford system actually appears to be very similar to the Volvo one; the notification however is done in a slightly different way. Ford have incorporated the notification light into the wing mirrors; this has the slight advantage that the driver is likely to be checking these mirrors anyway before moving and so doesn't mean they have to check somewhere else before manoeuvring. However it still has the problem that the system is not very forceful about giving the warning and so it may be easy for more careless drivers to miss the warning all together. 
+\subsection{Self driving cars}
+\subsection{Self inflating tyres}
 \newpage
 \section{Other research}
 \subsection{Route planning}
