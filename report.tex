@@ -586,7 +586,7 @@ The collision avoidance system is the key component of this whole product. It is
 
 
 
-\section{On board Sensors}
+\subsection{On board Sensors}
 \paragraph{} There were a few sensors to consider (as shown in table \ref{table:detect_hardware_comp}) but we decided to use cameras in the end. This was not an immediate and obvious choice however, as this type of sensor could not immediately collect data on the distance of objects unlike lidar or radar. So our initial choice was to use lidar to sense surroundings and produce a local 3D map and detect and track objects on this map. This method allowed the use of algorithms to detect the orientation of vehicles in the vicinity of the bicycle which would make for easier prediction of the objects movement.
 
 
@@ -644,7 +644,7 @@ The collision avoidance system is the key component of this whole product. It is
 \end{minipage} }
 \end{table}
 
-\subsection{Cameras}
+\subsubsection{Cameras}
 If we are to use cameras, it is desirable to obtain a large field of view to obtain as most information as possible with little sensors. It may also be desirable to use colour cameras rather than cameras operating in black and white if we decide to use colour in detection and tracking; but if not black and white cameras will save costs. 
 
 \paragraph{Fisheye Lens}Cameras that use a fisheye lens can cover a 170 degree angle which will provide a nice wide coverage. However, the drawbacks of using these cameras is that it will require algorithms to fix the distortion in order to create an image to analyse. Also fisheye lenses tend to focus very close, meaning that is not a good choice to view far away objects.
@@ -661,7 +661,7 @@ If we are to use cameras, it is desirable to obtain a large field of view to obt
 \end{figure}
 
 
-\section{Methods for monitoring surroundings}
+\subsection{Methods for monitoring surroundings}
 \paragraph{} As we could not find any information regarding to a fully automatic bicycle system, we decided to do research on fully automatic automobiles and take inspiration from that. After reviewing a few research papers, we came to the conclusion that our system needed to undergo 3 steps to monitor nearby obstacles (as mentioned by Weiming Hu \textit{et al.}  \cite{prediction_3D_vehicle_tracking}): motion detection, vehicle tracking and activity understanding.
 
 \subsubsection{Collision Warning Systems (CWS)}
@@ -1262,7 +1262,7 @@ mapping (for implementation, see paper \cite{inverse-perspective_mapping}). This
 \end{figure}
 
 \subsection{Estimating distance and speed}
-
+In our system, distance and speed all comes down to the size of the object being tracked over time. 
 
 
 
