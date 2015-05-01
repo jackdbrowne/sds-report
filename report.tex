@@ -227,11 +227,12 @@ This process has four key stages:
 \item[Deliver] This stage was a series of prototype-feedback loops. We would come up with a prototype, scrutinise it for potential design flaws, adapt the design and repeat. This process continued up until the point where we had our final design.
 \end{description}
 
-\begin{figure}[t!]
+\begin{figure}[t]
 \centering
-\includegraphics[scale=0.4]{figures/diamond}
+\includegraphics[scale=0.6]{figures/diamond}
 \caption{A visual representation of the double diamond model}
 \label{fig:diamond}
+
 
 \end{figure}
 \subsection{Agile approach}
@@ -244,11 +245,6 @@ In keeping with the agile approach that we took to the design the functional req
 \section{Functional Requirements}
 \label{sec:func_req}
 \begin{enumerate}[label=\ref*{sec:func_req}.\arabic*.,leftmargin=*]
-\item The system must monitor tyre pressure
-\begin{description}
-\item[Description] The system must keep a real-time view on the pressure in both bicycle tires and present information to the user. If the tires are below a certain pressure, the system must automatically inflate the tires to an optimal pressure
-\item[Reason] Deflated tires affects cycling performance and also may damage the bicycle. Automatic inflation will improve the cyclists confidence to cycle
-\end{description}
 
 \item The system's mobile app must be available to download
 \begin{description}
@@ -582,11 +578,7 @@ The collision avoidance system is the key component of this whole product. It is
   \item Apply an evasive action when the algorithm predicts that a collision, involving the user, is of a high enough probability. 
 \end{itemize}
 
-\paragraph{}
-
-
-
-\section{On board Sensors}
+\subsection{On board Sensors}
 \paragraph{} There were a few sensors to consider (as shown in table \ref{table:detect_hardware_comp}) but we decided to use cameras in the end. This was not an immediate and obvious choice however, as this type of sensor could not immediately collect data on the distance of objects unlike lidar or radar. So our initial choice was to use lidar to sense surroundings and produce a local 3D map and detect and track objects on this map. This method allowed the use of algorithms to detect the orientation of vehicles in the vicinity of the bicycle which would make for easier prediction of the objects movement.
 
 
@@ -717,11 +709,46 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 
 \paragraph{Range Image Sequence} Range images are obtained using using a single-line laser range finder \citep{qualitative_car_tracking}. Car detection is based on prior knowledge of shape, size of vehicles and the assumption of the data being recorded off the ground plane. Vehicles consist of one to two line segments. Straight lines are detected using the Hough Transform (available in a c++ library \cite{cpp_houghTransform}).
 
+\subsubsection{Preceding Vehicle Trajectory Prediction by Multi-Cue Integration \citep{multi-cue}}
+
+\paragraph{}This is paper \citep{multi-cue} detects and tracks preceding vehicles using a monochrome camera to predict whether the vehicle is going to change lane (in a left or right direction) or stay in its current lane. This involves the detection and tracking of both vehicles and the road lines they reside in. It uses Support Vector Machine (SVM) with a motion and appearance cue to recognise driver pattens, that are trained for a two class feature set. The two class features are used to predict lane-changing recognition, via the input of timestamped 3D positioning. 
+
+\paragraph{}A kalman filter is used to track the motion of the lane boundary and predict from frame-frame its new location. There is an intersection between two lane boundaries, which is known as the vanishing, and is used to detect the pitch angle change of the camera. Line features are used to establish vehicle hypotheses, which are verified by an SVM (with HOG) trained for vehicle recognition via a pre-learned vehicle model database. Post verification, a Kanade-Lucas-Tomasi feature tracker is used and the bottom of the tracked vehicle in each frame to calculate its 3D position.
+\paragraph{Advantages}
+\begin{itemize}
+\item Tested on real-world data via a vehicle on a highway
+\item Lane changing warning is warned in real-time
+\item The whole system achieves 10hz on a 1.8 GHz Dual-Core CPU
+\end{itemize}
+
+\paragraph{Disadvantages}
+\begin{itemize}
+\item The system requires lanes to infer whether a collision is probable	 	
+\end{itemize}
+
+\begin{figure}[h]
+\centering
+	\begin{minipage}{0.49\textwidth}
+		\centering
+		\includegraphics[scale=0.4]{figures/research_paper_figures/trajectory_multi-cue}
+		\caption{Vehicle trajectory computation at straight and curved lanes \citep{multi-cue} }
+		\label{fig:traj_multi-cue_image1}
+	\end{minipage}\hfill
+	\begin{minipage}{0.49\textwidth}
+		\centering
+		\includegraphics[scale=0.2]{figures/collision_avoidance_figures/Vehicle_changing_lane_into_the_path_of_a_cyclist}
+		\caption{Cyclist and vehicle lane changing collision}
+		\label{fig:change_lane_image}
+	\end{minipage}
+\end{figure}
+
+Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1} shows the lane change tracking and prediction that this papers algorithms accomplish and Fig. ~\ref{fig:change_lane_image} on page~\pageref{fig:change_lane_image} shows, one of other, cyclist collisions that we want to prevent. This paper displays a high chance of solving this issue.
+
+
 \section{On board Computer}
 \label{sec:computer}
 
 \paragraph{}We initially researched a sole microcontroller that could be used for whole system functionality, as they are vastly used today in automatically controlled products (e.g. vehicle engine control systems), they offer onboard RAM and therefore do not need the configuration of separate components, reducing the risk of complications.  After research into the image processing algorithms we would be use for our detection and tracking of vehicles is was determined that a micro controller would not be sufficient to process the data, under detection and tracking algorithms, in real time. Processing in real time is crucial for this safety critical application and would become redundant if it did not. A quicker, multiple core, CPU was needed, that could offer parallel processing, which is essential as the application has to detect and track vehicle simultaneously from multiple cameras, among other tasks. The size of the RAM in micro controller also posed possible complications, given the amount of data that needed to be stored from each frame that was received from the multiple cameras. A computer board was decided upon, rather than obtaining separate components, such as CPU, motherboard, memory, etc. as were many reliable boards available, that have been widely used and tested for various application. The table \ref{table:board_comp} show a comparison between the various boards.
-
 
 \landscape
 
@@ -747,9 +774,9 @@ Mertz, C. \textit{et al.} \cite{CWS_transit_buses} also mention how a user inter
 
 \endlandscape
 
-The Jetson TK1 computer board was chosen, as it ha been explicitly designed for vision based computation. 
+The Jetson TK1 computer board was chosen, as it has been explicitly designed for vision based computation and this would ensure that our application performed in realtime. It had multiple possible I/O extensions which provided the means of a bluetooth module to communication with the smartphone and use its internet connection. 
 
-\paragraph{}Microcontrollers are still necessary as they be used in the system to be able to connect to the CPUs digital Input and output, much like a keyboard connects to a standard computer, where a micro controller embedded in the keyboard is first used to determine which key was pressed by the user. These micro-controllers are used to connect the electrical components 
+\paragraph{}Microcontrollers are still necessary as they be used in the system to be able to connect to the CPUs digital Input and output, much like a keyboard connects to a standard computer, where a micro controller embedded in the keyboard is first used to determine which key was pressed by the user. These microcontrollers are used to connect the electrical components to the main computer board. 
 
 \section{Bicycle Brakes}
 
@@ -759,9 +786,6 @@ The Jetson TK1 computer board was chosen, as it ha been explicitly designed for 
 \label{sec:brake_lever}
 
 \paragraph{}The bicycle brakes had to have the ability to be activated via the bicycles on board computer and manually, via the cyclist, like a standard bicycle would. Different types of bicycle brakes were researched, for the aforementioned feasibility, but also that would provide the shortest braking distance. Common bicycle brakes use a bowman cable, hydraulic hose, or rods which are attached to the brake lever on one end and to the brakes on the other. The bowman and rods use the pressing of a level to pull the cables and, in doing so, pressing brake pads against a wheel rim or disc. The hydraulic hose, works like a vehicle hydraulic brake, where the lever being pressed forcing fluid towards the braking system causing a build up of pressure and causes the brakes pads to be pressed. 
-
-
-%explain that "research" lead to the wanting to keep the standard of brake lever design and feeling that bicycle users were use to.
 
 \paragraph{}We initially looked at a way of connecting these wire/hydraulic cables to, alongside the standard brake lever, to an electrical device, such as a motor (connected to the computer), which had the ability to increase and decrease the cable tension/pressure. We decided disregard this solution (explained in more detail in section \ref{sec:braking_component}, on page \pageref{sec:braking_component}) and decided that the users manual braking levers should be connected to the the onboard computer, via an electrical component, and would be activated with the same components as when automatically activated. This provided additional functionality, such as more control over the brakes and the force distribution to the front and back tyres; offers the user the ability to control how sensitive the brakes are (only for manual use), which is something that involves time consuming altering of mechanical components on a standard bicycle, but in this case the cyclist could easily alter the sensitivity to suit different riding conditions. Figures \ref{fig:early_brake_level_pressure} and \ref{fig:early_brake_level_pressure_enlarged} (page \pageref{app:early_sketches}), show sketches of where the component would be placed and how it would determine how much the brake levels have been compressed; the latter figure showing an enlarged and more detailed perspective.  
 
@@ -778,7 +802,6 @@ The Jetson TK1 computer board was chosen, as it ha been explicitly designed for 
 \caption{Early design sketch of brake lever and pressure sensor enlarged from figure \ref{fig:early_brake_level_pressure} for electrical braking system}
 \label{fig:early_brake_level_pressure_enlarged}
 \end{figure}
-
 
 \paragraph{}We researched the type of sensor that we could use for converting the force applied via the compression of the lever and discovered a component called a 'Load Cell' or by some manufacturers, a 'Force Transducer' (see fig \ref{}  on \pageref{}) which outputs an electrical signal proportional to the amount of force applied. After analysis of our early design and the load cell components design, we came to the conclusion that the component was not suitable for our application, as it appeared that the component was used in applications for industrial measurements; we also realised that the internal design of the brake levers would require an attached spring, so the lever would decompress once released, like on a standard bicycle (whereby the lever decompresses via the released hold on the wire). This lead to the research into spring based sensors (e.g. a spring based resistor/potentiometer). 
 
@@ -805,17 +828,7 @@ The vision cameras were primarily designed to be used via a usb interface and th
 
 \subsubsection{SmartPhone}We concluded that the smartphone should connected to the on board computer via Bluetooth 4.0. The first reason for this decision was that smartphone have varying manufacturers and therefore have a number of different wired connection methods, which we would have had to have accommodated for by the user having to connect their smartphone into a USB port (The USB on the device is solely so the user can charge their device.). Secondly, with the use of a wireless method we had the option to incorporate other features, such as remote locking of the bicycle. The decision of bluetooth 4.0 was its known capabilities of operating under low power; a crucial necessity for our application which was dependent on a battery power supply. A method know as WiFi Direct (or Wi-Fi P2P) which is a peer-to-peer wifi connection that does not require a physical wireless access point, such as a router; instead one device will be determined to act as the access point during pairing, meaning that only one of the two devices has to be equipped with Wi-Fi Direct.  This required more power to operate and it wasn't as integrated into smart devices as Bluetooth and was therefore dismissed. NFC was disregarded for its immediate limitation with its maximum range, as is was not suitable for a device that may be required to communicate with other devices, given that the average length of a bicycle is 178cm and therefore limits the positioning of those devices on a bicycle. 
 
-\subsubsection{On-board computer}With the decision that the connection the smartphone would be via Bluetooth 4.0, this was obviously an essential component that needed to be attached to the Jetson TK1 computer board, to enable communication with the smartphone, for displaying sensor information and for radius remote locking. The computer had to be able to access the internet to interface with the database, for details regarding the specific user and multiple wireless methods were considered. 
-
-\paragraph{Internet Access via tethering} A device such as an embedded computer with bluetooth or Wi-Fi modules could connect to another device that also has either of these modules (or via physical connection), plus the compatibility to connect to the internet, and use a technology known as ?tethering? to share internet access. This would reduce overall costs of a device, but would require an external device to gain internet access.
-
-Wi-Fi access point is usually the best type of access to the internet, providing faster and more stable data transfer than 4G. Unfortunately it is still a technology that is designed to be used within a radius of a central point (access point) and is therefore not feasible for connected devices on a moving bicycle to a central database, etc.  
-
-Future use?.  handover
-
-3G
-
-This is the third generation of mobile technology and is still in great use today. It is the standard that networks providing 3G must ensure a data transfer of more than 200 Kbit/s, though most cell towers will provide speeds 
+\subsubsection{On-board computer}With the decision that the connection the smartphone would be via Bluetooth 4.0, this was obviously an essential component that needed to be attached to the Jetson TK1 computer board, to enable communication with the smartphone, for displaying sensor information and for radius remote locking. The computer had to be able to access the internet to interface with the database, for details regarding the specific user and multiple wireless methods were considered. One method was to use the smartphones internet access via what is known as tethering, which whereby a device such as an embedded computer with bluetooth or Wi-Fi modules could connect to another device that also has either of these modules (or via physical connection), plus the compatibility to connect to the internet and share its internet access. This would reduce overall costs of a device, but would require an external device to gain internet access and to access it via the bluetooth connection. A second method was to use Wi-Fi access points, via WiFi module connected to the Jetson TK1, as this is usually the best type of access to the internet, providing faster and more stable data transfer. Unfortunately it is still a technology that is designed to be used within a radius of a central point (access point) and was therefore not feasible for connected devices on a moving bicycle to a central database, etc. Our last option was the use of mobile data via 3G (which is still in major use today or LTE 4G. 3G is by far slower than 4G, but its standard is that it must ensure a data transfer of more than 200 Kbit/s, though most cell towers will provide speeds into the megabits per second. A downfall of this option was that it required a separate mobile data module and with that a data plan. 
 
 \begin{landscape}
 
@@ -945,153 +958,6 @@ As well as this all user passwords should be stored using a secure hashing algor
 \end{figure}
 
 In figure \ref{fig:sql_schema} you can see the basic SQL schema required for this system. In order to achieve the many-to-many relationship required between bikes and users we had to incorporate a `bike\_user' table to link the two. As well as this we had to be able to identify the master user this could be done in a few different ways. We could have had a boolean field in the relationship table identifying whether this was a master relationship, along with this we would need a constraint to specify that there should be one and only one master flag set to true for each bike\_id. The approach we actually went for was to have the master\_id stored in the bike table directly. This removes the need to check that there is one and only one master and also makes it much easier to manage the situation where the master user `gives up' the bike. This will require it's own constraint; that the master user is already specified as a user of that bike in the bike\_user table.
-\chapter{Component Solutions}
-\label{sec:component_solutions}
-
-
-\section{Braking System}
-\label{sec:comp_design_brakes}
-
-\paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}. 
-
-\subsection{Iteration I}
-
-\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components to the main computer board, after the analog signals have been converted to digital representation (via the ADC), shown in algorithm \ref{alg:brake_lever}. The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed. 
-
-
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.3]{figures/electronic_braking/circuit}
-\caption{Electronic braking schematic (with omitted components; not necessary for core explanation)}
-\label{fig:braking_schematic}
-\end{figure}
-
-\begin{algorithm}[h]
-\caption{Manual Brakes Applied}\label{lag:brake}
-\begin{algorithmic}[1]
-\State $brakeLever := PressedLever$\Comment{The left or right brake lever}
-\State $brakeVoltage := \Call{AnalogVoltToDigital}{voltage}$\Comment{analog volt value to digital representation}
-\State $brakeAngle := \Call{CalculateBrakeAngle}{brakeVoltage}$\Comment{calculating angle from voltage}
-\State $\Call{ControlMotors}{brakeLever, brakeAngle}$\Comment{control motors based on brake lever and brake angle}
-\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[h]
-\caption{Analog to digital voltage conversion Lever}\label{alg:brake_lever}
-\begin{algorithmic}[1]
-\Function{AnalogVoltToDigital}{}
-\State \Call{delay}{n}  \Comment{Delay for circuitry to receive analog signal e.g. 20$\mu$s} 
-\State $ADCRegisterGOBit := 1$
-\While{$ADCRegisterGOBit == $}\Comment{Wait for conversion to complete}
-   \EndWhile\
-   \State $adcResult := ADCResultRegister$\Comment{Get the result stored in the result register}
-\State $return adcResult$
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[h]
-\caption{Calculating brake lever angle from voltage}\label{alg:brake_angle}
-\begin{algorithmic}[1]
-\Function{CalculateBrakeAngle}{$voltage$}\Comment{digital voltage received from the microcontroller}
-\State $brakeVoltage = voltage$\Comment{The voltage received from operating the electrical lever}
-\State $MAXLEVERANGLE := 45$\Comment{Max angle the break lever can rotate the potentiometer}
-\State $MINLEVERANGLE := 0$\Comment{Min angle the break lever can rotate the potentiometer}
-\State $DEGREESPERVOLT := 0.72$\Comment{0.72\degree is 0.01 volts}
-\State $VOLTPERDEGREE := 0.01$\Comment{0.01 volts to each 0.72\degree}
-\State $brakeAngle := brakeVoltage / VOLTPERDEGREE * DEGREEPERVOLT$
-\State $return brakeAngle$\Comment{return the calculated brake angle}
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
-
-\begin{algorithm}[h]
-\caption{Control Brake Motors}\label{alg:motor_control}
-\begin{algorithmic}[1]
-\Function{ControlMotors}{$brakeLever, brakeAngle$}
-
-\If{$brakeLever == LEFTLEVER$}
-	\State{$motor := BACKMOTOR$}
-\Else
-	\State{$motor := FRONTMOTOR$}
-\EndIf
-
-\If{$brakeAngle < \Call{CurrentAngle}{motor}$}
-	\State{$\Call{rotateMotorCounterClockwise}{brakeAngle}$}
-\Else
-	\State{$\Call{rotateMotorClockwise}{brakeAngle}$}
-\EndIf
-\EndFunction
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Iteration II}
-Instead of the Jetson TK1 processing the decisions regrading the braking system when manually operated, it was decided that the embedded program on the microcontroller should decide upon the motor control based on the input. This was decided as having the Jetson TK1 process task that could be done on the microcontroller, used valuable resources. There is no more communication delay from the computer board and microcontroller. The 2-way serial UART connection remains, as the Jetson Tk1 still needs to provide motor control command to the microcontroller when an automatic braking occurs, which would override any braking by the user that could reduce the braking impact. Some of the algorithms on first iteration also didn't account for the user pressing the brakes simultaneously, or whether the currently running code would block until finalised. The \ref{alg:motor_control} would have to operate both motors simultaneously. The microcontroller does not have multiple cores and therefore has to used single core multiple threading software techniques. If both the brake levers have been operated then each part of the motor control for the front wheel and the brake wheel will be operated for small amounts of time. The amount of time each task will be given is also in proportion to angle at which he brake lever has been pressed, as that brake is a higher priority as the user wants it to apply more force to the disk brake.
-
-\section{Collision Avoidance System}
-
-\subsection{Interface Description} What does the components interact with (other software, hardware) diagram?
-
-\subsection{Possible Solutions} Collision has to be broken down into 4 different steps (detection, tracking ...)
-
-\subsubsection{Preceding Vehicle Trajectory Prediction by Multi-Cue Integration \citep{multi-cue}}
-
-\paragraph {} This is paper \citep{multi-cue} detects and tracks preceding vehicles using a monochrome camera to predict whether the vehicle is going to change lane (in a left or right direction) or stay in its current lane. This involves the detection and tracking of both vehicles and the road lines they reside in. It uses Support Vector Machine (SVM) with a motion and appearance cue to recognise driver pattens, that are trained for a two class feature set. The two class features are used to predict lane-changing recognition, via the input of timestamped 3D positioning. 
-
-\paragraph{}A kalman filter is used to track the motion of the lane boundary and predict from frame-frame its new location. There is an intersection between two lane boundaries, which is known as the vanishing, and is used to detect the pitch angle change of the camera. Line features are used to establish vehicle hypotheses, which are verified by an SVM (with HOG) trained for vehicle recognition via a pre-learned vehicle model database. Post verification, a Kanade-Lucas-Tomasi feature tracker is used and the bottom of the tracked vehicle in each frame to calculate its 3D position.
-\paragraph{Advantages}
-\begin{itemize}
-\item Tested on real-world data via a vehicle on a highway
-\item Lane changing warning is warned in real-time
-\item The whole system achieves 10hz on a 1.8 GHz Dual-Core CPU
-\end{itemize}
-
-\paragraph{Disadvantages}
-\begin{itemize}
-\item The system requires lanes to infer whether a collision is probable	 	
-\end{itemize}
-
-\begin{figure}[h]
-\centering
-	\begin{minipage}{0.49\textwidth}
-		\centering
-		\includegraphics[scale=0.4]{figures/research_paper_figures/trajectory_multi-cue}
-		\caption{Vehicle trajectory computation at straight and curved lanes \citep{multi-cue} }
-		\label{fig:traj_multi-cue_image1}
-	\end{minipage}\hfill
-	\begin{minipage}{0.49\textwidth}
-		\centering
-		\includegraphics[scale=0.2]{figures/collision_avoidance_figures/Vehicle_changing_lane_into_the_path_of_a_cyclist}
-		\caption{Cyclist and vehicle lane changing collision}
-		\label{fig:change_lane_image}
-	\end{minipage}
-\end{figure}
-
-Fig. ~\ref{fig:traj_multi-cue_image1} on page~\pageref{fig:traj_multi-cue_image1} shows the lane change tracking and prediction that this papers algorithms accomplish and Fig. ~\ref{fig:change_lane_image} on page~\pageref{fig:change_lane_image} shows, one of other, cyclist collisions that we want to prevent. This paper displays a high chance of solving this issue.
-
-
-\subsubsection{Learning Multi-Lane Trajectories using Vehicle-Based Vision \citep{multi-lane_traj}}
-
-Conclusion - decision complying with criteria at the start
-
-\section{CPU}
-The Central Processing Unit (CPU) is key to the whole system - it is the CPU that will be programmed to make the crucial decisions.
-\subsection{Component Requirements}
-In general the requirements for a CPU are fairly simple - computing power - and is often not a major consideration. However, given the mobile nature and safety critical elements of this design there are a few important things we had to keep in mind while choosing an appropriate CPU.
-
-\begin{itemize}
-  \item The CPU should be able to analyse potential collisions in (near) real-time
-  \item The CPU should 
-\end{itemize}
-\subsection{Interface Design}
-The CPU is the HUB of the whole system - it will be connected to every component of the system.
-
-The CPU will be constantly reading the inputs from all of the sensors in the system, processing the data and then sending signals to the output systems; the braking system or the user interface for example. 
-\subsection{Possible Solutions}
-\paragraph{Conculsion}
-
-%JACK brakes and why we decided to reject the automatic steering.
-
 
 \chapter{Prototype Analysis}
 \label{ch: prototype}
@@ -1264,9 +1130,83 @@ mapping (for implementation, see paper \cite{inverse-perspective_mapping}). This
 \subsection{Estimating distance and speed}
 
 
+\section{Braking System}
+\label{sec:comp_design_brakes}
 
+\paragraph{}In section \textbf{\ref{sec:brake_lever} \nameref{sec:brake_lever}}, it was concluded that a practical solution was to use a self returning rotary potentiometer, due to the advantage it provided. There was a decision whether the brake lever components would be directly connected to the main on board computer or whether they would be connected to a microcontroller, which would then be connected to the core computer board via a serial connection. The latter was decided upon, as it offered reduce complexity, greater flexibility and maintainability; and reduced processing overhead on the main computer, which could be processed on a separate microcontroller, whereby its sole purpose is for embedded solutions, offering better design for electrical components. In addition, given the choice of the main computer board, Jetson TKS (\textbf{\ref{sec:computer} \nameref{sec:computer}}), it is better practice as the application is using motors and a PWM (Pulse Width Modulation) is used to control the speed of such devices and having PWM directly on the Jetson TK1 then it might not provide stable signal timing \cite{jetson_microcontroller_support}. 
 
+\subsection{Iteration I}
 
+\paragraph{}All electrical components are connected to the micro controller, shown in figure \ref{fig:braking_schematic}. The Jetson TK1 is connected to the microcontroller, via a 2 way serial UART connection. The connection needs to be two way, as the as Jetson TK1 needs to receive data form the microcontroller, regarding the electrical components, and it needs to be able to transmit control data. The Jetson TK1 controls the operation of the motors, by processing calculations and then sending the control data to the micro controller, whereby it performs the PWM. The micro controller will also send the digital data regarding the brake lever components to the main computer board, after the analog signals have been converted to digital representation (via the ADC), shown in algorithm \ref{alg:brake_lever}. The main program on the Jetson board, alongside processing collision detection, will be controlling the brakes in response to the rotary potentiometer (brake lever) data received from the microcontroller. The program will then process varying decisions and transmit motor controls to the microcontroller. The data will be the brake that was operated and how much force was applied (represented by a digital voltage value) and that value determines the motor speed. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.3]{figures/electronic_braking/circuit}
+\caption{Electronic braking schematic (with omitted components; not necessary for core explanation)}
+\label{fig:braking_schematic}
+\end{figure}
+
+\begin{algorithm}[H]
+\caption{Manual Brakes Applied}\label{lag:brake}
+\begin{algorithmic}[1]
+\State $brakeLever := PressedLever$\Comment{The left or right brake lever}
+\State $brakeVoltage := \Call{AnalogVoltToDigital}{voltage}$\Comment{analog volt value to digital representation}
+\State $brakeAngle := \Call{CalculateBrakeAngle}{brakeVoltage}$\Comment{calculating angle from voltage}
+\State $\Call{ControlMotors}{brakeLever, brakeAngle}$\Comment{control motors based on brake lever and brake angle}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Analog to digital voltage conversion Lever}\label{alg:brake_lever}
+\begin{algorithmic}[1]
+\Function{AnalogVoltToDigital}{}
+\State \Call{delay}{n}  \Comment{Delay for circuitry to receive analog signal e.g. 20$\mu$s} 
+\State $ADCRegisterGOBit := 1$
+\While{$ADCRegisterGOBit == $}\Comment{Wait for conversion to complete}
+   \EndWhile\
+   \State $adcResult := ADCResultRegister$\Comment{Get the result stored in the result register}
+\State $return adcResult$
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Calculating brake lever angle from voltage}\label{alg:brake_angle}
+\begin{algorithmic}[1]
+\Function{CalculateBrakeAngle}{$voltage$}\Comment{digital voltage received from the microcontroller}
+\State $brakeVoltage = voltage$\Comment{The voltage received from operating the electrical lever}
+\State $MAXLEVERANGLE := 45$\Comment{Max angle the break lever can rotate the potentiometer}
+\State $MINLEVERANGLE := 0$\Comment{Min angle the break lever can rotate the potentiometer}
+\State $DEGREESPERVOLT := 0.72$\Comment{0.72\degree is 0.01 volts}
+\State $VOLTPERDEGREE := 0.01$\Comment{0.01 volts to each 0.72\degree}
+\State $brakeAngle := brakeVoltage / VOLTPERDEGREE * DEGREEPERVOLT$
+\State $return brakeAngle$\Comment{return the calculated brake angle}
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{Control Brake Motors}\label{alg:motor_control}
+\begin{algorithmic}[1]
+\Function{ControlMotors}{$brakeLever, brakeAngle$}
+
+\If{$brakeLever == LEFTLEVER$}
+	\State{$motor := BACKMOTOR$}
+\Else
+	\State{$motor := FRONTMOTOR$}
+\EndIf
+
+\If{$brakeAngle < \Call{CurrentAngle}{motor}$}
+	\State{$\Call{rotateMotorCounterClockwise}{brakeAngle}$}
+\Else
+	\State{$\Call{rotateMotorClockwise}{brakeAngle}$}
+\EndIf
+\EndFunction
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Iteration II}
+Instead of the Jetson TK1 processing the decisions regrading the braking system when manually operated, it was decided that the embedded program on the microcontroller should decide upon the motor control based on the input. This was decided as having the Jetson TK1 process task that could be done on the microcontroller, used valuable resources. There is no more communication delay from the computer board and microcontroller. The 2-way serial UART connection remains, as the Jetson Tk1 still needs to provide motor control command to the microcontroller when an automatic braking occurs, which would override any braking by the user that could reduce the braking impact. Some of the algorithms on first iteration also didn't account for the user pressing the brakes simultaneously, or whether the currently running code would block until finalised. The \ref{alg:motor_control} would have to operate both motors simultaneously. The microcontroller does not have multiple cores and therefore has to used single core multiple threading software techniques. If both the brake levers have been operated then each part of the motor control for the front wheel and the brake wheel will be operated for small amounts of time. The amount of time each task will be given is also in proportion to angle at which he brake lever has been pressed, as that brake is a higher priority as the user wants it to apply more force to the disk brake.
 
 \chapter{Conclusion}
 
