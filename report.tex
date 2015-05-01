@@ -1262,9 +1262,9 @@ mapping (for implementation, see paper \cite{inverse-perspective_mapping}). This
 \end{figure}
 
 \subsection{Estimating distance and speed}
-In our system, distance and speed all comes down to the size of the object being tracked over time. 
+\paragraph{}In our system, distance and speed all comes down to the size of the object being tracked over time. Estimations only apply to recordings taken from the front camera of the bicycle. When measuring distance, the width of the leading car is used, as we are assuming the rear of each vehicle is symmetrical. The system should track the leading vehicle, keeping constant record of the width of the car. The system will need to have a record of the average actual widths of different vehicle types as, for example, lorries have much larger widths than cars. The actual width of the vehicle will be used in comparison with the image width to calculate an approximate distance away from the bicycle. 
 
-
+\paragraph{}The relative speed of the vehicle should also be measured. This can be done by viewing the difference in distance away from an object in two images taken on a regular time interval, where distance is calculated using the method mentioned earlier. The speed and distance away from an object ahead of the bicycle will determine when the best time to apply the brakes is. If the object is already at a very small distance away from the bicycle, the brakes should already be applied. If the object is of a safer distance away from the bicycle, but has a higher speed than the bicycle, the brakes should be applied in advance.
 
 
 
